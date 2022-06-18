@@ -1,7 +1,8 @@
-const path = require('path');
-const TerserPlugin = require('terser-webpack-plugin');
+import {Configuration} from 'webpack';
+import TerserPlugin from 'terser-webpack-plugin';
+import * as path from 'path';
 
-module.exports = {
+const config: Configuration = {
   mode: 'production',
   devtool: 'source-map',
   entry: './src/index.ts',
@@ -31,3 +32,5 @@ module.exports = {
     extensions: ['.ts', '.js', '.json'],
   },
 };
+
+export default config;
