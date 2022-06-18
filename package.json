@@ -8,7 +8,7 @@
     "build"
   ],
   "scripts": {
-    "build": "webpack && tsc",
+    "build": "rimraf ./build && webpack && tsc",
     "test": "jest --silent",
     "coverage": "npm run test -- --coverage",
     "lint": "gts lint",
