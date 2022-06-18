@@ -1,0 +1,11 @@
+{
+  "extends": "./node_modules/gts/tsconfig-google.json",
+  "compilerOptions": {
+    "noImplicitAny": true,
+    "outDir": "build/types",
+    "emitDeclarationOnly": true,
+    "lib": ["es2018", "dom"],
+  },
+  "include": ["src/**/*.ts"],
+  "exclude": ["src/**/*.spec.ts"]
+}

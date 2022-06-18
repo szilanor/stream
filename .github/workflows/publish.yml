@@ -1,0 +1,51 @@
+name: Publish
+
+on:
+  push:
+    branches:
+      - master
+    paths-ignore:
+      - README.md
+      - .gitignore
+      - .github/**
+
+permissions:
+  contents: write
+
+jobs:
+  publish:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v1
+      - uses: actions/setup-node@v1
+        with:
+          node-version: 16
+      - run: npm ci
+      - run: npm run lint
+      - run: npm test
+      - run: npm run build
+
+      - name: Setup Git
+        run: |
+          git reset --hard
+          git config --local --list
+          git checkout master
+          git config user.email "$GH_EMAIL"
+          git config user.name "$GH_USER"
+          
+          npm version patch
+
+          git add . || true
+          git commit -m "Update package version" || true
+          git push "https://$GITHUB_ACTOR:$GITHUB_TOKEN@github.com/$GITHUB_REPOSITORY"
+        env:
+          GH_EMAIL: ${{secrets.GH_EMAIL}}
+          GH_USER: ${{secrets.GH_USER}}
+          GITHUB_TOKEN: ${{secrets.GITHUB_TOKEN}}
+
+      - name: npm publish
+        run: |
+          npm config set //registry.npmjs.org/:_authToken=$NODE_AUTH_TOKEN
+          npm publish --access public
+        env:
+          NODE_AUTH_TOKEN: ${{secrets.NODE_AUTH_TOKEN}}

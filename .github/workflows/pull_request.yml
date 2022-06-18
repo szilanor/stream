@@ -1,0 +1,19 @@
+name: Build PR (Standard)
+
+on: pull_request
+
+jobs:
+  build:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v1
+      - name: Use Node.js 16
+        uses: actions/setup-node@v1
+        with:
+          node-version: 16
+      - name: npm install, build, and test
+        run: |
+          npm ci
+          npm run build
+          npm run lint
+          npm run test
