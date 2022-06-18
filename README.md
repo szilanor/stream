@@ -5,6 +5,18 @@
 Type-safe API for processing iterable data in TypeScript and JavaScript similarly to [Java 8 Stream API](https://docs.oracle.com/javase/8/docs/api/java/util/stream/Stream.html),
 [LINQ](https://docs.microsoft.com/en-us/dotnet/csharp/programming-guide/concepts/linq/) or [Kotlin Sequences](https://kotlinlang.org/docs/sequences.html).
 
+## Getting started
+```bash
+npm install --save @szilanor/stream
+```
+
+Alternatively use Stream from [CDN](https://unpkg.com/@szilanor/stream/) by adding this to your HTML:
+
+```html
+<script src="https://unpkg.com/@szilanor/stream/"></script>
+```
+
+
 ## Classic Javascript solution
 
 ```typescript
