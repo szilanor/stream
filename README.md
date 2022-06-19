@@ -77,7 +77,17 @@ import {from, distinct, collect} from '@szilanor/stream';
 
 // Filtering duplicates and group them by whether they are even or odd
 const input = [1, 1, 1, 1, 2, 3, 4, 4, 5];
-let result: Map<string, number[]>;
+
+const resultClassic: Map<string, number[]> = new Map<string, number[]>();
+Array.from(new Set<number>(input)).forEach(x => {
+  const key = x % 2 === 0 ? 'even' : 'odd';
+  resultClassic.set(key, [...(resultClassic.get(key) || []), x]);
+});
+
+// vs Stream API
+const resultStreamApi: Map<string, number[]> = from(input)
+  .pipe(distinct())
+  .collect(groupBy(x => (x % 2 === 0 ? 'even' : 'odd')));
 
 // Classic JS
 result = new Map<string, number[]>(
