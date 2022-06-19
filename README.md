@@ -98,6 +98,13 @@ const resultStreamApi: Map<string, number[]> = from(input)
 - Less comparison
 
 ```typescript
+/* 
+ * Since the API is using Javascript Iterables the operations are applied 
+ * to the entries one bye one in order. In this example we know the 
+ * answer after the second element, so it is unnecessary to map everything 
+ * first. 
+ */
+
 let allEven: boolean;
 const input = [1, 2, 3, 4, 5];
 
@@ -109,6 +116,8 @@ allEven = from(input)
   .pipe(map(x => x + 1))
   .collect(all(x => x % 2 === 0));
 ```
+
+
 
 [Benchmark file based on this example](https://github.com/szilanor/stream/blob/main/benchmark.js)
 ```
