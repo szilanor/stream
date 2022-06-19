@@ -4,8 +4,11 @@
 
 Type-safe API for processing iterable data in TypeScript and JavaScript similarly to [Java 8 Stream API](https://docs.oracle.com/javase/8/docs/api/java/util/stream/Stream.html),
 [LINQ](https://docs.microsoft.com/en-us/dotnet/csharp/programming-guide/concepts/linq/) or [Kotlin Sequences](https://kotlinlang.org/docs/sequences.html).
-Unlike [RxJS](https://www.npmjs.com/package/rxjs) this library is not asynchronous, you get an immediate result without any subscription or await call.  
+Unlike [RxJS](https://www.npmjs.com/package/rxjs) this library is not asynchronous, you get an immediate result without any subscription or await call.
 
+If this library makes your life easier or your boss happier, and you want to support my work then you can always thank me with a free coffee.
+
+[![donate](https://www.paypalobjects.com/en_US/i/btn/btn_donate_LG.gif)](https://www.paypal.com/donate/?hosted_button_id=PRBMJHJUFYZQL)
 ## Getting started
 ```bash
 npm install --save @szilanor/stream
