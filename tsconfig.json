@@ -2,9 +2,8 @@
   "extends": "./node_modules/gts/tsconfig-google.json",
   "compilerOptions": {
     "noImplicitAny": true,
-    "outDir": "build/types",
-    "emitDeclarationOnly": true,
-    "lib": ["es2018", "dom"],
+    "outDir": "build",
+    "isolatedModules": true,
     "esModuleInterop": true
   },
   "include": ["src/**/*.ts"],

@@ -1,6 +1,8 @@
-import {Configuration} from 'webpack';
+import {Configuration, ProgressPlugin} from 'webpack';
 import TerserPlugin from 'terser-webpack-plugin';
 import * as path from 'path';
+import {CleanWebpackPlugin} from 'clean-webpack-plugin';
+import ForkTsCheckerWebpackPlugin from 'fork-ts-checker-webpack-plugin';
 
 const config: Configuration = {
   mode: 'production',
@@ -30,6 +32,11 @@ const config: Configuration = {
       },
     ],
   },
+  plugins: [
+    new ProgressPlugin(),
+    new CleanWebpackPlugin(),
+    new ForkTsCheckerWebpackPlugin(),
+  ],
   resolve: {
     extensions: ['.ts', '.js', '.json'],
   },

@@ -3,12 +3,12 @@
   "version": "1.0.24",
   "description": "Typesafe API for processing iterable data in TypeScript and JavaScript",
   "main": "build/index.js",
-  "types": "build/types/index.d.ts",
+  "types": "build/index.d.ts",
   "files": [
     "build"
   ],
   "scripts": {
-    "build": "rimraf ./build && webpack && tsc",
+    "build": "webpack && tsc --emitDeclarationOnly",
     "test": "jest --silent",
     "coverage": "npm run test -- --coverage",
     "lint": "gts lint",
@@ -32,6 +32,7 @@
     "@babel/plugin-transform-typescript": "^7.18.4",
     "@babel/polyfill": "^7.12.1",
     "@babel/preset-env": "^7.18.2",
+    "@babel/preset-typescript": "^7.17.12",
     "@babel/register": "^7.17.7",
     "@types/jest": "^28.1.1",
     "@types/node": "^14.11.2",
@@ -41,8 +42,10 @@
     "@typescript-eslint/parser": "^4.33.0",
     "babel-loader": "^8.2.5",
     "babel-preset-minify": "^0.5.2",
+    "clean-webpack-plugin": "^4.0.0",
     "eslint": "^7.32.0",
     "eslint-plugin-node": "^11.1.0",
+    "fork-ts-checker-webpack-plugin": "^7.2.11",
     "gts": "^3.1.0",
     "husky": "^8.0.1",
     "jest": "^28.1.1",
@@ -51,6 +54,7 @@
     "rimraf": "^3.0.2",
     "terser-webpack-plugin": "^5.3.3",
     "ts-jest": "^28.0.5",
+    "ts-loader": "^9.3.0",
     "typescript": "4.4",
     "webpack": "^5.73.0",
     "webpack-cli": "^4.10.0"
