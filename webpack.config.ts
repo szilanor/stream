@@ -12,6 +12,8 @@ const config: Configuration = {
     library: 'Stream',
     libraryTarget: 'umd',
     clean: true,
+    umdNamedDefine: true,
+    globalObject: 'this',
   },
   optimization: {
     minimize: true,
