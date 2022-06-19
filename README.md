@@ -73,29 +73,7 @@ result = stream.collect(toArray());
 ```
 
 ## Why Stream API?
-
-- More readable code
-
-```typescript
-import {from, distinct, collect} from '@szilanor/stream';
-
-// Filtering duplicates and group them by whether they are even or odd
-const input = [1, 1, 1, 1, 2, 3, 4, 4, 5];
-
-// Classic JS
-const resultClassic: Map<string, number[]> = new Map<string, number[]>();
-Array.from(new Set<number>(input)).forEach(x => {
-  const key = x % 2 === 0 ? 'even' : 'odd';
-  resultClassic.set(key, [...(resultClassic.get(key) || []), x]);
-});
-
-// Stream API
-const resultStreamApi: Map<string, number[]> = from(input)
-  .pipe(distinct())
-  .collect(groupBy(x => (x % 2 === 0 ? 'even' : 'odd')));
-```
-
-- Less comparison
+- Can achieve faster results
 
 ```typescript
 /* 
@@ -126,6 +104,26 @@ Stream API x 123,688 ops/sec ±1.19% (88 runs sampled)
 Fastest is Stream API
 ```
 
+- More readable code
+
+```typescript
+import {from, distinct, collect} from '@szilanor/stream';
+
+// Filtering duplicates and group them by whether they are even or odd
+const input = [1, 1, 1, 1, 2, 3, 4, 4, 5];
+
+// Classic JS
+const resultClassic: Map<string, number[]> = new Map<string, number[]>();
+Array.from(new Set<number>(input)).forEach(x => {
+  const key = x % 2 === 0 ? 'even' : 'odd';
+  resultClassic.set(key, [...(resultClassic.get(key) || []), x]);
+});
+
+// Stream API
+const resultStreamApi: Map<string, number[]> = from(input)
+  .pipe(distinct())
+  .collect(groupBy(x => (x % 2 === 0 ? 'even' : 'odd')));
+```
 
 - You can create your own operators / collectors if you don't find what you need
 
