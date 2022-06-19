@@ -1,8 +1,6 @@
 import {CollectorFunction} from '../../types';
 
-/*
- * Returns true if all entries satisfy the 'predicate' function.
- */
+/** Returns true if all entries satisfy the 'predicate' function. */
 export function all<T>(
   predicate: (item: T, index: number) => boolean
 ): CollectorFunction<T, boolean> {
