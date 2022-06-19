@@ -106,7 +106,7 @@ allEven = from(input)
   .collect(all(x => x % 2 === 0));
 ```
 
-[Benchmark file based on this example](https://github.com/szilanor/stream/blob/main/benchmarks/benchmark.js)
+[Benchmark file based on this example](https://github.com/szilanor/stream/blob/main/benchmark.js)
 ```
 Classic JS x 1,833 ops/sec ±0.25% (94 runs sampled)
 Stream API x 123,688 ops/sec ±1.19% (88 runs sampled)
