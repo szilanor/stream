@@ -1,4 +1,5 @@
-# Stream API 
+# Stream API
+
 [![Code Style: Google](https://img.shields.io/badge/code%20style-google-blueviolet.svg)](https://github.com/google/gts)
 ![Publish Pipeline](https://github.com/szilanor/stream/actions/workflows/publish.yml/badge.svg)
 
@@ -11,7 +12,9 @@ Unlike [RxJS](https://www.npmjs.com/package/rxjs) this library is not asynchrono
 If this library makes your life easier or your boss happier, and you want to support my work then you can always thank me with a free coffee.
 
 [![donate](https://www.paypalobjects.com/en_US/i/btn/btn_donate_LG.gif)](https://www.paypal.com/donate/?hosted_button_id=PRBMJHJUFYZQL)
+
 ## Getting started
+
 ```bash
 npm install --save @szilanor/stream
 ```
@@ -21,7 +24,6 @@ Alternatively use Stream from [CDN](https://unpkg.com/@szilanor/stream/) by addi
 ```html
 <script src="https://unpkg.com/@szilanor/stream/"></script>
 ```
-
 
 ## Classic Javascript solution
 
@@ -47,8 +49,13 @@ Operations on stream entries for the same result
 ```typescript
 import {filter, map, compound} from '@szilanor/stream';
 
-// Chaining pipe functions
+// Chaining pipes
 stream = stream.pipe(filter(x => x % 2 === 0)).pipe(map(x => x * 2));
+
+stream = stream.pipe(
+  filter(x => x % 2 === 0),
+  map(x => x * 2)
+);
 
 // Using the 'compound' operation
 stream = stream.pipe(
@@ -75,14 +82,15 @@ result = stream.collect(toArray());
 ```
 
 ## Why Stream API?
+
 - Can achieve faster results
 
 ```typescript
-/* 
- * Since the API is using Javascript Iterables the operations are applied 
- * to the entries one bye one in order. In this example we know the 
- * answer after the second element, so it is unnecessary to map everything 
- * first. 
+/*
+ * Since the API is using Javascript Iterables the operations are applied
+ * to the entries one bye one in order. In this example we know the
+ * answer after the second element, so it is unnecessary to map everything
+ * first.
  */
 
 let allEven: boolean;
@@ -97,9 +105,8 @@ allEven = from(input)
   .collect(all(x => x % 2 === 0));
 ```
 
-
-
 [Benchmark file based on this example](https://github.com/szilanor/stream/blob/main/benchmark.js)
+
 ```
 Classic JS x 1,833 ops/sec ±0.25% (94 runs sampled)
 Stream API x 123,688 ops/sec ±1.19% (88 runs sampled)
@@ -132,8 +139,12 @@ const resultStreamApi: Map<string, number[]> = from(input)
 ```typescript
 import {CollectorFunction, OperationFunction} from '@szilanor/stream';
 
-const myAwesomeCollector: CollectorFunction<unknown, unknown> = { /* your own implementation */ };
-const myAwesomeOperation: OperationFunction<unknown, unknown> = { /* your own implementation */ };
+const myAwesomeCollector: CollectorFunction<unknown, unknown> = {
+  /* your own implementation */
+};
+const myAwesomeOperation: OperationFunction<unknown, unknown> = {
+  /* your own implementation */
+};
 
 const result = of(1, 2, 3)
   .pipe(myAwesomeOperation())

@@ -1,6 +1,6 @@
 import {from} from './creators';
-import {distinct, map} from './operations';
-import {all, groupBy} from './collectors';
+import {distinct, map, noop} from './operations';
+import {all, groupBy, toArray} from './collectors';
 
 describe('Stream', () => {
   test('More readable code example', () => {
@@ -31,5 +31,22 @@ describe('Stream', () => {
       .collect(all(x => x % 2 === 0));
 
     expect(allEvenClassic).toStrictEqual(allEvenStreamApi);
+  });
+
+  test('Pipe chaining', () => {
+    const input = [1, 2, 3, 4, 5];
+
+    const res = from(input)
+      .pipe(
+        noop(),
+        noop(),
+        noop(),
+        noop(),
+        map(x => x + 1),
+        map(x => x - 1)
+      )
+      .collect(toArray());
+
+    expect(res).toStrictEqual(input);
   });
 });

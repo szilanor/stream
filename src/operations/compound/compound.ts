@@ -1,3 +1,4 @@
+/* eslint-disable @typescript-eslint/no-explicit-any */
 import {OperationFunction} from '../../types';
 import {noop} from '../noop/noop';
 
@@ -76,11 +77,12 @@ export function compound<T, A, B, C, D, E, F, G, H, I, J>(
   op7: OperationFunction<F, G>,
   op8: OperationFunction<G, H>,
   op9: OperationFunction<H, I>,
-  op10: OperationFunction<I, J>
-): OperationFunction<T, J>;
+  op10: OperationFunction<I, J>,
+  ...ops: OperationFunction<any, any>[]
+): OperationFunction<T, unknown>;
 export function compound(
-  ...ops: OperationFunction<unknown, unknown>[]
-): OperationFunction<unknown, unknown> {
+  ...ops: OperationFunction<any, any>[]
+): OperationFunction<any, any> {
   return !ops.length
     ? noop()
     : stream => {
