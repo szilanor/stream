@@ -49,4 +49,12 @@ describe('Stream', () => {
 
     expect(res).toStrictEqual(input);
   });
+
+  test('Empty pipe', () => {
+    const input = [1, 2, 3, 4, 5];
+
+    const res = from(input).pipe().collect(toArray());
+
+    expect(res).toStrictEqual(input);
+  });
 });
