@@ -9,11 +9,11 @@ on:
       - README.md
       - .gitignore
       - .github/**
-
   pull_request:
   workflow_dispatch:
 
 permissions:
+
   contents: write
 
 jobs:
@@ -58,6 +58,9 @@ jobs:
       - name: Update version
         if: github.ref == 'refs/heads/main'
         run: |
+          git reset --hard
+          git config --local --list
+          git checkout main
           git config user.email "$GH_EMAIL"
           git config user.name "$GH_USER"
 
