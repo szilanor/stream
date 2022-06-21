@@ -8,32 +8,43 @@ on:
       - README.md
       - .gitignore
       - .github/**
+  pull_request:
   workflow_dispatch:
 
 permissions:
   contents: write
 
 jobs:
-  publish:
+  build:
     runs-on: ubuntu-latest
     steps:
-      - uses: actions/checkout@v1
+      - uses: actions/checkout@v2
       - uses: actions/setup-node@v1
         with:
           node-version: 16
-      - run: npm ci
-      - run: npm run lint
-      - run: npm test
-      - run: npm run build
+        name: Build on Node 16
 
-      - name: Setup Git
+      - run: npm ci --ignore-scripts
+        name: Install dependencies
+
+      - run: npm run lint
+        name: Lint code
+
+      - run: npm test
+        name: Run tests
+
+      - run: npm run build
+        name: Build
+
+      - name: Update version
+        if: github.ref == 'refs/heads/main'
         run: |
           git reset --hard
           git config --local --list
           git checkout main
           git config user.email "$GH_EMAIL"
           git config user.name "$GH_USER"
-          
+
           npm version patch
           npm run docs
 
@@ -45,7 +56,8 @@ jobs:
           GH_USER: ${{secrets.GH_USER}}
           GITHUB_TOKEN: ${{secrets.GITHUB_TOKEN}}
 
-      - name: npm publish
+      - name: Publish
+        if: github.ref == 'refs/heads/main'
         run: |
           npm config set //registry.npmjs.org/:_authToken=$NODE_AUTH_TOKEN
           npm publish --access public
