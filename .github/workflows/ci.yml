@@ -50,7 +50,7 @@ jobs:
 
           git add . || true
           git commit -m "Update package version" || true
-          git push "https://$GITHUB_ACTOR:$GITHUB_TOKEN@github.com/$GITHUB_REPOSITORY"
+          git push "https://$GITHUB_ACTOR:$GITHUB_TOKEN@github.com/$GITHUB_REPOSITORY" -f
         env:
           GH_EMAIL: ${{secrets.GH_EMAIL}}
           GH_USER: ${{secrets.GH_USER}}
