@@ -3,7 +3,7 @@ import {toArray} from '../../collectors';
 import {defaultIfEmpty} from './defaultIfEmpty';
 import {empty} from '../../creators';
 
-describe('Operation function: lastWith()', () => {
+describe('Operation function: defaultIfEmpty()', () => {
   test('should return only the value parameter on empty stream', () => {
     const res = empty<number>().pipe(defaultIfEmpty(1)).collect(toArray());
     expect(res).toStrictEqual([1]);
