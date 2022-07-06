@@ -8,6 +8,7 @@ Type-safe API for processing iterable data in TypeScript and JavaScript similarl
 Unlike [RxJS](https://www.npmjs.com/package/rxjs) this library is not asynchronous, you get an immediate result without any subscription or await call.
 
 - [API Docs](https://szilanor.github.io/stream/)
+- [Benchmark](https://github.com/szilanor/stream/blob/main/benchmarks/benchmark.ts)
 
 If this library makes your life easier or your boss happier, and you want to support my work then you can always thank me with a free coffee.
 
@@ -103,14 +104,6 @@ allEven = input.map(x => x + 1).every(x => x % 2 === 0);
 allEven = from(input)
   .pipe(map(x => x + 1))
   .collect(all(x => x % 2 === 0));
-```
-
-[Benchmark file based on this example](https://github.com/szilanor/stream/blob/main/benchmark.js)
-
-```
-Classic JS x 1,833 ops/sec ±0.25% (94 runs sampled)
-Stream API x 123,688 ops/sec ±1.19% (88 runs sampled)
-Fastest is Stream API
 ```
 
 - More readable code
