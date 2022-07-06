@@ -8,7 +8,7 @@ Type-safe API for processing iterable data in TypeScript and JavaScript similarl
 Unlike [RxJS](https://www.npmjs.com/package/rxjs) this library is not asynchronous, you get an immediate result without any subscription or await call.
 
 - [API Docs](https://szilanor.github.io/stream/)
-- [Benchmark](https://github.com/szilanor/stream/blob/main/benchmarks/benchmark.ts)
+- [Benchmark](https://github.com/szilanor/stream/blob/main/benchmarks/groupBy.ts)
 
 If this library makes your life easier or your boss happier, and you want to support my work then you can always thank me with a free coffee.
 
