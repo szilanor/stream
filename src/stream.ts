@@ -3,11 +3,11 @@ import {OperationFunction, CollectorFunction} from './types';
 
 /** Wrapper class to extend the functionality of an Iterable */
 export class Stream<T> implements Iterable<T> {
-  constructor(private iterable: Iterable<T> | Generator<T>) {}
+  constructor(private iterable: Iterable<T>) {}
 
   /** Calls a collector function on the Iterable */
   collect<O>(collector: CollectorFunction<T, O>): O {
-    return collector(this);
+    return collector(this.iterable);
   }
 
   /** Returns the Iterator of the wrapped Iterable */
@@ -96,7 +96,7 @@ export class Stream<T> implements Iterable<T> {
       return this;
     }
 
-    let result = ops[0](this);
+    let result: Iterable<any> = ops[0](this);
     for (let i = 1; i < ops.length; i++) {
       result = ops[i](result);
     }

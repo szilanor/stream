@@ -59,12 +59,11 @@ stream = stream.pipe(
 );
 
 // Using the 'compound' operation
-stream = stream.pipe(
-  compound(
-    filter(x => x % 2 === 0),
-    map(x => x * 2)
-  )
-);
+const compoundOperation = compound(
+  filter(x => x % 2 === 0),
+  map(x => x * 2)
+)
+stream = stream.pipe(compoundOperation);
 ```
 
 Process the stream for the same result
@@ -77,6 +76,9 @@ let result = [];
 for (let entry of stream) {
   result.push(entry);
 }
+
+// Using spread operator
+result = [...stream];
 
 // With a collector
 result = stream.collect(toArray());
