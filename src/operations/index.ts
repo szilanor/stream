@@ -13,6 +13,7 @@ export * from './flatten/flatten';
 export * from './map/map';
 export * from './noop/noop';
 export * from './notNull/notNull';
+export * from './notNull/notNull';
 export * from './ofType/ofType';
 export * from './pairwise/pairwise';
 export * from './skip/skip';
