@@ -14,3 +14,5 @@ export function all<T>(
     return true;
   };
 }
+
+export const every = all;

@@ -1,11 +1,11 @@
 import {Stream} from '../../stream';
 import {toArray} from '../../collectors';
-import {flatten} from './flatten';
+import {flat} from './flat';
 
-describe('Operation function: flatten()', () => {
+describe('Operation function: flat()', () => {
   test('should flatten array of arrays', () => {
     const res = new Stream([[1, 2, 3], [4], [5, 6]])
-      .pipe(flatten())
+      .pipe(flat())
       .collect(toArray());
     expect(res).toStrictEqual([1, 2, 3, 4, 5, 6]);
   });

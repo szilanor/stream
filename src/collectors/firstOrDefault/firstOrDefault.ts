@@ -14,3 +14,5 @@ export function firstOrDefault<T>(
     return defaultValue;
   };
 }
+
+export const findOrDefault = firstOrDefault;

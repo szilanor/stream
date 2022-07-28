@@ -13,3 +13,5 @@ export function first<T>(
     return undefined;
   };
 }
+
+export const find = first;

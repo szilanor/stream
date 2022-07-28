@@ -16,3 +16,5 @@ export function lastIndex<T>(
     return lastIndex;
   };
 }
+
+export const findLastIndex = lastIndex;

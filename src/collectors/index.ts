@@ -24,3 +24,4 @@ export * from './toArray/toArray';
 export * from './toMap/toMap';
 export * from './toRecord/toRecord';
 export * from './toSet/toSet';
+export * from './toSortedArray/toSortedArray';

@@ -14,3 +14,5 @@ export function last<T>(
     return last;
   };
 }
+
+export const findLast = last;

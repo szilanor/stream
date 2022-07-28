@@ -14,3 +14,5 @@ export function any<T>(
     return false;
   };
 }
+
+export const some = any;

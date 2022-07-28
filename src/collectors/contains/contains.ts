@@ -14,3 +14,5 @@ export function contains<T>(
     return false;
   };
 }
+
+export const includes = contains;

@@ -15,3 +15,5 @@ export function firstIndex<T>(
     return -1;
   };
 }
+
+export const findIndex = firstIndex;

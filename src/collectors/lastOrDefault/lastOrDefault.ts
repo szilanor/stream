@@ -15,3 +15,5 @@ export function lastOrDefault<T>(
     return last;
   };
 }
+
+export const findLastOrDefault = lastOrDefault;

@@ -11,3 +11,5 @@ export function count<T>(): CollectorFunction<T, number> {
     return counter;
   };
 }
+
+export const length = count;

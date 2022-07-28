@@ -10,7 +10,7 @@ export * from './endWith/endWith';
 export * from './falsy/falsy';
 export * from './filter/filter';
 export * from './flatMap/flatMap';
-export * from './flatten/flatten';
+export * from './flat/flat';
 export * from './map/map';
 export * from './noop/noop';
 export * from './notNull/notNull';

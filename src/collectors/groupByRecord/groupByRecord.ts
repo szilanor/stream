@@ -18,3 +18,5 @@ export function groupByRecord<T, TKey extends string | number | symbol>(
     return result;
   };
 }
+
+export const group = groupByRecord;
