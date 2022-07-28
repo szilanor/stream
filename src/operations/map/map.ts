@@ -13,8 +13,10 @@ export class MapIterator<T, O> implements IterableIterator<O> {
   }
 
   next(): IteratorResult<O> {
-    const next = this.iterator.next();
-    return {done: next.done, value: this.mapper(next.value, this.index++)};
+    const {value, done} = this.iterator.next();
+    return done
+      ? {done, value: undefined as unknown}
+      : {done, value: this.mapper(value, this.index++)};
   }
 }
 

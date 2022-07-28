@@ -1,3 +1,4 @@
+export * from './appendWith/appendWith';
 export * from './arrayFilter/arrayFilter';
 export * from './arrayMap/arrayMap';
 export * from './buffer/buffer';

@@ -19,7 +19,7 @@ export class FilterIterator<T> implements IterableIterator<T> {
       item = this.iterator.next()
     ) {
       if (this.predicate(item.value, this.index++)) {
-        return {done: item.done, value: item.value};
+        return {done: false, value: item.value};
       }
     }
     return {done: true, value: undefined as unknown};

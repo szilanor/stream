@@ -1,5 +1,25 @@
 import {Stream} from '../../stream';
 
+export class ZipIterator<A, B, O> implements IterableIterator<O> {
+  constructor(
+    private a: Iterator<A>,
+    private b: Iterator<B>,
+    private zipFunction: (a: A, b: B) => O
+  ) {}
+
+  [Symbol.iterator](): IterableIterator<O> {
+    return this;
+  }
+
+  next(): IteratorResult<O> {
+    const {value: element1, done: done1} = this.a.next();
+    const {value: element2, done: done2} = this.b.next();
+    return done1 || done2
+      ? {done: true, value: undefined as unknown}
+      : {done: false, value: this.zipFunction(element1, element2)};
+  }
+}
+
 /**
  * Returns a Stream that merges elements from both iterables by taking one
  * element from each, passing them to the function, and yielding the result.
@@ -10,15 +30,6 @@ export function zip<A, B, O>(
   zipFunction: (a: A, b: B) => O
 ): Stream<O> {
   return new Stream<O>(
-    (function* () {
-      const iteratorA = a[Symbol.iterator]();
-      const iteratorB = b[Symbol.iterator]();
-      while (true) {
-        const {value: element1, done: done1} = iteratorA.next();
-        const {value: element2, done: done2} = iteratorB.next();
-        if (done1 || done2) break;
-        yield zipFunction(element1, element2);
-      }
-    })()
+    new ZipIterator(a[Symbol.iterator](), b[Symbol.iterator](), zipFunction)
   );
 }
