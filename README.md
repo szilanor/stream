@@ -8,7 +8,7 @@ Type-safe API for processing iterable data in TypeScript and JavaScript similarl
 Unlike [RxJS](https://www.npmjs.com/package/rxjs) this library is not asynchronous, you get an immediate result without any subscription or await call.
 
 - [API Docs](https://szilanor.github.io/stream/)
-- [Benchmark](https://github.com/szilanor/stream/blob/main/benchmarks/groupBy.ts)
+- [Benchmarks](https://github.com/szilanor/stream/blob/main/benchmarks/)
 
 If this library makes your life easier or your boss happier, and you want to support my work then you can always thank me with a free coffee.
 
@@ -51,8 +51,6 @@ Operations on stream entries for the same result
 import {filter, map, compound} from '@szilanor/stream';
 
 // Chaining pipes
-stream = stream.pipe(filter(x => x % 2 === 0)).pipe(map(x => x * 2));
-
 stream = stream.pipe(
   filter(x => x % 2 === 0),
   map(x => x * 2)

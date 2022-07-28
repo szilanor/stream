@@ -3,12 +3,12 @@ npx ts-node ./benchmarks/groupBy.ts
 
 This benchmark shows that native code is always faster, so you have to choose between code readability and speed
 
-Map x 622 ops/sec ±89.11% (5 runs sampled)
-Stream groupBy x 103,258 ops/sec ±3.46% (90 runs sampled)
-Stream groupByRecord x 103,405 ops/sec ±3.36% (89 runs sampled)
-Object x 693,541 ops/sec ±4.55% (85 runs sampled)
-Reduce x 692,006 ops/sec ±0.37% (99 runs sampled)
-Object with For Loop x 702,804 ops/sec ±5.87% (88 runs sampled)
+Map x 710 ops/sec ±93.32% (5 runs sampled)
+Stream groupBy x 352,196 ops/sec ±0.56% (94 runs sampled)
+Stream groupByRecord x 346,347 ops/sec ±0.68% (97 runs sampled)
+Object x 661,179 ops/sec ±5.25% (84 runs sampled)
+Reduce x 657,657 ops/sec ±0.51% (94 runs sampled)
+Object with For Loop x 672,380 ops/sec ±5.64% (87 runs sampled)
 Fastest is Reduce
  */
 
