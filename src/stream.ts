@@ -1,5 +1,7 @@
 /* eslint-disable @typescript-eslint/no-explicit-any */
 import {OperationFunction, CollectorFunction} from './types';
+import {AsyncStream} from './async-stream';
+import {toAsyncIterable} from './utils/to-async-iterable';
 
 /** Wrapper class to extend the functionality of an Iterable */
 export class Stream<T> implements Iterable<T> {
@@ -102,5 +104,9 @@ export class Stream<T> implements Iterable<T> {
     }
 
     return new Stream<any>(result);
+  }
+
+  toAsync(): AsyncStream<T> {
+    return new AsyncStream<T>(toAsyncIterable(this.iterable));
   }
 }
