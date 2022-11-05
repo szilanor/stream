@@ -1,5 +1,5 @@
-import {OperationFunction} from '../../types';
-import {OfTypeIterator} from '../ofType/ofType';
+import {AsyncOperationFunction, OperationFunction} from '../../types';
+import {OfTypeAsyncIterator, OfTypeIterator} from '../ofType/ofType';
 
 export function isNotNullOrEmpty<T extends {length: number}>(
   value: T | null | undefined
@@ -14,4 +14,11 @@ export function notNullOrEmpty<T extends {length: number}>(): OperationFunction<
 > {
   return entries =>
     new OfTypeIterator(entries[Symbol.iterator](), isNotNullOrEmpty);
+}
+
+export function notNullOrEmptyAsync<
+  T extends {length: number}
+>(): AsyncOperationFunction<T | undefined | null, NonNullable<T>> {
+  return entries =>
+    new OfTypeAsyncIterator(entries[Symbol.asyncIterator](), isNotNullOrEmpty);
 }

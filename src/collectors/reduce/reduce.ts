@@ -24,14 +24,14 @@ export function reduceAsync<T, O>(
     previousValue: O,
     currentValue: T,
     currentIndex: number
-  ) => O | PromiseLike<O>,
+  ) => O,
   initialValue: O
 ): AsyncCollectorFunction<T, O> {
   return async stream => {
     let prev = initialValue;
     let index = 0;
     for await (const entry of stream) {
-      prev = await reducerFunction(prev, entry, index++);
+      prev = reducerFunction(prev, entry, index++);
     }
     return prev;
   };

@@ -1,5 +1,4 @@
-import {OperationFunction} from '../../types';
-import {AsyncOperationFunction} from '../../types/async-operation-function';
+import {OperationFunction, AsyncOperationFunction} from '../../types';
 
 export class MapIterator<T, O> implements IterableIterator<O> {
   private index = 0;

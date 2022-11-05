@@ -31,10 +31,7 @@ export class FilterAsyncIterator<T> implements AsyncIterableIterator<T> {
 
   constructor(
     private iterator: AsyncIterator<T>,
-    private predicate: (
-      value: T,
-      index: number
-    ) => boolean | PromiseLike<boolean>
+    private predicate: (value: T, index: number) => boolean
   ) {}
 
   [Symbol.asyncIterator](): AsyncIterableIterator<T> {
@@ -47,7 +44,7 @@ export class FilterAsyncIterator<T> implements AsyncIterableIterator<T> {
       !item.done;
       item = await this.iterator.next()
     ) {
-      if (await this.predicate(item.value, this.index++)) {
+      if (this.predicate(item.value, this.index++)) {
         return {done: false, value: item.value};
       }
     }
@@ -63,7 +60,7 @@ export function filter<T>(
 }
 
 export function filterAsync<T>(
-  func: (value: T, index: number) => boolean | PromiseLike<boolean>
+  func: (value: T, index: number) => boolean
 ): AsyncOperationFunction<T, T> {
   return entries =>
     new FilterAsyncIterator(entries[Symbol.asyncIterator](), func);

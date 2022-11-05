@@ -13,11 +13,11 @@ export function minBy<T>(
 }
 
 export function minByAsync<T>(
-  comparer: (a: T, b: T) => number | PromiseLike<number>
+  comparer: (a: T, b: T) => number
 ): AsyncCollectorFunction<T, T | undefined> {
   return reduceAsync<T, T | undefined>(
-    async (prev, curr) =>
-      prev === undefined || (await comparer(prev, curr)) > 0 ? curr : prev,
+    (prev, curr) =>
+      prev === undefined || comparer(prev, curr) > 0 ? curr : prev,
     undefined
   );
 }

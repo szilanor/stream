@@ -1,5 +1,5 @@
-import {OperationFunction} from '../../types';
-import {OfTypeIterator} from '../ofType/ofType';
+import {AsyncOperationFunction, OperationFunction} from '../../types';
+import {OfTypeAsyncIterator, OfTypeIterator} from '../ofType/ofType';
 
 export function isNotNull<T>(
   value: T | null | undefined
@@ -13,4 +13,12 @@ export function notNull<T>(): OperationFunction<
   NonNullable<T>
 > {
   return entries => new OfTypeIterator(entries[Symbol.iterator](), isNotNull);
+}
+
+export function notNullAsync<T>(): AsyncOperationFunction<
+  T | undefined | null,
+  NonNullable<T>
+> {
+  return entries =>
+    new OfTypeAsyncIterator(entries[Symbol.asyncIterator](), isNotNull);
 }
