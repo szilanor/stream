@@ -18,44 +18,15 @@ const result = [1, 2, 3].filter(x => x % 2 === 0).map(x => x * 2);
 
 ## Stream API solution
 
-Creating a Stream object
-
 ```typescript
-import {Stream, of, from} from '@szilanor/stream';
+import {from, filter, map} from '@szilanor/stream';
 
-let stream: Stream<number>;
-stream = new Stream([1, 2, 3]); // With constructor;
-stream = of(1, 2, 3); // With the 'of' creator function
-stream = from([1, 2, 3]); // With the 'from' creator function
-```
-
-Operations on stream entries for the same result
-
-```typescript
-import {filter, map, compound} from '@szilanor/stream';
-
-stream = stream.pipe(
-  filter(x => x % 2 === 0),
-  map(x => x * 2)
-);
-```
-
-Process the stream for the same result
-
-```typescript
-import {toArray} from '@szilanor/stream';
-
-// With a collector
-result = stream.collect(toArray());
-
-// Using for..of
-let result = [];
-for (let entry of stream) {
-  result.push(entry);
-}
-
-// Using spread operator
-result = [...stream];
+from([1, 2, 3])
+  .pipe(
+    filter(x => x % 2 === 0),
+    map(x => x * 2)
+  )
+  .collect(toArray());
 ```
 
 ## Why Stream API?
@@ -72,7 +43,7 @@ allEven = input.map(x => x + 1).every(x => x % 2 === 0);
 // vs Stream API maps only the first element then returns false
 allEven = from(input)
   .pipe(map(x => x + 1))
-  .collect(all(x => x % 2 === 0));
+  .collect(every(x => x % 2 === 0));
 ```
 
 - More readable code
@@ -87,7 +58,11 @@ const input = [1, 1, 1, 1, 2, 3, 4, 4, 5];
 const resultClassic: Map<string, number[]> = new Map<string, number[]>();
 Array.from(new Set<number>(input)).forEach(x => {
   const key = x % 2 === 0 ? 'even' : 'odd';
-  resultClassic.set(key, [...(resultClassic.get(key) || []), x]);
+  if (resultClassic.has(key)) {
+    resultClassic.get(key).push(x);
+  } else {
+    resultClassic.set(key, [x]);
+  }
 });
 
 // Stream API
