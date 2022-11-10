@@ -1,9 +1,14 @@
 /* eslint-disable @typescript-eslint/no-explicit-any */
 import {AsyncCollectorFunction, AsyncOperationFunction} from './types';
+import {toAsyncIterable} from './utils';
 
 /** Wrapper class to extend the functionality of an Iterable */
 export class AsyncStream<T> implements AsyncIterable<T> {
-  constructor(private iterable: AsyncIterable<T>) {}
+  private readonly iterable: AsyncIterable<T>;
+
+  constructor(iterable: Iterable<T> | AsyncIterable<T>) {
+    this.iterable = toAsyncIterable(iterable);
+  }
 
   /** Calls a collector function on the Iterable */
   collect<O>(collector: AsyncCollectorFunction<T, O>): PromiseLike<O> {
@@ -88,15 +93,14 @@ export class AsyncStream<T> implements AsyncIterable<T> {
     op6: AsyncOperationFunction<E, F>,
     op7: AsyncOperationFunction<F, G>,
     op8: AsyncOperationFunction<G, H>,
-    op9: AsyncOperationFunction<H, I>,
-    ...ops: AsyncOperationFunction<any, any>[]
+    op9: AsyncOperationFunction<H, I>
   ): AsyncStream<unknown>;
   pipe(...ops: AsyncOperationFunction<any, any>[]): AsyncStream<any> {
     if (!ops.length) {
       return this;
     }
 
-    let result: AsyncIterable<any> = ops[0](this);
+    let result: AsyncIterable<any> = ops[0](this.iterable);
     for (let i = 1; i < ops.length; i++) {
       result = ops[i](result);
     }

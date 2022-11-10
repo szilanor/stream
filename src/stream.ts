@@ -1,7 +1,11 @@
 /* eslint-disable @typescript-eslint/no-explicit-any */
-import {OperationFunction, CollectorFunction} from './types';
+import {
+  AnyOperationFunction,
+  AsyncOperationFunction,
+  CollectorFunction,
+  OperationFunction,
+} from './types';
 import {AsyncStream} from './async-stream';
-import {toAsyncIterable} from './utils/to-async-iterable';
 
 /** Wrapper class to extend the functionality of an Iterable */
 export class Stream<T> implements Iterable<T> {
@@ -90,15 +94,14 @@ export class Stream<T> implements Iterable<T> {
     op6: OperationFunction<E, F>,
     op7: OperationFunction<F, G>,
     op8: OperationFunction<G, H>,
-    op9: OperationFunction<H, I>,
-    ...ops: OperationFunction<any, any>[]
+    op9: OperationFunction<H, I>
   ): Stream<unknown>;
   pipe(...ops: OperationFunction<any, any>[]): Stream<any> {
     if (!ops.length) {
       return this;
     }
 
-    let result: Iterable<any> = ops[0](this);
+    let result: Iterable<any> = ops[0](this.iterable);
     for (let i = 1; i < ops.length; i++) {
       result = ops[i](result);
     }
@@ -106,7 +109,87 @@ export class Stream<T> implements Iterable<T> {
     return new Stream<any>(result);
   }
 
-  toAsync(): AsyncStream<T> {
-    return new AsyncStream<T>(toAsyncIterable(this.iterable));
+  pipeAsync<A>(op1: AnyOperationFunction<T, A>): AsyncStream<A>;
+  pipeAsync<A, B>(
+    op1: AnyOperationFunction<T, A>,
+    op2: AsyncOperationFunction<A, B>
+  ): AsyncStream<B>;
+  pipeAsync<A, B, C>(
+    op1: AnyOperationFunction<T, A>,
+    op2: AsyncOperationFunction<A, B>,
+    op3: AsyncOperationFunction<B, C>
+  ): AsyncStream<C>;
+  pipeAsync<A, B, C, D>(
+    op1: AnyOperationFunction<T, A>,
+    op2: AsyncOperationFunction<A, B>,
+    op3: AsyncOperationFunction<B, C>,
+    op4: AsyncOperationFunction<C, D>
+  ): AsyncStream<D>;
+  pipeAsync<A, B, C, D, E>(
+    op1: AnyOperationFunction<T, A>,
+    op2: AsyncOperationFunction<A, B>,
+    op3: AsyncOperationFunction<B, C>,
+    op4: AsyncOperationFunction<C, D>,
+    op5: AsyncOperationFunction<D, E>
+  ): AsyncStream<E>;
+  pipeAsync<A, B, C, D, E, F>(
+    op1: AnyOperationFunction<T, A>,
+    op2: AsyncOperationFunction<A, B>,
+    op3: AsyncOperationFunction<B, C>,
+    op4: AsyncOperationFunction<C, D>,
+    op5: AsyncOperationFunction<D, E>,
+    op6: AsyncOperationFunction<E, F>
+  ): AsyncStream<F>;
+  pipeAsync<A, B, C, D, E, F, G>(
+    op1: AnyOperationFunction<T, A>,
+    op2: AsyncOperationFunction<A, B>,
+    op3: AsyncOperationFunction<B, C>,
+    op4: AsyncOperationFunction<C, D>,
+    op5: AsyncOperationFunction<D, E>,
+    op6: AsyncOperationFunction<E, F>,
+    op7: AsyncOperationFunction<F, G>
+  ): AsyncStream<G>;
+  pipeAsync<A, B, C, D, E, F, G, H>(
+    op1: AnyOperationFunction<T, A>,
+    op2: AsyncOperationFunction<A, B>,
+    op3: AsyncOperationFunction<B, C>,
+    op4: AsyncOperationFunction<C, D>,
+    op5: AsyncOperationFunction<D, E>,
+    op6: AsyncOperationFunction<E, F>,
+    op7: AsyncOperationFunction<F, G>,
+    op8: AsyncOperationFunction<G, H>
+  ): AsyncStream<H>;
+  pipeAsync<A, B, C, D, E, F, G, H, I>(
+    op1: AnyOperationFunction<T, A>,
+    op2: AsyncOperationFunction<A, B>,
+    op3: AsyncOperationFunction<B, C>,
+    op4: AsyncOperationFunction<C, D>,
+    op5: AsyncOperationFunction<D, E>,
+    op6: AsyncOperationFunction<E, F>,
+    op7: AsyncOperationFunction<F, G>,
+    op8: AsyncOperationFunction<G, H>,
+    op9: AsyncOperationFunction<H, I>
+  ): AsyncStream<H>;
+  pipeAsync<A, B, C, D, E, F, G, H, I>(
+    op1: AnyOperationFunction<T, A>,
+    op2: AsyncOperationFunction<A, B>,
+    op3: AsyncOperationFunction<B, C>,
+    op4: AsyncOperationFunction<C, D>,
+    op5: AsyncOperationFunction<D, E>,
+    op6: AsyncOperationFunction<E, F>,
+    op7: AsyncOperationFunction<F, G>,
+    op8: AsyncOperationFunction<G, H>,
+    op9: AsyncOperationFunction<H, I>
+  ): AsyncStream<unknown>;
+  pipeAsync(
+    op1: AnyOperationFunction<any, any>,
+    ...ops: AsyncOperationFunction<any, any>[]
+  ): AsyncStream<any> {
+    let result: AsyncIterable<any> = op1(this.iterable);
+    for (let i = 1; i < ops.length; i++) {
+      result = ops[i](result);
+    }
+
+    return new AsyncStream<any>(result);
   }
 }
