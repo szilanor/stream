@@ -1,15 +1,12 @@
 import {Stream} from '../../stream';
+import {fromIterator} from '../../utils';
 
-export class ZipIterator<A, B, O> implements IterableIterator<O> {
+export class ZipIterator<A, B, O> implements Iterator<O> {
   constructor(
     private a: Iterator<A>,
     private b: Iterator<B>,
     private zipFunction: (a: A, b: B) => O
   ) {}
-
-  [Symbol.iterator](): IterableIterator<O> {
-    return this;
-  }
 
   next(): IteratorResult<O> {
     const {value: element1, done: done1} = this.a.next();
@@ -30,6 +27,9 @@ export function zip<A, B, O>(
   zipFunction: (a: A, b: B) => O
 ): Stream<O> {
   return new Stream<O>(
-    new ZipIterator(a[Symbol.iterator](), b[Symbol.iterator](), zipFunction)
+    fromIterator(
+      () =>
+        new ZipIterator(a[Symbol.iterator](), b[Symbol.iterator](), zipFunction)
+    )
   );
 }

@@ -1,20 +1,22 @@
-import {repeat} from './repeat';
-import {toArray} from '../../collectors';
-import {take} from '../../operations';
+import {toArrayAsync} from '../../collectors';
+import {repeatAsync} from './repeatAsync';
+import {takeAsync} from '../../operations/take/takeAsync';
 
-describe('Creator function: repeat()', () => {
-  test('should return an empty Stream', () => {
-    const res = repeat(1, 0).collect(toArray());
+describe('Creator function: repeatAsync()', () => {
+  test('should return an empty Stream', async () => {
+    const res = await repeatAsync(1, 0).collectAsync(toArrayAsync());
     expect(res).toStrictEqual([]);
   });
 
-  test('should return a Stream of infinite amount of entries', () => {
-    const res = repeat(1).pipe(take(3)).collect(toArray());
+  test('should return a Stream of infinite amount of entries', async () => {
+    const res = await repeatAsync(1)
+      .pipeAsync(takeAsync(3))
+      .collectAsync(toArrayAsync());
     expect(res).toStrictEqual([1, 1, 1]);
   });
 
-  test('should return a Stream of 3 entries with the same value', () => {
-    const res = repeat(1, 3).collect(toArray());
+  test('should return a Stream of 3 entries with the same value', async () => {
+    const res = await repeatAsync(1, 3).collectAsync(toArrayAsync());
     expect(res).toStrictEqual([1, 1, 1]);
   });
 });
