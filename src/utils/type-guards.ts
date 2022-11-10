@@ -11,6 +11,6 @@ export function isAsyncIterable(x: any): x is AsyncIterable<any> {
   return x !== null && x !== undefined && isFunction(x[Symbol.asyncIterator]);
 }
 
-export function isPromise(x: any): x is PromiseLike<any> {
-  return isFunction(x?.then);
+export function isPromise<T>(x: T | PromiseLike<T>): x is PromiseLike<any> {
+  return isFunction((x as any)?.then);
 }
