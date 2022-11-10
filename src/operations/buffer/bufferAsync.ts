@@ -1,16 +1,16 @@
-import {OperationFunction} from '../../types';
-import {operationFunctionFactory} from '../../utils';
+import {AsyncOperationFunction} from '../../types';
+import {asyncOperationFunctionFactory} from '../../utils';
 
-export class BufferIterator<T> implements Iterator<T[]> {
+export class BufferAsyncIterator<T> implements AsyncIterator<T[]> {
   private bufferArray: T[] = [];
 
-  constructor(private iterator: Iterator<T>, private size: number) {}
+  constructor(private iterator: AsyncIterator<T>, private size: number) {}
 
-  next(): IteratorResult<T[]> {
+  async next(): Promise<IteratorResult<T[]>> {
     for (
-      let item = this.iterator.next();
+      let item = await this.iterator.next();
       !item.done;
-      item = this.iterator.next()
+      item = await this.iterator.next()
     ) {
       this.bufferArray.push(item.value);
       if (this.bufferArray.length === this.size) {
@@ -30,8 +30,8 @@ export class BufferIterator<T> implements Iterator<T[]> {
 }
 
 /** Returns an Iterable that yields array of entries of the source Iterable with the given length. */
-export function buffer<T>(size: number): OperationFunction<T, T[]> {
-  return operationFunctionFactory(
-    iterator => new BufferIterator(iterator, size)
+export function bufferAsync<T>(size: number): AsyncOperationFunction<T, T[]> {
+  return asyncOperationFunctionFactory(
+    iterator => new BufferAsyncIterator(iterator, size)
   );
 }

@@ -1,13 +1,10 @@
 import {Stream} from '../../stream';
+import {fromIterator} from '../../utils';
 
-export class ConcatIterator<T> implements IterableIterator<T> {
+export class ConcatIterator<T> implements Iterator<T> {
   private index = 0;
 
   constructor(private iterators: Iterator<T>[]) {}
-
-  [Symbol.iterator](): IterableIterator<T> {
-    return this;
-  }
 
   next(): IteratorResult<T> {
     while (this.index < this.iterators.length) {
@@ -28,6 +25,11 @@ export class ConcatIterator<T> implements IterableIterator<T> {
  */
 export function concat<T>(...iterables: Iterable<T>[]): Stream<T> {
   return new Stream<T>(
-    new ConcatIterator(iterables.map(iterable => iterable[Symbol.iterator]()))
+    fromIterator(
+      () =>
+        new ConcatIterator(
+          iterables.map(iterable => iterable[Symbol.iterator]())
+        )
+    )
   );
 }

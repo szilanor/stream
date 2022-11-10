@@ -1,10 +1,7 @@
 import {Stream} from '../../stream';
+import {fromIterator} from '../../utils';
 
-export class EmptyIterator<T> implements IterableIterator<T> {
-  [Symbol.iterator](): IterableIterator<T> {
-    return this;
-  }
-
+export class EmptyIterator<T> implements Iterator<T> {
   next(): IteratorResult<T> {
     return {done: true, value: undefined as unknown};
   }
@@ -14,5 +11,5 @@ export class EmptyIterator<T> implements IterableIterator<T> {
  * Creates a Stream that returns 0 entries
  */
 export function empty<T>(): Stream<T> {
-  return new Stream<T>(new EmptyIterator());
+  return new Stream<T>(fromIterator(() => new EmptyIterator()));
 }

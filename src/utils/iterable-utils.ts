@@ -6,6 +6,26 @@ import {
 } from '../types';
 import {isAsyncIterable, isIterable} from './type-guards';
 
+export function fromIterator<T>(
+  iteratorFactory: () => Iterator<T>
+): Iterable<T> {
+  return {
+    [Symbol.iterator](): Iterator<T> {
+      return iteratorFactory();
+    },
+  };
+}
+
+export function fromAsyncIterator<T>(
+  iteratorFactory: () => AsyncIterator<T>
+): AsyncIterable<T> {
+  return {
+    [Symbol.asyncIterator](): AsyncIterator<T> {
+      return iteratorFactory();
+    },
+  };
+}
+
 export function getIterator<T>(
   iterable: Iterable<T> | AsyncIterable<T>
 ): Iterator<T> | AsyncIterator<T> {
@@ -17,21 +37,15 @@ export function getIterator<T>(
 export function operationFunctionFactory<T, O = T>(
   factory: (iterable: Iterator<T>) => Iterator<O>
 ): OperationFunction<T, O> {
-  return (iterable: Iterable<T>) => ({
-    [Symbol.iterator](): Iterator<O> {
-      return factory(iterable[Symbol.iterator]());
-    },
-  });
+  return (iterable: Iterable<T>) =>
+    fromIterator(() => factory(iterable[Symbol.iterator]()));
 }
 
 export function asyncOperationFunctionFactory<T, O = T>(
   factory: (iterable: AsyncIterator<T>) => AsyncIterator<O>
 ): AsyncOperationFunction<T, O> {
-  return (iterable: AsyncIterable<T>) => ({
-    [Symbol.asyncIterator](): AsyncIterator<O> {
-      return factory(iterable[Symbol.asyncIterator]());
-    },
-  });
+  return (iterable: AsyncIterable<T>) =>
+    fromAsyncIterator(() => factory(iterable[Symbol.asyncIterator]()));
 }
 
 export function anyOperationFunctionFactory<T, O = T>(
