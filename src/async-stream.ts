@@ -11,7 +11,7 @@ export class AsyncStream<T> implements AsyncIterable<T> {
   }
 
   /** Calls a collector function on the Iterable */
-  collect<O>(collector: AsyncCollectorFunction<T, O>): PromiseLike<O> {
+  collectAsync<O>(collector: AsyncCollectorFunction<T, O>): PromiseLike<O> {
     return collector(this.iterable);
   }
 
@@ -22,31 +22,31 @@ export class AsyncStream<T> implements AsyncIterable<T> {
 
   /** Calls an operation function on the Iterable then returns the result as a Stream
    *  allowing to chain it with more Stream related methods. */
-  pipe(): AsyncStream<T>;
-  pipe<A>(op1: AsyncOperationFunction<T, A>): AsyncStream<A>;
-  pipe<A, B>(
+  pipeAsync(): AsyncStream<T>;
+  pipeAsync<A>(op1: AsyncOperationFunction<T, A>): AsyncStream<A>;
+  pipeAsync<A, B>(
     op1: AsyncOperationFunction<T, A>,
     op2: AsyncOperationFunction<A, B>
   ): AsyncStream<B>;
-  pipe<A, B, C>(
+  pipeAsync<A, B, C>(
     op1: AsyncOperationFunction<T, A>,
     op2: AsyncOperationFunction<A, B>,
     op3: AsyncOperationFunction<B, C>
   ): AsyncStream<C>;
-  pipe<A, B, C, D>(
+  pipeAsync<A, B, C, D>(
     op1: AsyncOperationFunction<T, A>,
     op2: AsyncOperationFunction<A, B>,
     op3: AsyncOperationFunction<B, C>,
     op4: AsyncOperationFunction<C, D>
   ): AsyncStream<D>;
-  pipe<A, B, C, D, E>(
+  pipeAsync<A, B, C, D, E>(
     op1: AsyncOperationFunction<T, A>,
     op2: AsyncOperationFunction<A, B>,
     op3: AsyncOperationFunction<B, C>,
     op4: AsyncOperationFunction<C, D>,
     op5: AsyncOperationFunction<D, E>
   ): AsyncStream<E>;
-  pipe<A, B, C, D, E, F>(
+  pipeAsync<A, B, C, D, E, F>(
     op1: AsyncOperationFunction<T, A>,
     op2: AsyncOperationFunction<A, B>,
     op3: AsyncOperationFunction<B, C>,
@@ -54,7 +54,7 @@ export class AsyncStream<T> implements AsyncIterable<T> {
     op5: AsyncOperationFunction<D, E>,
     op6: AsyncOperationFunction<E, F>
   ): AsyncStream<F>;
-  pipe<A, B, C, D, E, F, G>(
+  pipeAsync<A, B, C, D, E, F, G>(
     op1: AsyncOperationFunction<T, A>,
     op2: AsyncOperationFunction<A, B>,
     op3: AsyncOperationFunction<B, C>,
@@ -63,7 +63,7 @@ export class AsyncStream<T> implements AsyncIterable<T> {
     op6: AsyncOperationFunction<E, F>,
     op7: AsyncOperationFunction<F, G>
   ): AsyncStream<G>;
-  pipe<A, B, C, D, E, F, G, H>(
+  pipeAsync<A, B, C, D, E, F, G, H>(
     op1: AsyncOperationFunction<T, A>,
     op2: AsyncOperationFunction<A, B>,
     op3: AsyncOperationFunction<B, C>,
@@ -73,7 +73,7 @@ export class AsyncStream<T> implements AsyncIterable<T> {
     op7: AsyncOperationFunction<F, G>,
     op8: AsyncOperationFunction<G, H>
   ): AsyncStream<H>;
-  pipe<A, B, C, D, E, F, G, H, I>(
+  pipeAsync<A, B, C, D, E, F, G, H, I>(
     op1: AsyncOperationFunction<T, A>,
     op2: AsyncOperationFunction<A, B>,
     op3: AsyncOperationFunction<B, C>,
@@ -84,7 +84,7 @@ export class AsyncStream<T> implements AsyncIterable<T> {
     op8: AsyncOperationFunction<G, H>,
     op9: AsyncOperationFunction<H, I>
   ): AsyncStream<H>;
-  pipe<A, B, C, D, E, F, G, H, I>(
+  pipeAsync<A, B, C, D, E, F, G, H, I>(
     op1: AsyncOperationFunction<T, A>,
     op2: AsyncOperationFunction<A, B>,
     op3: AsyncOperationFunction<B, C>,
@@ -95,7 +95,7 @@ export class AsyncStream<T> implements AsyncIterable<T> {
     op8: AsyncOperationFunction<G, H>,
     op9: AsyncOperationFunction<H, I>
   ): AsyncStream<unknown>;
-  pipe(...ops: AsyncOperationFunction<any, any>[]): AsyncStream<any> {
+  pipeAsync(...ops: AsyncOperationFunction<any, any>[]): AsyncStream<any> {
     if (!ops.length) {
       return this;
     }

@@ -5,12 +5,12 @@ import {Stream} from '../../stream';
 
 describe('Operation function: mapAsync()', () => {
   test('should map entries with the callback function', async () => {
-    const res = new AsyncStream([1, 2, 3]).pipe(
+    const res = new AsyncStream([1, 2, 3]).pipeAsync(
       mapAsync(async entry => entry + 1)
     );
 
-    const res1 = await res.collect(toArrayAsync());
-    const res2 = await res.collect(toArrayAsync());
+    const res1 = await res.collectAsync(toArrayAsync());
+    const res2 = await res.collectAsync(toArrayAsync());
 
     expect(res1).toStrictEqual([2, 3, 4]);
     expect(res1).toStrictEqual(res2);
@@ -21,8 +21,8 @@ describe('Operation function: mapAsync()', () => {
       mapAsync(async entry => entry + 1)
     );
 
-    const res1 = await res.collect(toArrayAsync());
-    const res2 = await res.collect(toArrayAsync());
+    const res1 = await res.collectAsync(toArrayAsync());
+    const res2 = await res.collectAsync(toArrayAsync());
 
     expect(res1).toStrictEqual([2, 3, 4]);
     expect(res1).toStrictEqual(res2);
