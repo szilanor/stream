@@ -5,6 +5,8 @@ import {createEmptyIterable, toAsyncIterable} from './utils';
 
 /** Wrapper class to extend the functionality of an Iterable */
 export class Stream<T> extends AsyncStream<T> implements Iterable<T> {
+  private readonly iterable: Iterable<T>;
+
   protected get asyncIterable(): AsyncIterable<T> {
     if (!this._asyncIterable) {
       this._asyncIterable = toAsyncIterable(this.iterable);
@@ -17,7 +19,6 @@ export class Stream<T> extends AsyncStream<T> implements Iterable<T> {
     return this.iterable[Symbol.iterator]();
   }
 
-  private readonly iterable: Iterable<T>;
   constructor(iterable?: Iterable<T>) {
     super();
     this.iterable = iterable ?? createEmptyIterable();
