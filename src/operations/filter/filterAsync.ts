@@ -1,4 +1,4 @@
-import {AnyOperationFunction} from '../../types';
+import {AnyToAsyncOperationFunction} from '../../types';
 import {anyOperationFunctionFactory, isPromise} from '../../utils';
 
 export class FilterAsyncIterator<T> implements AsyncIterator<T> {
@@ -35,7 +35,7 @@ export class FilterAsyncIterator<T> implements AsyncIterator<T> {
 /** Returns an Iterable that yields only entries of the source Iterable that satisfy the function. */
 export function filterAsync<T>(
   func: (value: T, index: number) => boolean | PromiseLike<boolean>
-): AnyOperationFunction<T, T> {
+): AnyToAsyncOperationFunction<T, T> {
   return anyOperationFunctionFactory(
     iterator => new FilterAsyncIterator(iterator, func)
   );

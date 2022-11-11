@@ -1,9 +1,10 @@
 /* eslint-disable @typescript-eslint/no-explicit-any */
 import {
-  AnyOperationFunction,
+  AnyToAsyncOperationFunction,
   AsyncOperationFunction,
   CollectorFunction,
   OperationFunction,
+  ToAsyncOperationFunction,
 } from './types';
 import {AsyncStream} from './async-stream';
 
@@ -109,81 +110,81 @@ export class Stream<T> implements Iterable<T> {
     return new Stream<any>(result);
   }
 
-  pipeAsync<A>(op1: AnyOperationFunction<T, A>): AsyncStream<A>;
+  pipeAsync<A>(op1: AnyToAsyncOperationFunction<T, A>): AsyncStream<A>;
   pipeAsync<A, B>(
-    op1: AnyOperationFunction<T, A>,
-    op2: AsyncOperationFunction<A, B>
+    op1: AnyToAsyncOperationFunction<T, A>,
+    op2: AnyToAsyncOperationFunction<A, B> | AsyncOperationFunction<A, B>
   ): AsyncStream<B>;
   pipeAsync<A, B, C>(
-    op1: AnyOperationFunction<T, A>,
-    op2: AsyncOperationFunction<A, B>,
-    op3: AsyncOperationFunction<B, C>
+    op1: AnyToAsyncOperationFunction<T, A>,
+    op2: ToAsyncOperationFunction<A, B>,
+    op3: ToAsyncOperationFunction<B, C>
   ): AsyncStream<C>;
   pipeAsync<A, B, C, D>(
-    op1: AnyOperationFunction<T, A>,
-    op2: AsyncOperationFunction<A, B>,
-    op3: AsyncOperationFunction<B, C>,
-    op4: AsyncOperationFunction<C, D>
+    op1: AnyToAsyncOperationFunction<T, A>,
+    op2: ToAsyncOperationFunction<A, B>,
+    op3: ToAsyncOperationFunction<B, C>,
+    op4: ToAsyncOperationFunction<C, D>
   ): AsyncStream<D>;
   pipeAsync<A, B, C, D, E>(
-    op1: AnyOperationFunction<T, A>,
-    op2: AsyncOperationFunction<A, B>,
-    op3: AsyncOperationFunction<B, C>,
-    op4: AsyncOperationFunction<C, D>,
-    op5: AsyncOperationFunction<D, E>
+    op1: AnyToAsyncOperationFunction<T, A>,
+    op2: ToAsyncOperationFunction<A, B>,
+    op3: ToAsyncOperationFunction<B, C>,
+    op4: ToAsyncOperationFunction<C, D>,
+    op5: ToAsyncOperationFunction<D, E>
   ): AsyncStream<E>;
   pipeAsync<A, B, C, D, E, F>(
-    op1: AnyOperationFunction<T, A>,
-    op2: AsyncOperationFunction<A, B>,
-    op3: AsyncOperationFunction<B, C>,
-    op4: AsyncOperationFunction<C, D>,
-    op5: AsyncOperationFunction<D, E>,
-    op6: AsyncOperationFunction<E, F>
+    op1: AnyToAsyncOperationFunction<T, A>,
+    op2: ToAsyncOperationFunction<A, B>,
+    op3: ToAsyncOperationFunction<B, C>,
+    op4: ToAsyncOperationFunction<C, D>,
+    op5: ToAsyncOperationFunction<D, E>,
+    op6: ToAsyncOperationFunction<E, F>
   ): AsyncStream<F>;
   pipeAsync<A, B, C, D, E, F, G>(
-    op1: AnyOperationFunction<T, A>,
-    op2: AsyncOperationFunction<A, B>,
-    op3: AsyncOperationFunction<B, C>,
-    op4: AsyncOperationFunction<C, D>,
-    op5: AsyncOperationFunction<D, E>,
-    op6: AsyncOperationFunction<E, F>,
-    op7: AsyncOperationFunction<F, G>
+    op1: AnyToAsyncOperationFunction<T, A>,
+    op2: ToAsyncOperationFunction<A, B>,
+    op3: ToAsyncOperationFunction<B, C>,
+    op4: ToAsyncOperationFunction<C, D>,
+    op5: ToAsyncOperationFunction<D, E>,
+    op6: ToAsyncOperationFunction<E, F>,
+    op7: ToAsyncOperationFunction<F, G>
   ): AsyncStream<G>;
   pipeAsync<A, B, C, D, E, F, G, H>(
-    op1: AnyOperationFunction<T, A>,
-    op2: AsyncOperationFunction<A, B>,
-    op3: AsyncOperationFunction<B, C>,
-    op4: AsyncOperationFunction<C, D>,
-    op5: AsyncOperationFunction<D, E>,
-    op6: AsyncOperationFunction<E, F>,
-    op7: AsyncOperationFunction<F, G>,
-    op8: AsyncOperationFunction<G, H>
+    op1: AnyToAsyncOperationFunction<T, A>,
+    op2: ToAsyncOperationFunction<A, B>,
+    op3: ToAsyncOperationFunction<B, C>,
+    op4: ToAsyncOperationFunction<C, D>,
+    op5: ToAsyncOperationFunction<D, E>,
+    op6: ToAsyncOperationFunction<E, F>,
+    op7: ToAsyncOperationFunction<F, G>,
+    op8: ToAsyncOperationFunction<G, H>
   ): AsyncStream<H>;
   pipeAsync<A, B, C, D, E, F, G, H, I>(
-    op1: AnyOperationFunction<T, A>,
-    op2: AsyncOperationFunction<A, B>,
-    op3: AsyncOperationFunction<B, C>,
-    op4: AsyncOperationFunction<C, D>,
-    op5: AsyncOperationFunction<D, E>,
-    op6: AsyncOperationFunction<E, F>,
-    op7: AsyncOperationFunction<F, G>,
-    op8: AsyncOperationFunction<G, H>,
-    op9: AsyncOperationFunction<H, I>
+    op1: AnyToAsyncOperationFunction<T, A>,
+    op2: ToAsyncOperationFunction<A, B>,
+    op3: ToAsyncOperationFunction<B, C>,
+    op4: ToAsyncOperationFunction<C, D>,
+    op5: ToAsyncOperationFunction<D, E>,
+    op6: ToAsyncOperationFunction<E, F>,
+    op7: ToAsyncOperationFunction<F, G>,
+    op8: ToAsyncOperationFunction<G, H>,
+    op9: ToAsyncOperationFunction<H, I>
   ): AsyncStream<H>;
   pipeAsync<A, B, C, D, E, F, G, H, I>(
-    op1: AnyOperationFunction<T, A>,
-    op2: AsyncOperationFunction<A, B>,
-    op3: AsyncOperationFunction<B, C>,
-    op4: AsyncOperationFunction<C, D>,
-    op5: AsyncOperationFunction<D, E>,
-    op6: AsyncOperationFunction<E, F>,
-    op7: AsyncOperationFunction<F, G>,
-    op8: AsyncOperationFunction<G, H>,
-    op9: AsyncOperationFunction<H, I>
+    op1: AnyToAsyncOperationFunction<T, A>,
+    op2: ToAsyncOperationFunction<A, B>,
+    op3: ToAsyncOperationFunction<B, C>,
+    op4: ToAsyncOperationFunction<C, D>,
+    op5: ToAsyncOperationFunction<D, E>,
+    op6: ToAsyncOperationFunction<E, F>,
+    op7: ToAsyncOperationFunction<F, G>,
+    op8: ToAsyncOperationFunction<G, H>,
+    op9: ToAsyncOperationFunction<H, I>
   ): AsyncStream<unknown>;
   pipeAsync(
-    op1: AnyOperationFunction<any, any>,
-    ...ops: AsyncOperationFunction<any, any>[]
+    op1: AnyToAsyncOperationFunction<any, any>,
+    ...ops: ToAsyncOperationFunction<any, any>[]
   ): AsyncStream<any> {
     let result: AsyncIterable<any> = op1(this.iterable);
     for (let i = 1; i < ops.length; i++) {

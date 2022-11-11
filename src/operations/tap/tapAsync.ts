@@ -1,4 +1,4 @@
-import {AnyOperationFunction} from '../../types';
+import {AnyToAsyncOperationFunction} from '../../types';
 import {anyOperationFunctionFactory, isPromise} from '../../utils';
 
 export class TapAsyncIterator<T> implements AsyncIterator<T> {
@@ -23,7 +23,7 @@ export class TapAsyncIterator<T> implements AsyncIterator<T> {
 /** Calls a callback function on each entry */
 export function tapAsync<T>(
   callback: (item: T) => void | PromiseLike<void>
-): AnyOperationFunction<T, T> {
+): AnyToAsyncOperationFunction<T, T> {
   return anyOperationFunctionFactory(
     iterator => new TapAsyncIterator(iterator, callback)
   );

@@ -1,6 +1,6 @@
 /* eslint-disable @typescript-eslint/no-explicit-any */
 import {
-  AnyOperationFunction,
+  AnyToAsyncOperationFunction,
   AsyncOperationFunction,
   OperationFunction,
 } from '../types';
@@ -50,7 +50,7 @@ export function asyncOperationFunctionFactory<T, O = T>(
 
 export function anyOperationFunctionFactory<T, O = T>(
   factory: (iterable: Iterator<T> | AsyncIterator<T>) => AsyncIterator<O>
-): AnyOperationFunction<T, O> {
+): AnyToAsyncOperationFunction<T, O> {
   return (iterable: Iterable<T> | AsyncIterable<T>) => ({
     [Symbol.asyncIterator](): AsyncIterator<O> {
       const iterator = isIterable(iterable)

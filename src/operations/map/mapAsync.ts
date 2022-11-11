@@ -1,4 +1,4 @@
-import {AnyOperationFunction} from '../../types';
+import {AnyToAsyncOperationFunction} from '../../types';
 import {anyOperationFunctionFactory, isPromise} from '../../utils';
 
 export class MapAsyncIterator<T, O> implements AsyncIterator<O> {
@@ -25,7 +25,7 @@ export class MapAsyncIterator<T, O> implements AsyncIterator<O> {
 /** Returns an Iterable that yields entries of the source Iterable transformed using the function */
 export function mapAsync<T, O>(
   func: (value: T, index: number) => O | PromiseLike<O>
-): AnyOperationFunction<T, O> {
+): AnyToAsyncOperationFunction<T, O> {
   return anyOperationFunctionFactory(
     iterator => new MapAsyncIterator(iterator, func)
   );

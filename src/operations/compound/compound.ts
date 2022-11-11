@@ -1,6 +1,5 @@
 /* eslint-disable @typescript-eslint/no-explicit-any */
 import {OperationFunction} from '../../types';
-import {noop} from '../noop/noop';
 
 /** Type-safe helper operation that concatenates multiple operations in order. */
 export function compound<T>(): OperationFunction<T, T>;
@@ -77,19 +76,10 @@ export function compound<T, A, B, C, D, E, F, G, H, I, J>(
   op7: OperationFunction<F, G>,
   op8: OperationFunction<G, H>,
   op9: OperationFunction<H, I>,
-  op10: OperationFunction<I, J>,
-  ...ops: OperationFunction<any, any>[]
+  op10: OperationFunction<I, J>
 ): OperationFunction<T, unknown>;
 export function compound(
   ...ops: OperationFunction<any, any>[]
 ): OperationFunction<any, any> {
-  return !ops.length
-    ? noop()
-    : stream => {
-        let result = ops[0](stream);
-        for (let i = 1; i < ops.length; i++) {
-          result = ops[i](result);
-        }
-        return result;
-      };
+  return iterable => ops.reduce((piped, op) => op(piped), iterable);
 }
