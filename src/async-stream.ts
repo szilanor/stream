@@ -95,6 +95,7 @@ export class AsyncStream<T> implements AsyncIterable<T> {
     op8: AsyncOperationFunction<G, H>,
     op9: AsyncOperationFunction<H, I>
   ): AsyncStream<unknown>;
+  pipeAsync(...ops: AsyncOperationFunction<T, T>[]): AsyncStream<T>;
   pipeAsync(...ops: AsyncOperationFunction<any, any>[]): AsyncStream<any> {
     if (!ops.length) {
       return this;

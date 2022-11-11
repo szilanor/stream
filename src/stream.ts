@@ -97,6 +97,7 @@ export class Stream<T> implements Iterable<T> {
     op8: OperationFunction<G, H>,
     op9: OperationFunction<H, I>
   ): Stream<unknown>;
+  pipe(...ops: OperationFunction<T, T>[]): Stream<T>;
   pipe(...ops: OperationFunction<any, any>[]): Stream<any> {
     if (!ops.length) {
       return this;
@@ -182,6 +183,10 @@ export class Stream<T> implements Iterable<T> {
     op8: ToAsyncOperationFunction<G, H>,
     op9: ToAsyncOperationFunction<H, I>
   ): AsyncStream<unknown>;
+  pipeAsync(
+    op1: AnyToAsyncOperationFunction<T, T>,
+    ...ops: ToAsyncOperationFunction<T, T>[]
+  ): AsyncStream<T>;
   pipeAsync(
     op1: AnyToAsyncOperationFunction<any, any>,
     ...ops: ToAsyncOperationFunction<any, any>[]
