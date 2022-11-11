@@ -1,13 +1,10 @@
 import {OperationFunction} from '../../types';
+import {operationFunctionFactory} from '../../utils';
 
-export class PairwiseIterator<T> implements IterableIterator<[T, T]> {
+export class PairwiseIterator<T> implements Iterator<[T, T]> {
   private prev: T | undefined;
 
   constructor(private iterator: Iterator<T>) {}
-
-  [Symbol.iterator](): IterableIterator<[T, T]> {
-    return this;
-  }
 
   next(): IteratorResult<[T, T]> {
     for (
@@ -31,5 +28,5 @@ export class PairwiseIterator<T> implements IterableIterator<[T, T]> {
 
 /** Returns an Iterable that yields the current and the previous entry of the source Iterable. */
 export function pairwise<T>(): OperationFunction<T, [T, T]> {
-  return entries => new PairwiseIterator(entries[Symbol.iterator]());
+  return operationFunctionFactory(iterator => new PairwiseIterator(iterator));
 }
