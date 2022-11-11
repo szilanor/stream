@@ -1,21 +1,15 @@
 /* eslint-disable @typescript-eslint/no-explicit-any */
-import {
-  AsyncCollectorFunction,
-  CollectorFunction,
-  OperationFunction,
-  ToAsyncOperationFunction,
-} from './types';
+import {CollectorFunction, OperationFunction} from './types';
 import {AsyncStream} from './async-stream';
 import {createEmptyIterable, toAsyncIterable} from './utils';
 
 /** Wrapper class to extend the functionality of an Iterable */
-export class Stream<T> implements Iterable<T>, AsyncIterable<T> {
-  private _asAsyncIterable: AsyncIterable<T> | undefined;
-  private get asAsyncIterable(): AsyncIterable<T> {
-    if (!this._asAsyncIterable) {
-      this._asAsyncIterable = toAsyncIterable(this.iterable);
+export class Stream<T> extends AsyncStream<T> implements Iterable<T> {
+  protected get asyncIterable(): AsyncIterable<T> {
+    if (!this._asyncIterable) {
+      this._asyncIterable = toAsyncIterable(this.iterable);
     }
-    return this._asAsyncIterable;
+    return this._asyncIterable;
   }
 
   /** Returns the Iterator of the wrapped Iterable */
@@ -23,24 +17,15 @@ export class Stream<T> implements Iterable<T>, AsyncIterable<T> {
     return this.iterable[Symbol.iterator]();
   }
 
-  [Symbol.asyncIterator](): AsyncIterator<T> {
-    return this.asAsyncIterable[Symbol.asyncIterator]();
-  }
-
   private readonly iterable: Iterable<T>;
-
   constructor(iterable?: Iterable<T>) {
+    super();
     this.iterable = iterable ?? createEmptyIterable();
   }
 
   /** Calls a collector function on the Iterable */
   collect<O>(collector: CollectorFunction<T, O>): O {
     return collector(this.iterable);
-  }
-
-  /** Calls a collector function on the Iterable */
-  collectAsync<O>(collector: AsyncCollectorFunction<T, O>): PromiseLike<O> {
-    return collector(this.asAsyncIterable);
   }
 
   /** Calls an operation function on the Iterable then returns the result as a Stream
@@ -129,91 +114,5 @@ export class Stream<T> implements Iterable<T>, AsyncIterable<T> {
     }
 
     return new Stream<any>(result);
-  }
-
-  pipeAsync<A>(op1: ToAsyncOperationFunction<T, A>): AsyncStream<A>;
-  pipeAsync<A, B>(
-    op1: ToAsyncOperationFunction<T, A>,
-    op2: ToAsyncOperationFunction<A, B>
-  ): AsyncStream<B>;
-  pipeAsync<A, B, C>(
-    op1: ToAsyncOperationFunction<T, A>,
-    op2: ToAsyncOperationFunction<A, B>,
-    op3: ToAsyncOperationFunction<B, C>
-  ): AsyncStream<C>;
-  pipeAsync<A, B, C, D>(
-    op1: ToAsyncOperationFunction<T, A>,
-    op2: ToAsyncOperationFunction<A, B>,
-    op3: ToAsyncOperationFunction<B, C>,
-    op4: ToAsyncOperationFunction<C, D>
-  ): AsyncStream<D>;
-  pipeAsync<A, B, C, D, E>(
-    op1: ToAsyncOperationFunction<T, A>,
-    op2: ToAsyncOperationFunction<A, B>,
-    op3: ToAsyncOperationFunction<B, C>,
-    op4: ToAsyncOperationFunction<C, D>,
-    op5: ToAsyncOperationFunction<D, E>
-  ): AsyncStream<E>;
-  pipeAsync<A, B, C, D, E, F>(
-    op1: ToAsyncOperationFunction<T, A>,
-    op2: ToAsyncOperationFunction<A, B>,
-    op3: ToAsyncOperationFunction<B, C>,
-    op4: ToAsyncOperationFunction<C, D>,
-    op5: ToAsyncOperationFunction<D, E>,
-    op6: ToAsyncOperationFunction<E, F>
-  ): AsyncStream<F>;
-  pipeAsync<A, B, C, D, E, F, G>(
-    op1: ToAsyncOperationFunction<T, A>,
-    op2: ToAsyncOperationFunction<A, B>,
-    op3: ToAsyncOperationFunction<B, C>,
-    op4: ToAsyncOperationFunction<C, D>,
-    op5: ToAsyncOperationFunction<D, E>,
-    op6: ToAsyncOperationFunction<E, F>,
-    op7: ToAsyncOperationFunction<F, G>
-  ): AsyncStream<G>;
-  pipeAsync<A, B, C, D, E, F, G, H>(
-    op1: ToAsyncOperationFunction<T, A>,
-    op2: ToAsyncOperationFunction<A, B>,
-    op3: ToAsyncOperationFunction<B, C>,
-    op4: ToAsyncOperationFunction<C, D>,
-    op5: ToAsyncOperationFunction<D, E>,
-    op6: ToAsyncOperationFunction<E, F>,
-    op7: ToAsyncOperationFunction<F, G>,
-    op8: ToAsyncOperationFunction<G, H>
-  ): AsyncStream<H>;
-  pipeAsync<A, B, C, D, E, F, G, H, I>(
-    op1: ToAsyncOperationFunction<T, A>,
-    op2: ToAsyncOperationFunction<A, B>,
-    op3: ToAsyncOperationFunction<B, C>,
-    op4: ToAsyncOperationFunction<C, D>,
-    op5: ToAsyncOperationFunction<D, E>,
-    op6: ToAsyncOperationFunction<E, F>,
-    op7: ToAsyncOperationFunction<F, G>,
-    op8: ToAsyncOperationFunction<G, H>,
-    op9: ToAsyncOperationFunction<H, I>
-  ): AsyncStream<H>;
-  pipeAsync<A, B, C, D, E, F, G, H, I>(
-    op1: ToAsyncOperationFunction<T, A>,
-    op2: ToAsyncOperationFunction<A, B>,
-    op3: ToAsyncOperationFunction<B, C>,
-    op4: ToAsyncOperationFunction<C, D>,
-    op5: ToAsyncOperationFunction<D, E>,
-    op6: ToAsyncOperationFunction<E, F>,
-    op7: ToAsyncOperationFunction<F, G>,
-    op8: ToAsyncOperationFunction<G, H>,
-    op9: ToAsyncOperationFunction<H, I>
-  ): AsyncStream<unknown>;
-  pipeAsync(...ops: ToAsyncOperationFunction<T, T>[]): AsyncStream<T>;
-  pipeAsync(...ops: ToAsyncOperationFunction<any, any>[]): AsyncStream<any> {
-    if (!ops.length) {
-      return new AsyncStream<any>(this);
-    }
-
-    let result: AsyncIterable<any> = ops[0](this);
-    for (let i = 1; i < ops.length; i++) {
-      result = ops[i](result);
-    }
-
-    return new AsyncStream<any>(result);
   }
 }
