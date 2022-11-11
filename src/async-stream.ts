@@ -1,23 +1,36 @@
 /* eslint-disable @typescript-eslint/no-explicit-any */
 import {AsyncCollectorFunction, AsyncOperationFunction} from './types';
-import {toAsyncIterable} from './utils';
+import {createEmptyAsyncIterable, toAsyncIterable} from './utils';
 
 /** Wrapper class to extend the functionality of an Iterable */
 export class AsyncStream<T> implements AsyncIterable<T> {
-  private readonly iterable: AsyncIterable<T>;
+  private _asyncIterable: AsyncIterable<T> | undefined;
 
-  constructor(iterable: Iterable<T> | AsyncIterable<T>) {
-    this.iterable = toAsyncIterable(iterable);
+  private set asyncIterable(iterable: AsyncIterable<T>) {
+    this._asyncIterable = toAsyncIterable(iterable);
+  }
+
+  private get asyncIterable(): AsyncIterable<T> {
+    if (!this._asyncIterable) {
+      this._asyncIterable = createEmptyAsyncIterable();
+    }
+    return this._asyncIterable;
+  }
+
+  constructor(iterable?: Iterable<T> | AsyncIterable<T>) {
+    if (iterable) {
+      this.asyncIterable = toAsyncIterable(iterable);
+    }
   }
 
   /** Calls a collector function on the Iterable */
   collectAsync<O>(collector: AsyncCollectorFunction<T, O>): PromiseLike<O> {
-    return collector(this.iterable);
+    return collector(this.asyncIterable);
   }
 
   /** Returns the Iterator of the wrapped Iterable */
   [Symbol.asyncIterator](): AsyncIterator<T> {
-    return this.iterable[Symbol.asyncIterator]();
+    return this.asyncIterable[Symbol.asyncIterator]();
   }
 
   /** Calls an operation function on the Iterable then returns the result as a Stream
@@ -100,7 +113,7 @@ export class AsyncStream<T> implements AsyncIterable<T> {
       return this;
     }
 
-    let result: AsyncIterable<any> = ops[0](this.iterable);
+    let result: AsyncIterable<any> = ops[0](this.asyncIterable);
     for (let i = 1; i < ops.length; i++) {
       result = ops[i](result);
     }

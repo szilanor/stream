@@ -80,3 +80,23 @@ export function toAsyncIterable<T>(
         },
       };
 }
+
+export class EmptyIterator<T> implements Iterator<T> {
+  next(): IteratorResult<T> {
+    return {done: true, value: undefined as unknown};
+  }
+}
+
+export function createEmptyIterable<T>(): Iterable<T> {
+  return fromIterator<T>(() => new EmptyIterator());
+}
+
+export class EmptyAsyncIterator<T> implements AsyncIterator<T> {
+  async next(): Promise<IteratorResult<T>> {
+    return {done: true, value: undefined as unknown};
+  }
+}
+
+export function createEmptyAsyncIterable<T>(): AsyncIterable<T> {
+  return fromAsyncIterator<T>(() => new EmptyAsyncIterator());
+}
