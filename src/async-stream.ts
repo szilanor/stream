@@ -22,7 +22,6 @@ export class AsyncStream<T> implements AsyncIterable<T> {
 
   /** Calls an operation function on the Iterable then returns the result as a Stream
    *  allowing to chain it with more Stream related methods. */
-  pipeAsync(): AsyncStream<T>;
   pipeAsync<A>(op1: AsyncOperationFunction<T, A>): AsyncStream<A>;
   pipeAsync<A, B>(
     op1: AsyncOperationFunction<T, A>,

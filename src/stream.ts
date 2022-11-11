@@ -1,15 +1,14 @@
 /* eslint-disable @typescript-eslint/no-explicit-any */
 import {
-  AnyToAsyncOperationFunction,
-  AsyncOperationFunction,
   CollectorFunction,
   OperationFunction,
   ToAsyncOperationFunction,
 } from './types';
 import {AsyncStream} from './async-stream';
+import {toAsyncIterable} from './utils';
 
 /** Wrapper class to extend the functionality of an Iterable */
-export class Stream<T> implements Iterable<T> {
+export class Stream<T> implements Iterable<T>, AsyncIterable<T> {
   constructor(private iterable: Iterable<T>) {}
 
   /** Calls a collector function on the Iterable */
@@ -22,9 +21,12 @@ export class Stream<T> implements Iterable<T> {
     return this.iterable[Symbol.iterator]();
   }
 
+  [Symbol.asyncIterator](): AsyncIterator<T> {
+    return toAsyncIterable(this.iterable)[Symbol.asyncIterator]();
+  }
+
   /** Calls an operation function on the Iterable then returns the result as a Stream
    *  allowing to chain it with more Stream related methods. */
-  pipe(): Stream<T>;
   pipe<A>(op1: OperationFunction<T, A>): Stream<A>;
   pipe<A, B>(
     op1: OperationFunction<T, A>,
@@ -111,31 +113,31 @@ export class Stream<T> implements Iterable<T> {
     return new Stream<any>(result);
   }
 
-  pipeAsync<A>(op1: AnyToAsyncOperationFunction<T, A>): AsyncStream<A>;
+  pipeAsync<A>(op1: ToAsyncOperationFunction<T, A>): AsyncStream<A>;
   pipeAsync<A, B>(
-    op1: AnyToAsyncOperationFunction<T, A>,
-    op2: AnyToAsyncOperationFunction<A, B> | AsyncOperationFunction<A, B>
+    op1: ToAsyncOperationFunction<T, A>,
+    op2: ToAsyncOperationFunction<A, B>
   ): AsyncStream<B>;
   pipeAsync<A, B, C>(
-    op1: AnyToAsyncOperationFunction<T, A>,
+    op1: ToAsyncOperationFunction<T, A>,
     op2: ToAsyncOperationFunction<A, B>,
     op3: ToAsyncOperationFunction<B, C>
   ): AsyncStream<C>;
   pipeAsync<A, B, C, D>(
-    op1: AnyToAsyncOperationFunction<T, A>,
+    op1: ToAsyncOperationFunction<T, A>,
     op2: ToAsyncOperationFunction<A, B>,
     op3: ToAsyncOperationFunction<B, C>,
     op4: ToAsyncOperationFunction<C, D>
   ): AsyncStream<D>;
   pipeAsync<A, B, C, D, E>(
-    op1: AnyToAsyncOperationFunction<T, A>,
+    op1: ToAsyncOperationFunction<T, A>,
     op2: ToAsyncOperationFunction<A, B>,
     op3: ToAsyncOperationFunction<B, C>,
     op4: ToAsyncOperationFunction<C, D>,
     op5: ToAsyncOperationFunction<D, E>
   ): AsyncStream<E>;
   pipeAsync<A, B, C, D, E, F>(
-    op1: AnyToAsyncOperationFunction<T, A>,
+    op1: ToAsyncOperationFunction<T, A>,
     op2: ToAsyncOperationFunction<A, B>,
     op3: ToAsyncOperationFunction<B, C>,
     op4: ToAsyncOperationFunction<C, D>,
@@ -143,7 +145,7 @@ export class Stream<T> implements Iterable<T> {
     op6: ToAsyncOperationFunction<E, F>
   ): AsyncStream<F>;
   pipeAsync<A, B, C, D, E, F, G>(
-    op1: AnyToAsyncOperationFunction<T, A>,
+    op1: ToAsyncOperationFunction<T, A>,
     op2: ToAsyncOperationFunction<A, B>,
     op3: ToAsyncOperationFunction<B, C>,
     op4: ToAsyncOperationFunction<C, D>,
@@ -152,7 +154,7 @@ export class Stream<T> implements Iterable<T> {
     op7: ToAsyncOperationFunction<F, G>
   ): AsyncStream<G>;
   pipeAsync<A, B, C, D, E, F, G, H>(
-    op1: AnyToAsyncOperationFunction<T, A>,
+    op1: ToAsyncOperationFunction<T, A>,
     op2: ToAsyncOperationFunction<A, B>,
     op3: ToAsyncOperationFunction<B, C>,
     op4: ToAsyncOperationFunction<C, D>,
@@ -162,7 +164,7 @@ export class Stream<T> implements Iterable<T> {
     op8: ToAsyncOperationFunction<G, H>
   ): AsyncStream<H>;
   pipeAsync<A, B, C, D, E, F, G, H, I>(
-    op1: AnyToAsyncOperationFunction<T, A>,
+    op1: ToAsyncOperationFunction<T, A>,
     op2: ToAsyncOperationFunction<A, B>,
     op3: ToAsyncOperationFunction<B, C>,
     op4: ToAsyncOperationFunction<C, D>,
@@ -173,7 +175,7 @@ export class Stream<T> implements Iterable<T> {
     op9: ToAsyncOperationFunction<H, I>
   ): AsyncStream<H>;
   pipeAsync<A, B, C, D, E, F, G, H, I>(
-    op1: AnyToAsyncOperationFunction<T, A>,
+    op1: ToAsyncOperationFunction<T, A>,
     op2: ToAsyncOperationFunction<A, B>,
     op3: ToAsyncOperationFunction<B, C>,
     op4: ToAsyncOperationFunction<C, D>,
@@ -183,15 +185,13 @@ export class Stream<T> implements Iterable<T> {
     op8: ToAsyncOperationFunction<G, H>,
     op9: ToAsyncOperationFunction<H, I>
   ): AsyncStream<unknown>;
-  pipeAsync(
-    op1: AnyToAsyncOperationFunction<T, T>,
-    ...ops: ToAsyncOperationFunction<T, T>[]
-  ): AsyncStream<T>;
-  pipeAsync(
-    op1: AnyToAsyncOperationFunction<any, any>,
-    ...ops: ToAsyncOperationFunction<any, any>[]
-  ): AsyncStream<any> {
-    let result: AsyncIterable<any> = op1(this.iterable);
+  pipeAsync(...ops: ToAsyncOperationFunction<T, T>[]): AsyncStream<T>;
+  pipeAsync(...ops: ToAsyncOperationFunction<any, any>[]): AsyncStream<any> {
+    if (!ops.length) {
+      return new AsyncStream<any>(this);
+    }
+
+    let result: AsyncIterable<any> = ops[0](this);
     for (let i = 1; i < ops.length; i++) {
       result = ops[i](result);
     }
