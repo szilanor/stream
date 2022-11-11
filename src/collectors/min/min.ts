@@ -1,10 +1,7 @@
 import {CollectorFunction} from '../../types';
-import {reduce} from '../reduce/reduce';
+import {minBy} from '../minBy/minBy';
 
 /** Return the smallest value of all entries in the Iterable */
 export function min(): CollectorFunction<number, number | undefined> {
-  return reduce<number, number | undefined>(
-    (prev, curr) => (prev === undefined || prev > curr ? curr : prev),
-    undefined
-  );
+  return minBy((a, b) => a - b);
 }
