@@ -1,15 +1,15 @@
 import {Stream} from '../../stream';
-import {fromIterator} from '../../utils';
+import {fromIterator, isFunction} from '../../utils';
 
 export class RepeatIterator<T> implements Iterator<T> {
   private index = 0;
 
-  constructor(private value: T, private times: number) {}
+  constructor(private value: T | (() => T), private times: number) {}
 
   next(): IteratorResult<T> {
     this.index++;
     return this.index <= this.times
-      ? {done: false, value: this.value}
+      ? {done: false, value: isFunction(this.value) ? this.value() : this.value}
       : {done: true, value: undefined as unknown};
   }
 }
@@ -19,7 +19,7 @@ export class RepeatIterator<T> implements Iterator<T> {
  * of times, or indefinitely if the 'times' parameter is omitted.
  */
 export function repeat<T>(
-  value: T,
+  value: T | (() => T),
   times: number = Number.POSITIVE_INFINITY
 ): Stream<T> {
   return new Stream<T>(fromIterator(() => new RepeatIterator(value, times)));

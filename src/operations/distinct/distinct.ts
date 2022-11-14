@@ -1,27 +1,29 @@
-import {OperationFunction} from '../../types';
-import {operationFunctionFactory} from '../../utils';
+import {IterableIteratorBase, OperationFunction} from '../../types';
 
-export class DistinctIterator<T> implements Iterator<T> {
+export class DistinctIterator<T> extends IterableIteratorBase<T> {
   private items: Set<T> = new Set<T>();
 
-  constructor(private iterator: Iterator<T>) {}
+  constructor(iterable: Iterable<T>) {
+    super(iterable);
+  }
 
   next(): IteratorResult<T> {
     for (
-      let item = this.iterator.next();
-      !item.done;
-      item = this.iterator.next()
+      let {value, done} = this.iterator.next();
+      !done;
+      {value, done} = this.iterator.next()
     ) {
-      if (!this.items.has(item.value)) {
-        this.items.add(item.value);
-        return {done: item.done, value: item.value};
+      if (!this.items.has(value)) {
+        this.items.add(value);
+        return {done, value};
       }
     }
+    this.items.clear();
     return {done: true, value: undefined as unknown};
   }
 }
 
 /** Returns an Iterable that yields only entries of the source Iterable without duplicates. */
 export function distinct<T>(): OperationFunction<T, T> {
-  return operationFunctionFactory(iterator => new DistinctIterator(iterator));
+  return iterable => new DistinctIterator(iterable);
 }

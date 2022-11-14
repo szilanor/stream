@@ -1,13 +1,12 @@
-import {OperationFunction} from '../../types';
-import {operationFunctionFactory} from '../../utils';
+import {IndexedIterableIteratorBase, OperationFunction} from '../../types';
 
-export class MapIterator<T, O> implements Iterator<O> {
-  private index = 0;
-
+export class MapIterator<T, O> extends IndexedIterableIteratorBase<T, O> {
   constructor(
-    private iterator: Iterator<T>,
+    iterable: Iterable<T>,
     private mapper: (value: T, index: number) => O
-  ) {}
+  ) {
+    super(iterable);
+  }
 
   next(): IteratorResult<O> {
     const {value, done} = this.iterator.next();
@@ -21,5 +20,5 @@ export class MapIterator<T, O> implements Iterator<O> {
 export function map<T, O>(
   func: (value: T, index: number) => O
 ): OperationFunction<T, O> {
-  return operationFunctionFactory(iterator => new MapIterator(iterator, func));
+  return iterable => new MapIterator(iterable, func);
 }

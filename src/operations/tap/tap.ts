@@ -1,7 +1,6 @@
 import {OperationFunction} from '../../types';
-import {operationFunctionFactory} from '../../utils';
 
-export class TapIterator<T> implements Iterator<T> {
+export class TapIterator<T> implements IterableIterator<T> {
   constructor(
     private iterator: Iterator<T>,
     private callback: (item: T) => void
@@ -14,11 +13,13 @@ export class TapIterator<T> implements Iterator<T> {
     }
     return item;
   }
+
+  [Symbol.iterator](): IterableIterator<T> {
+    return this;
+  }
 }
 
 /** Calls a callback function on each entry */
 export function tap<T>(callback: (item: T) => void): OperationFunction<T, T> {
-  return operationFunctionFactory(
-    iterator => new TapIterator(iterator, callback)
-  );
+  return iterable => new TapIterator(iterable[Symbol.iterator](), callback);
 }

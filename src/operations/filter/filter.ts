@@ -1,13 +1,12 @@
-import {OperationFunction} from '../../types';
-import {operationFunctionFactory} from '../../utils';
+import {IndexedIterableIteratorBase, OperationFunction} from '../../types';
 
-export class FilterIterator<T> implements Iterator<T> {
-  private index = 0;
-
+export class FilterIterator<T> extends IndexedIterableIteratorBase<T> {
   constructor(
-    private iterator: Iterator<T>,
+    iterable: Iterable<T>,
     private predicate: (value: T, index: number) => boolean
-  ) {}
+  ) {
+    super(iterable);
+  }
 
   next(): IteratorResult<T> {
     for (
@@ -27,7 +26,5 @@ export class FilterIterator<T> implements Iterator<T> {
 export function filter<T>(
   func: (value: T, index: number) => boolean
 ): OperationFunction<T, T> {
-  return operationFunctionFactory(
-    iterator => new FilterIterator(iterator, func)
-  );
+  return iterable => new FilterIterator(iterable, func);
 }
