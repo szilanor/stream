@@ -7,8 +7,11 @@ export class TakeIterator<T> implements Iterator<T> {
   constructor(private iterator: Iterator<T>, private count: number) {}
 
   next(): IteratorResult<T> {
-    const item = this.iterator.next();
-    return {done: item.done || this.index++ >= this.count, value: item.value};
+    const {done, value} = this.iterator.next();
+    if (done || this.index++ >= this.count) {
+      return {done: true, value: undefined as unknown};
+    }
+    return {done: false, value: value};
   }
 }
 

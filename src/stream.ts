@@ -29,6 +29,12 @@ export class Stream<T> extends AsyncStream<T> implements Iterable<T> {
     return collector(this.iterable);
   }
 
+  forEach(callback: (item: T) => void): void {
+    for (const entry of this.iterable) {
+      callback(entry);
+    }
+  }
+
   /** Calls an operation function on the Iterable then returns the result as a Stream
    *  allowing to chain it with more Stream related methods. */
   pipe<A>(op1: OperationFunction<T, A>): Stream<A>;

@@ -1,6 +1,6 @@
 /* eslint-disable @typescript-eslint/no-explicit-any */
 import {AsyncCollectorFunction, ToAsyncOperationFunction} from './types';
-import {createEmptyAsyncIterable, toAsyncIterable} from './utils';
+import {createEmptyAsyncIterable, isPromise, toAsyncIterable} from './utils';
 
 /** Wrapper class to extend the functionality of an Iterable */
 export class AsyncStream<T> implements AsyncIterable<T> {
@@ -16,9 +16,14 @@ export class AsyncStream<T> implements AsyncIterable<T> {
     return this._asyncIterable;
   }
 
-  constructor(iterable?: Iterable<T> | AsyncIterable<T>) {
+  /** Returns the Iterator of the wrapped Iterable */
+  [Symbol.asyncIterator](): AsyncIterator<T> {
+    return this.asyncIterable[Symbol.asyncIterator]();
+  }
+
+  constructor(iterable?: AsyncIterable<T>) {
     if (iterable) {
-      this.asyncIterable = toAsyncIterable(iterable);
+      this.asyncIterable = iterable;
     }
   }
 
@@ -27,9 +32,15 @@ export class AsyncStream<T> implements AsyncIterable<T> {
     return collector(this.asyncIterable);
   }
 
-  /** Returns the Iterator of the wrapped Iterable */
-  [Symbol.asyncIterator](): AsyncIterator<T> {
-    return this.asyncIterable[Symbol.asyncIterator]();
+  async forEachAsync(
+    callback: (item: T) => void | Promise<void>
+  ): Promise<void> {
+    for await (const entry of this.asyncIterable) {
+      const result = callback(entry);
+      if (isPromise(result)) {
+        await result;
+      }
+    }
   }
 
   /** Calls an operation function on the Iterable then returns the result as a Stream
