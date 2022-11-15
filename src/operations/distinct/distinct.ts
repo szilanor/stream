@@ -15,11 +15,11 @@ export class DistinctIterator<T> extends IterableIteratorBase<T> {
     ) {
       if (!this.items.has(value)) {
         this.items.add(value);
-        return {done, value};
+        return this.valueResult(value);
       }
     }
     this.items.clear();
-    return {done: true, value: undefined as unknown};
+    return this.doneResult();
   }
 }
 

@@ -13,6 +13,14 @@ export abstract class IterableIteratorBase<T, O = T>
   }
 
   abstract next(): IteratorResult<O>;
+
+  protected doneResult(): IteratorResult<O> {
+    return {done: true, value: undefined as unknown};
+  }
+
+  protected valueResult(value: O): IteratorResult<O> {
+    return {done: false, value};
+  }
 }
 
 export abstract class IndexedIterableIteratorBase<

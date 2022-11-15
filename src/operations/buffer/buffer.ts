@@ -21,11 +21,11 @@ export class BufferIterator<T> extends IterableIteratorBase<T, T[]> {
       }
     }
     if (this.bufferArray.length) {
-      const result = {done: false, value: this.bufferArray};
+      const result = this.valueResult(this.bufferArray);
       this.bufferArray = [];
       return result;
     } else {
-      return {done: true, value: undefined as unknown};
+      return this.doneResult();
     }
   }
 }

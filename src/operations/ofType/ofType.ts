@@ -13,15 +13,15 @@ export class OfTypeIterator<T, TOfType extends T> extends IterableIteratorBase<
 
   next(): IteratorResult<TOfType> {
     for (
-      let item = this.iterator.next();
-      !item.done;
-      item = this.iterator.next()
+      let {done, value} = this.iterator.next();
+      !done;
+      {done, value} = this.iterator.next()
     ) {
-      if (this.predicate(item.value)) {
-        return {done: item.done, value: item.value};
+      if (this.predicate(value)) {
+        return this.valueResult(value);
       }
     }
-    return {done: true, value: undefined as unknown};
+    return this.doneResult();
   }
 }
 

@@ -8,9 +8,9 @@ export class TakeIterator<T> extends IndexedIterableIteratorBase<T> {
   next(): IteratorResult<T> {
     const {done, value} = this.iterator.next();
     if (done || this.index++ >= this.count) {
-      return {done: true, value: undefined as unknown};
+      return this.doneResult();
     }
-    return {done: false, value: value};
+    return this.valueResult(value);
   }
 }
 

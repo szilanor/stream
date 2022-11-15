@@ -18,7 +18,7 @@ export class FilterIterator<T> extends IndexedIterableIteratorBase<T> {
         return {done: false, value: item.value};
       }
     }
-    return {done: true, value: undefined as unknown};
+    return this.doneResult();
   }
 }
 

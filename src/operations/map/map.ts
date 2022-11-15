@@ -11,8 +11,8 @@ export class MapIterator<T, O> extends IndexedIterableIteratorBase<T, O> {
   next(): IteratorResult<O> {
     const {value, done} = this.iterator.next();
     return done
-      ? {done, value: undefined as unknown}
-      : {done, value: this.mapper(value, this.index++)};
+      ? this.doneResult()
+      : this.valueResult(this.mapper(value, this.index++));
   }
 }
 

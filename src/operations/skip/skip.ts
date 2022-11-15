@@ -7,15 +7,15 @@ export class SkipIterator<T> extends IndexedIterableIteratorBase<T> {
 
   next(): IteratorResult<T> {
     for (
-      let item = this.iterator.next();
-      !item.done;
-      item = this.iterator.next()
+      let {done, value} = this.iterator.next();
+      !done;
+      {done, value} = this.iterator.next()
     ) {
       if (this.index++ >= this.count) {
-        return {done: false, value: item.value};
+        return this.valueResult(value);
       }
     }
-    return {done: true, value: undefined as unknown};
+    return this.doneResult();
   }
 }
 

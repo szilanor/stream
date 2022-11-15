@@ -23,7 +23,7 @@ export class PairwiseIterator<T> extends IterableIteratorBase<T, [T, T]> {
       }
       this.prev = item.value;
     }
-    return {done: true, value: undefined as unknown};
+    return this.doneResult();
   }
 }
 

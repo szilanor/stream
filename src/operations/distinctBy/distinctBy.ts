@@ -12,24 +12,24 @@ export class DistinctByIterator<T> extends IterableIteratorBase<T> {
 
   next(): IteratorResult<T> {
     for (
-      let item = this.iterator.next();
-      !item.done;
-      item = this.iterator.next()
+      let {value, done} = this.iterator.next();
+      !done;
+      {value, done} = this.iterator.next()
     ) {
       let found = false;
 
       for (const cached of this.items) {
-        found = this.comparer(cached, item.value);
+        found = this.comparer(cached, value);
       }
 
       if (!found) {
-        this.items.push(item.value);
-        return {done: item.done, value: item.value};
+        this.items.push(value);
+        return this.valueResult(value);
       }
     }
 
     this.items = [];
-    return {done: true, value: undefined as unknown};
+    return this.doneResult();
   }
 }
 

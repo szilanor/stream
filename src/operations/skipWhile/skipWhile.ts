@@ -9,14 +9,14 @@ export class SkipWhileIterator<T> extends IterableIteratorBase<T> {
 
   next(): IteratorResult<T> {
     for (
-      let item = this.iterator.next();
-      !item.done;
-      item = this.iterator.next()
+      let {done, value} = this.iterator.next();
+      !done;
+      {done, value} = this.iterator.next()
     ) {
-      if (this.skip && (this.skip = this.predicate(item.value))) continue;
-      return {done: false, value: item.value};
+      if (this.skip && (this.skip = this.predicate(value))) continue;
+      return this.valueResult(value);
     }
-    return {done: true, value: undefined as unknown};
+    return this.doneResult();
   }
 }
 
