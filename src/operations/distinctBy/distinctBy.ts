@@ -1,13 +1,14 @@
-import {OperationFunction} from '../../types';
-import {operationFunctionFactory} from '../../utils';
+import {IterableIteratorBase, OperationFunction} from '../../types';
 
-export class DistinctByIterator<T> implements Iterator<T> {
+export class DistinctByIterator<T> extends IterableIteratorBase<T> {
   private items: Array<T> = new Array<T>();
 
   constructor(
-    private iterator: Iterator<T>,
+    iterable: Iterable<T>,
     private comparer: (a: T, b: T) => boolean = (a, b) => a === b
-  ) {}
+  ) {
+    super(iterable);
+  }
 
   next(): IteratorResult<T> {
     for (
@@ -36,7 +37,5 @@ export class DistinctByIterator<T> implements Iterator<T> {
 export function distinctBy<T>(
   comparer: (a: T, b: T) => boolean = (a, b) => a === b
 ): OperationFunction<T, T> {
-  return operationFunctionFactory(
-    iterator => new DistinctByIterator(iterator, comparer)
-  );
+  return iterable => new DistinctByIterator(iterable, comparer);
 }

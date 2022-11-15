@@ -10,12 +10,7 @@ describe('Creator function: concat()', () => {
   });
 
   test('should return a Stream with the concatenated entries', () => {
-    const res = concat([1], new Set([2]), new Stream([3]));
-
-    const res1 = res.collect(toArray());
-    const res2 = res.collect(toArray());
-
-    expect(res1).toStrictEqual([1, 2, 3]);
-    expect(res1).toStrictEqual(res2);
+    const res = concat([1], new Set([2]), new Stream([3])).collect(toArray());
+    expect(res).toStrictEqual([1, 2, 3]);
   });
 });

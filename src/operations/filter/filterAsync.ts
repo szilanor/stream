@@ -1,16 +1,21 @@
-import {AnyToAsyncOperationFunction} from '../../types';
-import {anyOperationFunctionFactory, isPromise} from '../../utils';
+import {
+  AnyToAsyncIndexedIterableIteratorBase,
+  AnyToAsyncOperationFunction,
+} from '../../types';
+import {isPromise} from '../../utils';
 
-export class FilterAsyncIterator<T> implements AsyncIterator<T> {
-  private index = 0;
-
+export class FilterAsyncIterator<
+  T
+> extends AnyToAsyncIndexedIterableIteratorBase<T> {
   constructor(
-    private iterator: Iterator<T> | AsyncIterator<T>,
+    iterable: Iterable<T> | AsyncIterable<T>,
     private predicate: (
       value: T,
       index: number
     ) => boolean | PromiseLike<boolean>
-  ) {}
+  ) {
+    super(iterable);
+  }
 
   async next(): Promise<IteratorResult<T>> {
     do {
@@ -36,7 +41,5 @@ export class FilterAsyncIterator<T> implements AsyncIterator<T> {
 export function filterAsync<T>(
   func: (value: T, index: number) => boolean | PromiseLike<boolean>
 ): AnyToAsyncOperationFunction<T, T> {
-  return anyOperationFunctionFactory(
-    iterator => new FilterAsyncIterator(iterator, func)
-  );
+  return iterable => new FilterAsyncIterator(iterable, func);
 }

@@ -1,4 +1,10 @@
 /* eslint-disable @typescript-eslint/no-explicit-any */
+export function isNotNull<T>(
+  value: T | null | undefined
+): value is NonNullable<T> {
+  return value !== null && value !== undefined;
+}
+
 export function isFunction(x: unknown): x is Function {
   return typeof x === 'function';
 }
@@ -23,4 +29,16 @@ export function isAsyncIterable<T>(
 
 export function isPromise<T>(x: T | PromiseLike<T>): x is PromiseLike<any> {
   return isFunction((x as any)?.then);
+}
+
+export function isNotNullOrEmpty<T extends {length: number}>(
+  value: T | null | undefined
+): value is NonNullable<T> {
+  return !!value && value.length > 0;
+}
+
+export function isNotNullOrWhitespace(
+  value: string | null | undefined
+): value is NonNullable<string> {
+  return !!value && value.trim().length > 0;
 }

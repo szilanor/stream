@@ -1,10 +1,10 @@
 import {toArrayAsync} from '../../collectors';
-import {AsyncStream} from '../../async-stream';
 import {truthyAsync} from './truthyAsync';
+import {Stream} from '../../stream';
 
 describe('Operation function: truthyAsync()', () => {
   test('should filter 0 as it is not a truthy value', async () => {
-    const res = await new AsyncStream([0, 1, 2])
+    const res = await new Stream([0, 1, 2])
       .pipeAsync(truthyAsync())
       .collectAsync(toArrayAsync());
 
@@ -25,12 +25,9 @@ describe('Operation function: truthyAsync()', () => {
       Infinity,
       -Infinity,
     ];
-    const res = new AsyncStream(truthyEntries).pipeAsync(truthyAsync());
-
-    const res1 = await res.collectAsync(toArrayAsync());
-    const res2 = await res.collectAsync(toArrayAsync());
-
-    expect(res1).toStrictEqual(truthyEntries);
-    expect(res1).toStrictEqual(res2);
+    const res = await new Stream(truthyEntries)
+      .pipeAsync(truthyAsync())
+      .collectAsync(toArrayAsync());
+    expect(res).toStrictEqual(truthyEntries);
   });
 });

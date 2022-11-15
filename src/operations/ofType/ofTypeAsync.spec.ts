@@ -1,6 +1,6 @@
-import {AsyncStream} from '../../async-stream';
 import {toArrayAsync} from '../../collectors';
 import {ofTypeAsync} from './ofTypeAsync';
+import {Stream} from '../../stream';
 
 type A = {type: 'a'};
 type B = {type: 'b'};
@@ -15,12 +15,9 @@ describe('Operation function: ofTypeAsync()', () => {
     const entries: AB[] = [{type: 'a'}, {type: 'b'}, {type: 'a'}];
     const expected: A[] = [{type: 'a'}, {type: 'a'}];
 
-    const res = new AsyncStream(entries).pipeAsync(ofTypeAsync(isA));
-
-    const res1: A[] = await res.collectAsync(toArrayAsync());
-    const res2: A[] = await res.collectAsync(toArrayAsync());
-
-    expect(res1).toStrictEqual(expected);
-    expect(res1).toStrictEqual(res2);
+    const res = await new Stream(entries)
+      .pipeAsync(ofTypeAsync(isA))
+      .collectAsync(toArrayAsync());
+    expect(res).toStrictEqual(expected);
   });
 });

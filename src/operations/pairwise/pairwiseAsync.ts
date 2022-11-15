@@ -1,10 +1,14 @@
-import {AsyncOperationFunction} from '../../types';
-import {asyncOperationFunctionFactory} from '../../utils';
+import {AsyncIterableIteratorBase, AsyncOperationFunction} from '../../types';
 
-export class PairwiseAsyncIterator<T> implements AsyncIterator<[T, T]> {
+export class PairwiseAsyncIterator<T> extends AsyncIterableIteratorBase<
+  T,
+  [T, T]
+> {
   private prev: T | undefined;
 
-  constructor(private iterator: AsyncIterator<T>) {}
+  constructor(iterable: AsyncIterable<T>) {
+    super(iterable);
+  }
 
   async next(): Promise<IteratorResult<[T, T]>> {
     for (
@@ -28,7 +32,5 @@ export class PairwiseAsyncIterator<T> implements AsyncIterator<[T, T]> {
 
 /** Returns an Iterable that yields the current and the previous entry of the source Iterable. */
 export function pairwiseAsync<T>(): AsyncOperationFunction<T, [T, T]> {
-  return asyncOperationFunctionFactory(
-    iterator => new PairwiseAsyncIterator(iterator)
-  );
+  return iterable => new PairwiseAsyncIterator(iterable);
 }

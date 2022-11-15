@@ -21,6 +21,7 @@ export * from './minBy/minBy';
 export * from './reduce/reduce';
 export * from './sum/sum';
 export * from './toArray/toArray';
+export * from './toArray/toArrayAsync';
 export * from './toMap/toMap';
 export * from './toRecord/toRecord';
 export * from './toSet/toSet';

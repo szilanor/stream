@@ -1,12 +1,8 @@
-import {OperationFunction} from '../../types';
+import {IndexedIterableIteratorBase, OperationFunction} from '../../types';
 
-export class SkipIterator<T> implements IterableIterator<T> {
-  private index = 0;
-
-  constructor(private iterator: Iterator<T>, private count: number) {}
-
-  [Symbol.iterator](): IterableIterator<T> {
-    return this;
+export class SkipIterator<T> extends IndexedIterableIteratorBase<T> {
+  constructor(iterable: Iterable<T>, private count: number) {
+    super(iterable);
   }
 
   next(): IteratorResult<T> {
@@ -25,5 +21,5 @@ export class SkipIterator<T> implements IterableIterator<T> {
 
 /** Returns an Iterable skipping the given amount of entries of the source Iterable. */
 export function skip<T>(count: number): OperationFunction<T, T> {
-  return entries => new SkipIterator(entries[Symbol.iterator](), count);
+  return iterable => new SkipIterator(iterable, count);
 }

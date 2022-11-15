@@ -1,14 +1,16 @@
-import {AsyncOperationFunction} from '../../types';
-import {asyncOperationFunctionFactory, isPromise} from '../../utils';
+import {AsyncIterableIteratorBase, AsyncOperationFunction} from '../../types';
+import {isPromise} from '../../utils';
 
-export class DistinctAsyncIterator<T> implements AsyncIterator<T> {
+export class DistinctAsyncIterator<T> extends AsyncIterableIteratorBase<T> {
   private items: Array<T> = new Array<T>();
 
   constructor(
-    private iterator: AsyncIterator<T>,
+    iterable: AsyncIterable<T>,
     private comparer: (a: T, b: T) => boolean | PromiseLike<boolean> = (a, b) =>
       a === b
-  ) {}
+  ) {
+    super(iterable);
+  }
 
   async next(): Promise<IteratorResult<T>> {
     for (
@@ -38,7 +40,5 @@ export class DistinctAsyncIterator<T> implements AsyncIterator<T> {
 export function distinctByAsync<T>(
   comparer: (a: T, b: T) => boolean | PromiseLike<boolean> = (a, b) => a === b
 ): AsyncOperationFunction<T, T> {
-  return asyncOperationFunctionFactory(
-    iterator => new DistinctAsyncIterator(iterator, comparer)
-  );
+  return iterable => new DistinctAsyncIterator(iterable, comparer);
 }

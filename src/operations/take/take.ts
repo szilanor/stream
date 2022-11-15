@@ -1,10 +1,9 @@
-import {OperationFunction} from '../../types';
-import {operationFunctionFactory} from '../../utils';
+import {IndexedIterableIteratorBase, OperationFunction} from '../../types';
 
-export class TakeIterator<T> implements Iterator<T> {
-  private index = 0;
-
-  constructor(private iterator: Iterator<T>, private count: number) {}
+export class TakeIterator<T> extends IndexedIterableIteratorBase<T> {
+  constructor(iterable: Iterable<T>, private count: number) {
+    super(iterable);
+  }
 
   next(): IteratorResult<T> {
     const {done, value} = this.iterator.next();
@@ -17,7 +16,5 @@ export class TakeIterator<T> implements Iterator<T> {
 
 /** Returns an Iterable taking the given amount of entries of the source Iterable. */
 export function take<T>(count: number): OperationFunction<T, T> {
-  return operationFunctionFactory(
-    iterator => new TakeIterator(iterator, count)
-  );
+  return iterable => new TakeIterator(iterable, count);
 }

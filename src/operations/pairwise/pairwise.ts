@@ -1,10 +1,11 @@
-import {OperationFunction} from '../../types';
-import {operationFunctionFactory} from '../../utils';
+import {IterableIteratorBase, OperationFunction} from '../../types';
 
-export class PairwiseIterator<T> implements Iterator<[T, T]> {
+export class PairwiseIterator<T> extends IterableIteratorBase<T, [T, T]> {
   private prev: T | undefined;
 
-  constructor(private iterator: Iterator<T>) {}
+  constructor(iterable: Iterable<T>) {
+    super(iterable);
+  }
 
   next(): IteratorResult<[T, T]> {
     for (
@@ -28,5 +29,5 @@ export class PairwiseIterator<T> implements Iterator<[T, T]> {
 
 /** Returns an Iterable that yields the current and the previous entry of the source Iterable. */
 export function pairwise<T>(): OperationFunction<T, [T, T]> {
-  return operationFunctionFactory(iterator => new PairwiseIterator(iterator));
+  return iterable => new PairwiseIterator(iterable);
 }

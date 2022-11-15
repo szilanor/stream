@@ -1,15 +1,10 @@
-import {OperationFunction} from '../../types';
+import {IterableIteratorBase, OperationFunction} from '../../types';
 
-export class SkipWhileIterator<T> implements IterableIterator<T> {
+export class SkipWhileIterator<T> extends IterableIteratorBase<T> {
   private skip = true;
 
-  constructor(
-    private iterator: Iterator<T>,
-    private predicate: (entry: T) => boolean
-  ) {}
-
-  [Symbol.iterator](): IterableIterator<T> {
-    return this;
+  constructor(iterable: Iterable<T>, private predicate: (entry: T) => boolean) {
+    super(iterable);
   }
 
   next(): IteratorResult<T> {
@@ -29,6 +24,5 @@ export class SkipWhileIterator<T> implements IterableIterator<T> {
 export function skipWhile<T>(
   predicate: (entry: T) => boolean
 ): OperationFunction<T, T> {
-  return entries =>
-    new SkipWhileIterator(entries[Symbol.iterator](), predicate);
+  return iterable => new SkipWhileIterator(iterable, predicate);
 }

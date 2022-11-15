@@ -1,15 +1,12 @@
 import {distinctAsync} from './distinctAsync';
 import {Stream} from '../../stream';
-import {toArrayAsync} from '../../collectors/toArray/toArrayAsync';
+import {toArrayAsync} from '../../collectors';
 
 describe('Operation function: distinctByAsync()', () => {
   test('should filter duplicates', async () => {
-    const res = new Stream([1, 1, 2, 2, 2, 3]).pipeAsync(distinctAsync());
-
-    const res1 = await res.collectAsync(toArrayAsync());
-    const res2 = await res.collectAsync(toArrayAsync());
-
-    expect(res1).toStrictEqual([1, 2, 3]);
-    expect(res1).toStrictEqual(res2);
+    const res = await new Stream([1, 1, 2, 2, 2, 3])
+      .pipeAsync(distinctAsync())
+      .collectAsync(toArrayAsync());
+    expect(res).toStrictEqual([1, 2, 3]);
   });
 });

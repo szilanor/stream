@@ -1,13 +1,8 @@
-import {OperationFunction} from '../../types';
+import {IterableIteratorBase, OperationFunction} from '../../types';
 
-export class TakeWhileIterator<T> implements IterableIterator<T> {
-  constructor(
-    private iterator: Iterator<T>,
-    private predicate: (entry: T) => boolean
-  ) {}
-
-  [Symbol.iterator](): IterableIterator<T> {
-    return this;
+export class TakeWhileIterator<T> extends IterableIteratorBase<T> {
+  constructor(iterable: Iterable<T>, private predicate: (entry: T) => boolean) {
+    super(iterable);
   }
 
   next(): IteratorResult<T> {
@@ -20,6 +15,5 @@ export class TakeWhileIterator<T> implements IterableIterator<T> {
 export function takeWhile<T>(
   predicate: (entry: T) => boolean
 ): OperationFunction<T, T> {
-  return entries =>
-    new TakeWhileIterator(entries[Symbol.iterator](), predicate);
+  return iterable => new TakeWhileIterator(iterable, predicate);
 }

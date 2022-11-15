@@ -1,11 +1,15 @@
-import {OperationFunction} from '../../types';
-import {operationFunctionFactory} from '../../utils';
+import {IterableIteratorBase, OperationFunction} from '../../types';
 
-export class OfTypeIterator<T, TOfType extends T> implements Iterator<TOfType> {
+export class OfTypeIterator<T, TOfType extends T> extends IterableIteratorBase<
+  T,
+  TOfType
+> {
   constructor(
-    private iterator: Iterator<T>,
+    iterable: Iterable<T>,
     private predicate: (item: T) => item is TOfType
-  ) {}
+  ) {
+    super(iterable);
+  }
 
   next(): IteratorResult<TOfType> {
     for (
@@ -25,7 +29,5 @@ export class OfTypeIterator<T, TOfType extends T> implements Iterator<TOfType> {
 export function ofType<T, TOfType extends T>(
   predicate: (item: T) => item is TOfType
 ): OperationFunction<T, TOfType> {
-  return operationFunctionFactory(
-    iterator => new OfTypeIterator(iterator, predicate)
-  );
+  return iterable => new OfTypeIterator(iterable, predicate);
 }

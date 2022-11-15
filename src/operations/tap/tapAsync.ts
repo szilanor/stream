@@ -1,11 +1,16 @@
-import {AnyToAsyncOperationFunction} from '../../types';
-import {anyOperationFunctionFactory, isPromise} from '../../utils';
+import {
+  AnyToAsyncIterableIteratorBase,
+  AnyToAsyncOperationFunction,
+} from '../../types';
+import {isPromise} from '../../utils';
 
-export class TapAsyncIterator<T> implements AsyncIterator<T> {
+export class TapAsyncIterator<T> extends AnyToAsyncIterableIteratorBase<T> {
   constructor(
-    private iterator: Iterator<T> | AsyncIterator<T>,
+    iterable: Iterable<T> | AsyncIterable<T>,
     private callback: (item: T) => void | PromiseLike<void>
-  ) {}
+  ) {
+    super(iterable);
+  }
 
   async next(): Promise<IteratorResult<T>> {
     const item = this.iterator.next();
@@ -24,7 +29,5 @@ export class TapAsyncIterator<T> implements AsyncIterator<T> {
 export function tapAsync<T>(
   callback: (item: T) => void | PromiseLike<void>
 ): AnyToAsyncOperationFunction<T, T> {
-  return anyOperationFunctionFactory(
-    iterator => new TapAsyncIterator(iterator, callback)
-  );
+  return iterable => new TapAsyncIterator(iterable, callback);
 }

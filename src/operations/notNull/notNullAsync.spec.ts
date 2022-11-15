@@ -1,17 +1,12 @@
-import {toArrayAsync} from '../../collectors';
-import {AsyncStream} from '../../async-stream';
 import {notNullAsync} from './notNullAsync';
+import {Stream} from '../../stream';
+import {toArrayAsync} from '../../collectors';
 
 describe('Operation function: notNullAsync()', () => {
   test('should filter null or undefined entries', async () => {
-    const res = new AsyncStream([1, 2, 3, null, undefined]).pipeAsync(
-      notNullAsync()
-    );
-
-    const res1 = await res.collectAsync(toArrayAsync());
-    const res2 = await res.collectAsync(toArrayAsync());
-
-    expect(res1).toStrictEqual([1, 2, 3]);
-    expect(res1).toStrictEqual(res2);
+    const res = await new Stream([1, 2, 3, null, undefined])
+      .pipeAsync(notNullAsync())
+      .collectAsync(toArrayAsync());
+    expect(res).toStrictEqual([1, 2, 3]);
   });
 });

@@ -81,9 +81,13 @@ export function toAsyncIterable<T>(
       };
 }
 
-export class EmptyIterator<T> implements Iterator<T> {
+export class EmptyIterator<T> implements IterableIterator<T> {
   next(): IteratorResult<T> {
     return {done: true, value: undefined as unknown};
+  }
+
+  [Symbol.iterator](): IterableIterator<T> {
+    return this;
   }
 }
 

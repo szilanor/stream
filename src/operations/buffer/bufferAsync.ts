@@ -1,10 +1,11 @@
-import {AsyncOperationFunction} from '../../types';
-import {asyncOperationFunctionFactory} from '../../utils';
+import {AsyncIterableIteratorBase, AsyncOperationFunction} from '../../types';
 
-export class BufferAsyncIterator<T> implements AsyncIterator<T[]> {
+export class BufferAsyncIterator<T> extends AsyncIterableIteratorBase<T, T[]> {
   private bufferArray: T[] = [];
 
-  constructor(private iterator: AsyncIterator<T>, private size: number) {}
+  constructor(iterable: AsyncIterable<T>, private size: number) {
+    super(iterable);
+  }
 
   async next(): Promise<IteratorResult<T[]>> {
     for (
@@ -31,7 +32,5 @@ export class BufferAsyncIterator<T> implements AsyncIterator<T[]> {
 
 /** Returns an Iterable that yields array of entries of the source Iterable with the given length. */
 export function bufferAsync<T>(size: number): AsyncOperationFunction<T, T[]> {
-  return asyncOperationFunctionFactory(
-    iterator => new BufferAsyncIterator(iterator, size)
-  );
+  return iterable => new BufferAsyncIterator(iterable, size);
 }

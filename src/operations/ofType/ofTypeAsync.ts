@@ -1,13 +1,15 @@
-import {AsyncOperationFunction} from '../../types';
-import {asyncOperationFunctionFactory} from '../../utils';
+import {AsyncIterableIteratorBase, AsyncOperationFunction} from '../../types';
 
-export class OfTypeAsyncIterator<T, TOfType extends T>
-  implements AsyncIterator<TOfType>
-{
+export class OfTypeAsyncIterator<
+  T,
+  TOfType extends T
+> extends AsyncIterableIteratorBase<T, TOfType> {
   constructor(
-    private iterator: AsyncIterator<T>,
+    iterable: AsyncIterable<T>,
     private predicate: (item: T) => item is TOfType
-  ) {}
+  ) {
+    super(iterable);
+  }
 
   async next(): Promise<IteratorResult<TOfType>> {
     for (
@@ -27,7 +29,5 @@ export class OfTypeAsyncIterator<T, TOfType extends T>
 export function ofTypeAsync<T, TOfType extends T>(
   predicate: (item: T) => item is TOfType
 ): AsyncOperationFunction<T, TOfType> {
-  return asyncOperationFunctionFactory(
-    iterator => new OfTypeAsyncIterator(iterator, predicate)
-  );
+  return iterable => new OfTypeAsyncIterator(iterable, predicate);
 }
