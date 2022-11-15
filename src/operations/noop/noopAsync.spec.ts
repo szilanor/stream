@@ -1,5 +1,5 @@
 import {toArrayAsync} from '../../collectors';
-import {noopAsync} from './noopAsyc';
+import {noopAsync} from './noopAsync';
 import {Stream} from '../../stream';
 
 describe('Operation function: noopAsync()', () => {

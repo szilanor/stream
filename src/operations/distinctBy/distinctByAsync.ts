@@ -1,7 +1,7 @@
 import {AsyncIterableIteratorBase, AsyncOperationFunction} from '../../types';
 import {isPromise} from '../../utils';
 
-export class DistinctAsyncIterator<T> extends AsyncIterableIteratorBase<T> {
+export class DistinctByAsyncIterator<T> extends AsyncIterableIteratorBase<T> {
   private items: Array<T> = new Array<T>();
 
   constructor(
@@ -40,5 +40,5 @@ export class DistinctAsyncIterator<T> extends AsyncIterableIteratorBase<T> {
 export function distinctByAsync<T>(
   comparer: (a: T, b: T) => boolean | PromiseLike<boolean> = (a, b) => a === b
 ): AsyncOperationFunction<T, T> {
-  return iterable => new DistinctAsyncIterator(iterable, comparer);
+  return iterable => new DistinctByAsyncIterator(iterable, comparer);
 }
