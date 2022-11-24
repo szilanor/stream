@@ -1,7 +1,10 @@
 import {OperationFunction} from '../../types';
-import {FilterIterator} from '../filter/filter';
+import {FilterIterator} from '../filter';
+import {fromIteratorFactory} from '../../utils';
 
 /** Returns an Iterable that yields only entries of the source Iterable with falsy value. */
 export function falsy<T>(): OperationFunction<T, T> {
-  return iterable => new FilterIterator(iterable, value => !value);
+  return fromIteratorFactory(
+    iterator => new FilterIterator(iterator, value => !value)
+  );
 }

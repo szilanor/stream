@@ -1,5 +1,23 @@
 import {getIterator} from '../utils';
 
+export abstract class IteratorBase<T, O = T> implements Iterator<O> {
+  protected constructor(protected iterator: Iterator<T>) {}
+
+  abstract next(): IteratorResult<O>;
+
+  protected doneResult(): IteratorResult<O> {
+    return {done: true, value: undefined as unknown};
+  }
+
+  protected valueResult(value: O): IteratorResult<O> {
+    return {done: false, value};
+  }
+}
+
+export abstract class IndexedIteratorBase<T, O = T> extends IteratorBase<T, O> {
+  protected index = 0;
+}
+
 export abstract class IterableIteratorBase<T, O = T>
   implements IterableIterator<O>
 {

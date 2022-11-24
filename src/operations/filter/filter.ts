@@ -1,21 +1,22 @@
-import {IndexedIterableIteratorBase, OperationFunction} from '../../types';
+import {IndexedIteratorBase, OperationFunction} from '../../types';
+import {fromIteratorFactory} from '../../utils';
 
-export class FilterIterator<T> extends IndexedIterableIteratorBase<T> {
+export class FilterIterator<T> extends IndexedIteratorBase<T> {
   constructor(
-    iterable: Iterable<T>,
+    protected iterator: Iterator<T>,
     private predicate: (value: T, index: number) => boolean
   ) {
-    super(iterable);
+    super(iterator);
   }
 
   next(): IteratorResult<T> {
     for (
-      let item = this.iterator.next();
-      !item.done;
-      item = this.iterator.next()
+      let {done, value} = this.iterator.next();
+      !done;
+      {done, value} = this.iterator.next()
     ) {
-      if (this.predicate(item.value, this.index++)) {
-        return {done: false, value: item.value};
+      if (this.predicate(value, this.index++)) {
+        return this.valueResult(value);
       }
     }
     return this.doneResult();
@@ -26,5 +27,5 @@ export class FilterIterator<T> extends IndexedIterableIteratorBase<T> {
 export function filter<T>(
   func: (value: T, index: number) => boolean
 ): OperationFunction<T, T> {
-  return iterable => new FilterIterator(iterable, func);
+  return fromIteratorFactory(iterator => new FilterIterator(iterator, func));
 }

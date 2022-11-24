@@ -6,6 +6,17 @@ import {
 } from '../types';
 import {isAsyncIterable, isIterable} from './type-guards';
 
+export function fromIteratorFactory<T, O = T>(
+  factory: (iterator: Iterator<T>) => Iterator<O>
+): (iterable: Iterable<T>) => Iterable<O> {
+  return iterable => ({
+    [Symbol.iterator](): Iterator<O> {
+      const iterator = iterable[Symbol.iterator]();
+      return factory(iterator);
+    },
+  });
+}
+
 export function fromIterator<T>(
   iteratorFactory: () => Iterator<T>
 ): Iterable<T> {
