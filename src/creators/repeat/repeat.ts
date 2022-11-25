@@ -26,5 +26,5 @@ export function repeat<T>(
   value: T | (() => T),
   times: number = Number.POSITIVE_INFINITY
 ): Stream<T> {
-  return new Stream<T>(fromIterator(() => new RepeatIterator(value, times)));
+  return new Stream<T>(fromIterator<T>(() => new RepeatIterator(value, times)));
 }

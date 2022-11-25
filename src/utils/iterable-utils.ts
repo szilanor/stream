@@ -19,6 +19,14 @@ export function mapAsyncIterator<T, O = T>(
   return iterable => new AsyncIterableWrapper(iterable, mapper);
 }
 
+export function fromIterator<T>(factory: () => Iterator<T>): Iterable<T> {
+  return {
+    [Symbol.iterator](): Iterator<T> {
+      return factory();
+    },
+  };
+}
+
 export function getIterator<T>(
   iterable: Iterable<T> | AsyncIterable<T>
 ): Iterator<T> | AsyncIterator<T>;

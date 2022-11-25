@@ -14,7 +14,7 @@ Fastest is Reduce
 
 /* eslint-disable @typescript-eslint/no-explicit-any */
 import {Suite} from 'benchmark';
-import {distinct, from, groupBy, groupByRecord, map, filter} from '../src';
+import {distinct, filter, from, groupBy, groupByRecord, map} from '../src';
 
 const input = [
   1, 2, 3, 4, 5, 6, 7, 8, 1, 2, 3, 4, 5, 6, 7, 8, 9, 1, 2, 3, 4, 5, 6, 7, 8, 1,
@@ -49,10 +49,12 @@ suite
         return;
       }
       const key: TOddOrEven = oddOrEvenFunction(value);
-      resultClassicWithMap.set(key, [
-        ...(resultClassicWithMap.get(key) || []),
-        value,
-      ]);
+      const existing = resultClassicWithMap.get(key);
+      if (existing) {
+        existing.push(x);
+      } else {
+        resultClassicWithMap.set(key, [x]);
+      }
     })
   )
   .add('Stream groupBy', () =>
