@@ -1,5 +1,5 @@
 import {IndexedIteratorBase, OperationFunction} from '../../types';
-import {fromIteratorFactory} from '../../utils';
+import {mapIterator} from '../../utils';
 
 export class FilterIterator<T> extends IndexedIteratorBase<T> {
   constructor(
@@ -27,5 +27,5 @@ export class FilterIterator<T> extends IndexedIteratorBase<T> {
 export function filter<T>(
   func: (value: T, index: number) => boolean
 ): OperationFunction<T, T> {
-  return fromIteratorFactory(iterator => new FilterIterator(iterator, func));
+  return mapIterator(iterator => new FilterIterator(iterator, func));
 }

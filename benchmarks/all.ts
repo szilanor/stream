@@ -31,7 +31,7 @@ console.log({input});
 
 const oddOrEvenFunction = (value: number) => value % 2 === 0;
 const mapFunction: (x: number) => number = x => x + 1;
-const filterFunction: (x: number) => boolean = x => x < 10;
+const filterFunction: (x: number) => boolean = x => x < 500;
 
 const suite = new Suite('All');
 suite

@@ -1,5 +1,5 @@
 import {IteratorBase, OperationFunction} from '../../types';
-import {fromIteratorFactory} from '../../utils';
+import {mapIterator} from '../../utils';
 
 export class DistinctIterator<T> extends IteratorBase<T> {
   private items: Set<T> = new Set<T>();
@@ -26,5 +26,5 @@ export class DistinctIterator<T> extends IteratorBase<T> {
 
 /** Returns an Iterable that yields only entries of the source Iterable without duplicates. */
 export function distinct<T>(): OperationFunction<T, T> {
-  return fromIteratorFactory(iterator => new DistinctIterator(iterator));
+  return mapIterator(iterator => new DistinctIterator(iterator));
 }

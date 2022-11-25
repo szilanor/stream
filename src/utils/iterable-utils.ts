@@ -1,75 +1,35 @@
 /* eslint-disable @typescript-eslint/no-explicit-any */
 import {
-  AnyToAsyncOperationFunction,
+  AsyncIterableWrapper,
   AsyncOperationFunction,
+  IterableWrapper,
   OperationFunction,
 } from '../types';
 import {isAsyncIterable, isIterable} from './type-guards';
 
-export function fromIteratorFactory<T, O = T>(
-  factory: (iterator: Iterator<T>) => Iterator<O>
-): (iterable: Iterable<T>) => Iterable<O> {
-  return iterable => ({
-    [Symbol.iterator](): Iterator<O> {
-      const iterator = iterable[Symbol.iterator]();
-      return factory(iterator);
-    },
-  });
+export function mapIterator<T, O = T>(
+  mapper: (iterator: Iterator<T>) => Iterator<O>
+): OperationFunction<T, O> {
+  return iterable => new IterableWrapper(iterable, mapper);
 }
 
-export function fromIterator<T>(
-  iteratorFactory: () => Iterator<T>
-): Iterable<T> {
-  return {
-    [Symbol.iterator](): Iterator<T> {
-      return iteratorFactory();
-    },
-  };
+export function mapAsyncIterator<T, O = T>(
+  mapper: (iterator: AsyncIterator<T>) => AsyncIterator<O>
+): AsyncOperationFunction<T, O> {
+  return iterable => new AsyncIterableWrapper(iterable, mapper);
 }
 
-export function fromAsyncIterator<T>(
-  iteratorFactory: () => AsyncIterator<T>
-): AsyncIterable<T> {
-  return {
-    [Symbol.asyncIterator](): AsyncIterator<T> {
-      return iteratorFactory();
-    },
-  };
-}
-
+export function getIterator<T>(
+  iterable: Iterable<T> | AsyncIterable<T>
+): Iterator<T> | AsyncIterator<T>;
+export function getIterator<T>(iterable: Iterable<T>): Iterator<T>;
+export function getIterator<T>(iterable: AsyncIterable<T>): AsyncIterator<T>;
 export function getIterator<T>(
   iterable: Iterable<T> | AsyncIterable<T>
 ): Iterator<T> | AsyncIterator<T> {
   return isIterable(iterable)
     ? iterable[Symbol.iterator]()
     : iterable[Symbol.asyncIterator]();
-}
-
-export function operationFunctionFactory<T, O = T>(
-  factory: (iterable: Iterator<T>) => Iterator<O>
-): OperationFunction<T, O> {
-  return (iterable: Iterable<T>) =>
-    fromIterator(() => factory(iterable[Symbol.iterator]()));
-}
-
-export function asyncOperationFunctionFactory<T, O = T>(
-  factory: (iterable: AsyncIterator<T>) => AsyncIterator<O>
-): AsyncOperationFunction<T, O> {
-  return (iterable: AsyncIterable<T>) =>
-    fromAsyncIterator(() => factory(iterable[Symbol.asyncIterator]()));
-}
-
-export function anyOperationFunctionFactory<T, O = T>(
-  factory: (iterable: Iterator<T> | AsyncIterator<T>) => AsyncIterator<O>
-): AnyToAsyncOperationFunction<T, O> {
-  return (iterable: Iterable<T> | AsyncIterable<T>) => ({
-    [Symbol.asyncIterator](): AsyncIterator<O> {
-      const iterator = isIterable(iterable)
-        ? iterable[Symbol.iterator]()
-        : iterable[Symbol.asyncIterator]();
-      return factory(iterator);
-    },
-  });
 }
 
 export function toAsyncIterable<T>(
@@ -82,17 +42,14 @@ export function toAsyncIterable<T>(
           const iterator = iterable[Symbol.iterator]();
           return {
             async next(): Promise<IteratorResult<T>> {
-              const {value, done} = iterator.next();
-              return done
-                ? {done, value: undefined as unknown}
-                : {done, value: value};
+              return iterator.next();
             },
           };
         },
       };
 }
 
-export class EmptyIterator<T> implements IterableIterator<T> {
+export class EmptyIterable<T> implements IterableIterator<T> {
   next(): IteratorResult<T> {
     return {done: true, value: undefined as unknown};
   }
@@ -103,15 +60,19 @@ export class EmptyIterator<T> implements IterableIterator<T> {
 }
 
 export function createEmptyIterable<T>(): Iterable<T> {
-  return fromIterator<T>(() => new EmptyIterator());
+  return new EmptyIterable();
 }
 
-export class EmptyAsyncIterator<T> implements AsyncIterator<T> {
+export class EmptyAsyncIterator<T> implements AsyncIterableIterator<T> {
   async next(): Promise<IteratorResult<T>> {
     return {done: true, value: undefined as unknown};
+  }
+
+  [Symbol.asyncIterator](): AsyncIterableIterator<T> {
+    return this;
   }
 }
 
 export function createEmptyAsyncIterable<T>(): AsyncIterable<T> {
-  return fromAsyncIterator<T>(() => new EmptyAsyncIterator());
+  return new EmptyAsyncIterator();
 }
