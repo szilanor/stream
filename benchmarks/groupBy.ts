@@ -14,24 +14,24 @@ Fastest is Reduce
 
 /* eslint-disable @typescript-eslint/no-explicit-any */
 import {Suite} from 'benchmark';
-import {distinct, filter, from, groupBy, groupByRecord, map} from '../src';
+import {
+  distinct,
+  filter,
+  from,
+  groupBy,
+  groupByRecord,
+  map,
+  repeat,
+  toArray,
+} from '../src';
 
-const input = [
-  1, 2, 3, 4, 5, 6, 7, 8, 1, 2, 3, 4, 5, 6, 7, 8, 9, 1, 2, 3, 4, 5, 6, 7, 8, 1,
-  2, 3, 4, 5, 6, 7, 8, 9, 1, 2, 3, 4, 5, 6, 7, 8, 1, 2, 3, 4, 5, 6, 7, 8, 9, 1,
-  1, 2, 3, 4, 5, 6, 7, 8, 1, 2, 3, 4, 5, 6, 7, 8, 9, 1, 2, 3, 4, 5, 6, 7, 8, 1,
-  2, 3, 4, 5, 6, 7, 8, 9, 1, 2, 3, 4, 5, 6, 7, 8, 1, 2, 3, 4, 5, 6, 7, 8, 9, 1,
-];
+const input = repeat(() => Math.round(Math.random() * 1000), 1000).collect(
+  toArray()
+);
 
 type TOddOrEven = 'odd' | 'even';
-type TResultType = Record<TOddOrEven, number[]>;
+type TResultType = Partial<Record<TOddOrEven, number[]>>;
 
-const resultClassic: TResultType = {
-  odd: [],
-  even: [],
-};
-const resultClassicForLoop: TResultType = {odd: [], even: []};
-const resultClassicWithMap = new Map<TOddOrEven, number[]>();
 const oddOrEvenFunction: (value: number) => TOddOrEven = (value: number) =>
   value % 2 === 0 ? 'even' : 'odd';
 const mapFunction: (x: number) => number = x => x + 1;
@@ -42,21 +42,22 @@ suite
   .on('cycle', (event: any) => {
     console.log(String(event.target));
   })
-  .add('Map', () =>
+  .add('Map', () => {
+    const result = new Map<TOddOrEven, number[]>();
     new Set(input).forEach(x => {
       const value = mapFunction(x);
       if (!filterFunction(value)) {
         return;
       }
       const key: TOddOrEven = oddOrEvenFunction(value);
-      const existing = resultClassicWithMap.get(key);
+      const existing = result.get(key);
       if (existing) {
         existing.push(x);
       } else {
-        resultClassicWithMap.set(key, [x]);
+        result.set(key, [x]);
       }
-    })
-  )
+    });
+  })
   .add('Stream groupBy', () =>
     from(input)
       .pipe(distinct(), map(mapFunction), filter(filterFunction))
@@ -67,38 +68,52 @@ suite
       .pipe(distinct(), map(mapFunction), filter(filterFunction))
       .collect(groupByRecord(oddOrEvenFunction))
   )
-  .add('Object', () =>
+  .add('Object', () => {
+    const result: TResultType = {};
     new Set(input).forEach(x => {
       const value = mapFunction(x);
       if (!filterFunction(x)) {
         return;
       }
       const key: TOddOrEven = oddOrEvenFunction(value);
-      // using an object allows us to simply push the result
-      resultClassic[key].push(value);
-    })
-  )
-  .add('Reduce', () =>
+      const existing = result[key];
+      if (existing) {
+        existing.push(x);
+      } else {
+        result[key] = [x];
+      }
+    });
+  })
+  .add('Reduce', () => {
+    const result: TResultType = {};
     Array.from(new Set(input))
       .map(mapFunction)
       .filter(filterFunction)
-      .reduce(
-        (result, number) => {
-          const key: TOddOrEven = oddOrEvenFunction(number);
-          result[key].push(number);
-          return result;
-        },
-        {odd: [], even: []} as Record<TOddOrEven, number[]>
-      )
-  )
+      .reduce((prev, current) => {
+        const key: TOddOrEven = oddOrEvenFunction(current);
+        const existing = result[key];
+        if (existing) {
+          existing.push(current);
+        } else {
+          result[key] = [current];
+        }
+        return prev;
+      }, result);
+  })
   .add('Object with For Loop', () => {
+    const result: TResultType = {};
     for (const number of Array.from(new Set<number>(input))) {
       const value = mapFunction(number);
       if (!filterFunction(value)) {
         continue;
       }
       const key: TOddOrEven = oddOrEvenFunction(value);
-      resultClassicForLoop[key].push(value);
+      const existing = result[key];
+      if (existing) {
+        existing.push(number);
+      } else {
+        result[key] = [number];
+      }
     }
   })
   .on('complete', () => {
