@@ -1,13 +1,19 @@
-import {IndexedIteratorBase, OperationFunction} from '../../types';
-import {mapIterator} from '../../utils';
+import {OperationFunction} from '../../types';
+import {
+  doneResult,
+  monoTypeOperationToPrototypeFunction,
+  valueResult,
+  wrap,
+} from '../../utils';
+import {Stream} from '../../stream';
 
-export class FilterIterator<T> extends IndexedIteratorBase<T> {
+export class FilterIterator<T> implements Iterator<T> {
+  index = 0;
+
   constructor(
     protected iterator: Iterator<T>,
     private predicate: (value: T, index: number) => boolean
-  ) {
-    super(iterator);
-  }
+  ) {}
 
   next(): IteratorResult<T> {
     for (
@@ -16,10 +22,10 @@ export class FilterIterator<T> extends IndexedIteratorBase<T> {
       {done, value} = this.iterator.next()
     ) {
       if (this.predicate(value, this.index++)) {
-        return this.valueResult(value);
+        return valueResult(value);
       }
     }
-    return this.doneResult();
+    return doneResult();
   }
 }
 
@@ -27,5 +33,13 @@ export class FilterIterator<T> extends IndexedIteratorBase<T> {
 export function filter<T>(
   func: (value: T, index: number) => boolean
 ): OperationFunction<T, T> {
-  return mapIterator(iterator => new FilterIterator(iterator, func));
+  return wrap(iterator => new FilterIterator(iterator, func));
 }
+
+declare module '../../stream' {
+  interface Stream<T> {
+    filter(func: (value: T, index: number) => boolean): Stream<T>;
+  }
+}
+
+Stream.prototype.filter = monoTypeOperationToPrototypeFunction(filter);

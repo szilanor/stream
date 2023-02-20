@@ -1,9 +1,9 @@
-import {IndexedIterableIteratorBase, OperationFunction} from '../../types';
+import {OperationFunction} from '../../types';
+import {doneResult, valueResult, wrap} from '../../utils';
 
-export class SkipIterator<T> extends IndexedIterableIteratorBase<T> {
-  constructor(iterable: Iterable<T>, private count: number) {
-    super(iterable);
-  }
+export class SkipIterator<T> implements Iterator<T> {
+  index = 0;
+  constructor(private iterator: Iterator<T>, private count: number) {}
 
   next(): IteratorResult<T> {
     for (
@@ -12,14 +12,14 @@ export class SkipIterator<T> extends IndexedIterableIteratorBase<T> {
       {done, value} = this.iterator.next()
     ) {
       if (this.index++ >= this.count) {
-        return this.valueResult(value);
+        return valueResult(value);
       }
     }
-    return this.doneResult();
+    return doneResult();
   }
 }
 
 /** Returns an Iterable skipping the given amount of entries of the source Iterable. */
 export function skip<T>(count: number): OperationFunction<T, T> {
-  return iterable => new SkipIterator(iterable, count);
+  return wrap(iterator => new SkipIterator(iterator, count));
 }

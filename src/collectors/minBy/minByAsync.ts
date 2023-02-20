@@ -1,5 +1,5 @@
 import {AnyToAsyncCollectorFunction} from '../../types';
-import {reduceAsync} from '../reduce/reduceAsync';
+import {reduceAsync} from '../reduce';
 import {isPromise} from '../../utils';
 
 /** Return the smallest value of all entries in the Iterable based on the comparer function */

@@ -1,13 +1,15 @@
-import {IterableIteratorBase, OperationFunction} from '../../types';
+import {OperationFunction} from '../../types';
+import {wrap} from '../../utils';
 
-export class TakeWhileIterator<T> extends IterableIteratorBase<T> {
-  constructor(iterable: Iterable<T>, private predicate: (entry: T) => boolean) {
-    super(iterable);
-  }
+export class TakeWhileIterator<T> implements Iterator<T> {
+  constructor(
+    private iterator: Iterator<T>,
+    private predicate: (entry: T) => boolean
+  ) {}
 
   next(): IteratorResult<T> {
-    const item = this.iterator.next();
-    return {done: item.done || !this.predicate(item.value), value: item.value};
+    const {done, value} = this.iterator.next();
+    return {done: done || !this.predicate(value), value};
   }
 }
 
@@ -15,5 +17,5 @@ export class TakeWhileIterator<T> extends IterableIteratorBase<T> {
 export function takeWhile<T>(
   predicate: (entry: T) => boolean
 ): OperationFunction<T, T> {
-  return iterable => new TakeWhileIterator(iterable, predicate);
+  return wrap(iterator => new TakeWhileIterator(iterator, predicate));
 }

@@ -6,3 +6,5 @@ import {Stream} from '../../stream';
 export function from<T>(iterable: Iterable<T>): Stream<T> {
   return new Stream(iterable);
 }
+
+export const stream = from;

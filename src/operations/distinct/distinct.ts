@@ -1,12 +1,16 @@
-import {IteratorBase, OperationFunction} from '../../types';
-import {mapIterator} from '../../utils';
+import {OperationFunction} from '../../types';
+import {
+  doneResult,
+  monoTypeOperationToPrototypeFunction,
+  valueResult,
+  wrap,
+} from '../../utils';
+import {Stream} from '../../stream';
 
-export class DistinctIterator<T> extends IteratorBase<T> {
+export class DistinctIterator<T> implements Iterator<T> {
   private items: Set<T> = new Set<T>();
 
-  constructor(protected iterator: Iterator<T>) {
-    super(iterator);
-  }
+  constructor(protected iterator: Iterator<T>) {}
 
   next(): IteratorResult<T> {
     for (
@@ -16,15 +20,23 @@ export class DistinctIterator<T> extends IteratorBase<T> {
     ) {
       if (!this.items.has(value)) {
         this.items.add(value);
-        return this.valueResult(value);
+        return valueResult(value);
       }
     }
     this.items.clear();
-    return this.doneResult();
+    return doneResult();
   }
 }
 
 /** Returns an Iterable that yields only entries of the source Iterable without duplicates. */
 export function distinct<T>(): OperationFunction<T, T> {
-  return mapIterator(iterator => new DistinctIterator(iterator));
+  return wrap(iterator => new DistinctIterator(iterator));
 }
+
+declare module '../../stream' {
+  interface Stream<T> {
+    distinct(): Stream<T>;
+  }
+}
+
+Stream.prototype.distinct = monoTypeOperationToPrototypeFunction(distinct);

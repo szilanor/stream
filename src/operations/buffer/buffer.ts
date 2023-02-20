@@ -1,11 +1,10 @@
-import {IterableIteratorBase, OperationFunction} from '../../types';
+import {OperationFunction} from '../../types';
+import {doneResult, valueResult, wrap} from '../../utils';
 
-export class BufferIterator<T> extends IterableIteratorBase<T, T[]> {
+class BufferIterator<T> implements Iterator<T[]> {
   private bufferArray: T[] = [];
 
-  constructor(iterable: Iterable<T>, private size: number) {
-    super(iterable);
-  }
+  constructor(private iterator: Iterator<T>, private size: number) {}
 
   next(): IteratorResult<T[]> {
     for (
@@ -21,16 +20,16 @@ export class BufferIterator<T> extends IterableIteratorBase<T, T[]> {
       }
     }
     if (this.bufferArray.length) {
-      const result = this.valueResult(this.bufferArray);
+      const result = valueResult(this.bufferArray);
       this.bufferArray = [];
       return result;
     } else {
-      return this.doneResult();
+      return doneResult();
     }
   }
 }
 
 /** Returns an Iterable that yields array of entries of the source Iterable with the given length. */
 export function buffer<T>(size: number): OperationFunction<T, T[]> {
-  return iterable => new BufferIterator(iterable, size);
+  return wrap(iterator => new BufferIterator(iterator, size));
 }

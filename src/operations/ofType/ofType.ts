@@ -1,15 +1,11 @@
-import {IterableIteratorBase, OperationFunction} from '../../types';
+import {OperationFunction} from '../../types';
+import {doneResult, valueResult, wrap} from '../../utils';
 
-export class OfTypeIterator<T, TOfType extends T> extends IterableIteratorBase<
-  T,
-  TOfType
-> {
+export class OfTypeIterator<T, TOfType extends T> implements Iterator<TOfType> {
   constructor(
-    iterable: Iterable<T>,
+    private iterator: Iterator<T>,
     private predicate: (item: T) => item is TOfType
-  ) {
-    super(iterable);
-  }
+  ) {}
 
   next(): IteratorResult<TOfType> {
     for (
@@ -18,10 +14,10 @@ export class OfTypeIterator<T, TOfType extends T> extends IterableIteratorBase<
       {done, value} = this.iterator.next()
     ) {
       if (this.predicate(value)) {
-        return this.valueResult(value);
+        return valueResult(value);
       }
     }
-    return this.doneResult();
+    return doneResult();
   }
 }
 
@@ -29,5 +25,5 @@ export class OfTypeIterator<T, TOfType extends T> extends IterableIteratorBase<
 export function ofType<T, TOfType extends T>(
   predicate: (item: T) => item is TOfType
 ): OperationFunction<T, TOfType> {
-  return iterable => new OfTypeIterator(iterable, predicate);
+  return wrap(iterator => new OfTypeIterator(iterator, predicate));
 }

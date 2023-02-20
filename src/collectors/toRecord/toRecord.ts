@@ -13,3 +13,5 @@ export function toRecord<T, TKey extends string | number | symbol, TValue>(
     return result;
   };
 }
+
+export const toObject = toRecord;

@@ -1,20 +1,22 @@
-import {IterableIteratorBase, OperationFunction} from '../../types';
+import {OperationFunction} from '../../types';
+import {wrap} from '../../utils';
 
-export class TapIterator<T> extends IterableIteratorBase<T> {
-  constructor(iterable: Iterable<T>, private callback: (item: T) => void) {
-    super(iterable);
-  }
+export class TapIterator<T> implements Iterator<T> {
+  constructor(
+    private iterator: Iterator<T>,
+    private callback: (item: T) => void
+  ) {}
 
   next(): IteratorResult<T> {
-    const item = this.iterator.next();
-    if (!item.done) {
-      this.callback(item.value);
+    const result = this.iterator.next();
+    if (!result.done) {
+      this.callback(result.value);
     }
-    return item;
+    return result;
   }
 }
 
 /** Calls a callback function on each entry */
 export function tap<T>(callback: (item: T) => void): OperationFunction<T, T> {
-  return iterable => new TapIterator(iterable, callback);
+  return wrap(iterator => new TapIterator(iterator, callback));
 }

@@ -1,7 +1,23 @@
-import {AnyToAsyncCollectorFunction} from '../../types';
+import {AnyToAsyncCollectorFunction, AsyncCollectorFunction} from '../../types';
 import {getIterator, isPromise} from '../../utils';
 
 /** Executes a reducer function on each entry of the Iterable, resulting in a single output value. */
+export function reduceAsync<T, O>(
+  reducerFunction: (
+    previousValue: O,
+    currentValue: T,
+    currentIndex: number
+  ) => O,
+  initialValue: O
+): AsyncCollectorFunction<T, O>;
+export function reduceAsync<T, O>(
+  reducerFunction: (
+    previousValue: O,
+    currentValue: T,
+    currentIndex: number
+  ) => PromiseLike<O>,
+  initialValue: O
+): AnyToAsyncCollectorFunction<T, O>;
 export function reduceAsync<T, O>(
   reducerFunction: (
     previousValue: O,

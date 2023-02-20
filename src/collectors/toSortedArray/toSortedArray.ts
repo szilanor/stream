@@ -1,5 +1,5 @@
 import {CollectorFunction} from '../../types';
-import {toArray} from '../toArray/toArray';
+import {toArray} from '../toArray';
 
 /** Creates an Array from an Iterable */
 export function toSortedArray<T>(

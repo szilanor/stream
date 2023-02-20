@@ -1,14 +1,10 @@
 import {Stream} from '../../stream';
+import {doneResult, valueResult} from '../../utils';
 
-export class ConcatIterator<T> implements IterableIterator<T> {
-  private readonly iterators: Iterator<T>[] = [];
+class ConcatIterator<T> implements Iterator<T> {
   private index = 0;
 
-  constructor(private iterables: Iterable<T>[]) {
-    this.iterators = this.iterables.map(iterable =>
-      iterable[Symbol.iterator]()
-    );
-  }
+  constructor(private iterators: Iterator<T>[]) {}
 
   next(): IteratorResult<T> {
     while (this.index < this.iterators.length) {
@@ -17,14 +13,20 @@ export class ConcatIterator<T> implements IterableIterator<T> {
       if (done) {
         this.index++;
       } else {
-        return {done: false, value: value};
+        return valueResult(value);
       }
     }
-    return {done: true, value: undefined as unknown};
+    return doneResult();
   }
+}
 
-  [Symbol.iterator](): IterableIterator<T> {
-    return this;
+export class ConcatIterable<T> implements Iterable<T> {
+  constructor(private iterables: Iterable<T>[]) {}
+
+  [Symbol.iterator](): Iterator<T> {
+    return new ConcatIterator(
+      this.iterables.map(iterable => iterable[Symbol.iterator]())
+    );
   }
 }
 
@@ -32,5 +34,5 @@ export class ConcatIterator<T> implements IterableIterator<T> {
  * Returns a Stream that yields elements of all Iterable parameters in order.
  */
 export function concat<T>(...iterables: Iterable<T>[]): Stream<T> {
-  return new Stream<T>(new ConcatIterator(iterables));
+  return new Stream<T>(new ConcatIterable(iterables));
 }

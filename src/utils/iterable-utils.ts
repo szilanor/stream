@@ -7,16 +7,16 @@ import {
 } from '../types';
 import {isAsyncIterable, isIterable} from './type-guards';
 
-export function mapIterator<T, O = T>(
+export function wrap<T, O = T>(
   mapper: (iterator: Iterator<T>) => Iterator<O>
 ): OperationFunction<T, O> {
   return iterable => new IterableWrapper(iterable, mapper);
 }
 
-export function mapAsyncIterator<T, O = T>(
-  mapper: (iterator: AsyncIterator<T>) => AsyncIterator<O>
+export function wrapAsync<T, O = T>(
+  mapper: (asyncIterator: AsyncIterator<T>) => AsyncIterator<O>
 ): AsyncOperationFunction<T, O> {
-  return iterable => new AsyncIterableWrapper(iterable, mapper);
+  return asyncIterator => new AsyncIterableWrapper(asyncIterator, mapper);
 }
 
 export function fromIterator<T>(factory: () => Iterator<T>): Iterable<T> {
@@ -45,21 +45,28 @@ export function toAsyncIterable<T>(
 ): AsyncIterable<T> {
   return isAsyncIterable(iterable)
     ? iterable
-    : {
-        [Symbol.asyncIterator](): AsyncIterator<T> {
-          const iterator = iterable[Symbol.iterator]();
-          return {
-            async next(): Promise<IteratorResult<T>> {
-              return iterator.next();
-            },
-          };
-        },
-      };
+    : new SyncToAsyncIterableWrapper(iterable);
 }
 
-export class EmptyIterable<T> implements IterableIterator<T> {
+class SyncToAsyncIterableWrapper<T> implements AsyncIterable<T> {
+  constructor(private iterable: Iterable<T>) {}
+
+  [Symbol.asyncIterator](): AsyncIterator<T> {
+    return new SyncToAsyncIteratorWrapper(this.iterable[Symbol.iterator]());
+  }
+}
+
+class SyncToAsyncIteratorWrapper<T> implements AsyncIterator<T> {
+  constructor(private iterator: Iterator<T>) {}
+
+  async next(): Promise<IteratorResult<T>> {
+    return this.iterator.next();
+  }
+}
+
+class EmptyIterableIterator<T> implements IterableIterator<T> {
   next(): IteratorResult<T> {
-    return {done: true, value: undefined as unknown};
+    return doneResult();
   }
 
   [Symbol.iterator](): IterableIterator<T> {
@@ -68,12 +75,12 @@ export class EmptyIterable<T> implements IterableIterator<T> {
 }
 
 export function createEmptyIterable<T>(): Iterable<T> {
-  return new EmptyIterable();
+  return new EmptyIterableIterator();
 }
 
-export class EmptyAsyncIterator<T> implements AsyncIterableIterator<T> {
+class EmptyAsyncIterableIterator<T> implements AsyncIterableIterator<T> {
   async next(): Promise<IteratorResult<T>> {
-    return {done: true, value: undefined as unknown};
+    return doneResult();
   }
 
   [Symbol.asyncIterator](): AsyncIterableIterator<T> {
@@ -82,5 +89,13 @@ export class EmptyAsyncIterator<T> implements AsyncIterableIterator<T> {
 }
 
 export function createEmptyAsyncIterable<T>(): AsyncIterable<T> {
-  return new EmptyAsyncIterator();
+  return new EmptyAsyncIterableIterator();
+}
+
+export function doneResult<T>(): IteratorResult<T> {
+  return {done: true, value: undefined as unknown};
+}
+
+export function valueResult<T>(value: T): IteratorResult<T> {
+  return {done: false, value};
 }

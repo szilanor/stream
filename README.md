@@ -19,8 +19,6 @@ const result = [1, 2, 3].filter(x => x % 2 === 0).map(x => x * 2);
 ## Stream API solution
 
 ```typescript
-import {from, filter, map} from '@szilanor/stream';
-
 from([1, 2, 3])
   .pipe(
     filter(x => x % 2 === 0),
@@ -34,28 +32,40 @@ from([1, 2, 3])
 - Can achieve faster results due to sequential processing
 
 ```typescript
-let allEven: boolean;
 const input = [1, 2, 3, 4, 5];
+let allOdd: boolean;
 
-// Classic JS maps all the entries first then returns false
-allEven = input.map(x => x + 1).every(x => x % 2 === 0);
+// Classic JS
+allOdd = input
+    .map(x => x + 1)
+    .every(x => x % 2 === 1);
 
-// vs Stream API maps only the first element then returns false
-allEven = from(input)
+// Output
+// 2
+// 3
+// 4
+// 5
+// 6
+// false
+
+// Stream API
+allOdd = from(input)
   .pipe(map(x => x + 1))
-  .collect(every(x => x % 2 === 0));
+  .collect(every(x => x % 2 === 1));
+
+// Output
+// 2
+// false
 ```
 
 - More readable code
 
 ```typescript
-import {from, distinct, collect} from '@szilanor/stream';
-
-// Filtering duplicates and group them by whether they are even or odd
 const input = [1, 1, 1, 1, 2, 3, 4, 4, 5];
+let oddOrEvenWithoutDuplicates: Map<string, number[]>;
 
 // Classic JS
-const resultClassic: Map<string, number[]> = new Map<string, number[]>();
+oddOrEvenWithoutDuplicates = new Map<string, number[]>();
 Array.from(new Set<number>(input)).forEach(x => {
   const key = x % 2 === 0 ? 'even' : 'odd';
   if (resultClassic.has(key)) {
@@ -66,7 +76,7 @@ Array.from(new Set<number>(input)).forEach(x => {
 });
 
 // Stream API
-const resultStreamApi: Map<string, number[]> = from(input)
+oddOrEvenWithoutDuplicates = from(input)
   .pipe(distinct())
   .collect(groupBy(x => (x % 2 === 0 ? 'even' : 'odd')));
 ```
