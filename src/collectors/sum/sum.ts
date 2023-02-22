@@ -1,5 +1,5 @@
 import {CollectorFunction} from '../../types';
-import {reduce} from '../reduce/reduce';
+import {reduce} from '../reduce';
 
 /** Return the sum of all entries in the Iterable */
 export function sum(): CollectorFunction<number, number | undefined> {

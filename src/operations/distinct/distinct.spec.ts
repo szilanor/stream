@@ -9,9 +9,4 @@ describe('Operation function: distinct()', () => {
       .collect(toArray());
     expect(res).toStrictEqual([1, 2, 3]);
   });
-
-  test('proto should filter duplicates', () => {
-    const res = new Stream([1, 1, 2, 2, 2, 3]).distinct().collect(toArray());
-    expect(res).toStrictEqual([1, 2, 3]);
-  });
 });

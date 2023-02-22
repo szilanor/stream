@@ -1,23 +1,6 @@
-import {AnyToAsyncCollectorFunction, AsyncCollectorFunction} from '../../types';
-import {getIterator, isPromise} from '../../utils';
+import {AnyToAsyncCollectorFunction} from '../../types';
 
 /** Executes a reducer function on each entry of the Iterable, resulting in a single output value. */
-export function reduceAsync<T, O>(
-  reducerFunction: (
-    previousValue: O,
-    currentValue: T,
-    currentIndex: number
-  ) => O,
-  initialValue: O
-): AsyncCollectorFunction<T, O>;
-export function reduceAsync<T, O>(
-  reducerFunction: (
-    previousValue: O,
-    currentValue: T,
-    currentIndex: number
-  ) => PromiseLike<O>,
-  initialValue: O
-): AnyToAsyncCollectorFunction<T, O>;
 export function reduceAsync<T, O>(
   reducerFunction: (
     previousValue: O,
@@ -26,22 +9,11 @@ export function reduceAsync<T, O>(
   ) => O | PromiseLike<O>,
   initialValue: O
 ): AnyToAsyncCollectorFunction<T, O> {
-  return async iterable => {
-    const iterator = getIterator(iterable);
+  return async stream => {
     let prev = initialValue;
     let index = 0;
-
-    // eslint-disable-next-line no-constant-condition
-    while (true) {
-      const nextValue = iterator.next();
-      const {value, done} = isPromise(nextValue) ? await nextValue : nextValue;
-
-      if (done) {
-        break;
-      }
-
-      const result = reducerFunction(prev, value, index++);
-      prev = isPromise(result) ? await result : result;
+    for await (const entry of stream) {
+      prev = await reducerFunction(prev, entry, index++);
     }
     return prev;
   };

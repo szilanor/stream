@@ -1,6 +1,5 @@
-import {Stream} from '../../stream';
 import {forEach} from './forEach';
-import {empty} from '../../creators';
+import {stream} from '../../creators';
 
 describe('Processor function: forEach()', () => {
   test('should call the callback function 0 times for empty Stream', () => {
@@ -10,7 +9,7 @@ describe('Processor function: forEach()', () => {
       return;
     };
 
-    empty().collect(forEach(callback));
+    stream().collect(forEach(callback));
     expect(counter).toBe(0);
   });
 
@@ -19,7 +18,7 @@ describe('Processor function: forEach()', () => {
     const callback = () => counter++;
     const entries = [1];
 
-    new Stream(entries).collect(forEach(callback));
+    stream(entries).collect(forEach(callback));
     expect(counter).toBe(1);
   });
 });

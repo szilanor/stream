@@ -3,7 +3,7 @@ import {empty} from '../../creators';
 import {minByAsync} from './minByAsync';
 
 describe('Processor function: minByAsync()', () => {
-  const comparer = async (a: number, b: number) => a - b;
+  const comparer = (a: number, b: number) => a - b;
 
   test('should return undefined for empty Stream', async () => {
     const res = await empty<number>().collectAsync(minByAsync(comparer));

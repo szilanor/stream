@@ -9,11 +9,4 @@ describe('Operation function: filter()', () => {
       .collect(toArray());
     expect(res).toStrictEqual([2]);
   });
-
-  test('proto should keep entries if the callback function return with true', () => {
-    const res = new Stream([1, 2, 3])
-      .filter(entry => entry % 2 === 0)
-      .toArray();
-    expect(res).toStrictEqual([2]);
-  });
 });

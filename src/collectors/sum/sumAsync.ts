@@ -1,5 +1,5 @@
 import {AsyncCollectorFunction} from '../../types';
-import {reduceAsync} from '../reduce/reduceAsync';
+import {reduceAsync} from '../reduce';
 
 /** Return the sum of all entries in the Iterable */
 export function sumAsync(): AsyncCollectorFunction<number, number | undefined> {

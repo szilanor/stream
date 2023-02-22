@@ -1,10 +1,9 @@
-import {Stream} from '../../stream';
 import {groupByRecord} from './groupByRecord';
-import {empty} from '../../creators';
+import {stream} from '../../creators';
 
 describe('Processor function: groupByRecord()', () => {
   test('should return an empty Map for empty Stream', () => {
-    const res = empty().collect(groupByRecord(() => 'empty'));
+    const res = stream().collect(groupByRecord(() => 'empty'));
     expect(res).toStrictEqual({});
   });
 
@@ -16,7 +15,7 @@ describe('Processor function: groupByRecord()', () => {
     };
     const evenOdd = (entry: number) => (entry % 2 === 0 ? 'even' : 'odd');
 
-    const res = new Stream(entries).collect(groupByRecord(evenOdd));
+    const res = stream(entries).collect(groupByRecord(evenOdd));
     expect(res).toStrictEqual(expected);
   });
 });

@@ -1,5 +1,5 @@
 import {CollectorFunction} from '../../types';
-import {reduce} from '../reduce/reduce';
+import {reduce} from '../reduce';
 
 /** Return the largest value of all entries in the Iterable based on the comparer function */
 export function maxBy<T>(

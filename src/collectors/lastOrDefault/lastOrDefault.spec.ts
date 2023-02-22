@@ -1,6 +1,5 @@
-import {Stream} from '../../stream';
 import {lastOrDefault} from './lastOrDefault';
-import {empty} from '../../creators';
+import {stream} from '../../creators';
 
 describe('Processor function: lastOrDefault()', () => {
   const entries = [1, 2, 3, 4];
@@ -10,28 +9,24 @@ describe('Processor function: lastOrDefault()', () => {
   const defaultValue: number = 5;
 
   test('should return the defaultValue for empty Stream', () => {
-    const res = empty<number>().collect(
+    const res = stream<number>().collect(
       lastOrDefault(defaultValue, () => true)
     );
     expect(res).toBe(defaultValue);
   });
 
   test('should return the last element without the callback', () => {
-    const res = new Stream(entries).collect(lastOrDefault(defaultValue));
+    const res = stream(entries).collect(lastOrDefault(defaultValue));
     expect(res).toBe(4);
   });
 
   test('should return the last even element', () => {
-    const res = new Stream(entries).collect(
-      lastOrDefault(defaultValue, isEven)
-    );
+    const res = stream(entries).collect(lastOrDefault(defaultValue, isEven));
     expect(res).toBe(4);
   });
 
   test('should return the defaultValue if the callback function returns false for every entry', () => {
-    const res = new Stream(onlyOdd).collect(
-      lastOrDefault(defaultValue, isEven)
-    );
+    const res = stream(onlyOdd).collect(lastOrDefault(defaultValue, isEven));
     expect(res).toBe(defaultValue);
   });
 });

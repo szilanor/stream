@@ -1,5 +1,5 @@
 import {CollectorFunction} from '../../types';
-import {reduce} from '../reduce/reduce';
+import {reduce} from '../reduce';
 
 /** Returns a string of all entries in the Iterable joined together seperated a given string. */
 export function join<T>(separator = ','): CollectorFunction<T, string> {
