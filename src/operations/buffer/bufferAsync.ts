@@ -1,36 +1,34 @@
-import {AsyncIterableIteratorBase, AsyncOperationFunction} from '../../types';
+import {AsyncOperationFunction} from '../../types';
+import {doneResult, valueResult, wrapAsync} from '../../utils';
 
-export class BufferAsyncIterator<T> extends AsyncIterableIteratorBase<T, T[]> {
+export class BufferAsyncIterator<T> implements AsyncIterator<T[]> {
   private bufferArray: T[] = [];
 
-  constructor(iterable: AsyncIterable<T>, private size: number) {
-    super(iterable);
-  }
+  constructor(private iterator: AsyncIterator<T>, private size: number) {}
 
   async next(): Promise<IteratorResult<T[]>> {
     for (
-      let item = await this.iterator.next();
-      !item.done;
-      item = await this.iterator.next()
+      let {done, value} = await this.iterator.next();
+      !done;
+      {done, value} = await this.iterator.next()
     ) {
-      this.bufferArray.push(item.value);
+      this.bufferArray.push(value);
       if (this.bufferArray.length === this.size) {
-        const result = {done: item.done, value: this.bufferArray};
+        const result = valueResult(this.bufferArray);
         this.bufferArray = [];
         return result;
       }
     }
     if (this.bufferArray.length) {
-      const result = {done: false, value: this.bufferArray};
+      const result = valueResult(this.bufferArray);
       this.bufferArray = [];
       return result;
-    } else {
-      return {done: true, value: undefined as unknown};
     }
+    return doneResult();
   }
 }
 
 /** Returns an Iterable that yields array of entries of the source Iterable with the given length. */
 export function bufferAsync<T>(size: number): AsyncOperationFunction<T, T[]> {
-  return iterable => new BufferAsyncIterator(iterable, size);
+  return wrapAsync(iterator => new BufferAsyncIterator(iterator, size));
 }

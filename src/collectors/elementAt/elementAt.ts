@@ -4,9 +4,9 @@ import {CollectorFunction} from '../../types';
 export function elementAt<T>(
   index: number
 ): CollectorFunction<T, T | undefined> {
-  return stream => {
+  return source => {
     let i = 0;
-    for (const entry of stream) {
+    for (const entry of source) {
       if (i === index) {
         return entry;
       }

@@ -17,5 +17,5 @@ export function* flatMapGenerator<T, O>(
 export function flatMap<T, O>(
   mapper: (value: T, index: number) => Iterable<O>
 ): OperationFunction<T, O> {
-  return entries => flatMapGenerator(entries, mapper);
+  return source => flatMapGenerator(source, mapper);
 }

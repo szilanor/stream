@@ -1,36 +1,29 @@
-import {AsyncIterableIteratorBase, AsyncOperationFunction} from '../../types';
+import {AsyncOperationFunction} from '../../types';
+import {doneResult, valueResult, wrapAsync} from '../../utils';
 
-export class PairwiseAsyncIterator<T> extends AsyncIterableIteratorBase<
-  T,
-  [T, T]
-> {
+class PairwiseAsyncIterator<T> implements AsyncIterator<[T, T]> {
   private prev: T | undefined;
 
-  constructor(iterable: AsyncIterable<T>) {
-    super(iterable);
-  }
+  constructor(private iterator: AsyncIterator<T>) {}
 
   async next(): Promise<IteratorResult<[T, T]>> {
     for (
-      let item = await this.iterator.next();
-      !item.done;
-      item = await this.iterator.next()
+      let {done, value} = await this.iterator.next();
+      !done;
+      {done, value} = await this.iterator.next()
     ) {
       if (this.prev) {
-        const result: IteratorResult<[T, T]> = {
-          done: false,
-          value: [this.prev, item.value],
-        };
-        this.prev = item.value;
+        const result: IteratorResult<[T, T]> = valueResult([this.prev, value]);
+        this.prev = value;
         return result;
       }
-      this.prev = item.value;
+      this.prev = value;
     }
-    return {done: true, value: undefined as unknown};
+    return doneResult();
   }
 }
 
 /** Returns an Iterable that yields the current and the previous entry of the source Iterable. */
 export function pairwiseAsync<T>(): AsyncOperationFunction<T, [T, T]> {
-  return iterable => new PairwiseAsyncIterator(iterable);
+  return wrapAsync(iterator => new PairwiseAsyncIterator(iterator));
 }

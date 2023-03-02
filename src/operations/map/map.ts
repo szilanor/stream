@@ -1,11 +1,5 @@
 import {OperationFunction} from '../../types';
-import {
-  doneResult,
-  operationToPrototypeFunction,
-  valueResult,
-  wrap,
-} from '../../utils';
-import {Stream} from '../../stream';
+import {doneResult, valueResult, wrap} from '../../utils';
 
 class MapIterator<T, O> implements Iterator<O> {
   index = 0;
@@ -26,11 +20,3 @@ export function map<T, O>(
 ): OperationFunction<T, O> {
   return wrap(iterator => new MapIterator(iterator, mapper));
 }
-
-declare module '../../stream' {
-  interface Stream<T> {
-    map<O>(mapper: (value: T, index: number) => O): Stream<O>;
-  }
-}
-
-Stream.prototype.map = operationToPrototypeFunction(map);

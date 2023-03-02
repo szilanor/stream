@@ -8,13 +8,13 @@ class BufferIterator<T> implements Iterator<T[]> {
 
   next(): IteratorResult<T[]> {
     for (
-      let item = this.iterator.next();
-      !item.done;
-      item = this.iterator.next()
+      let {value, done} = this.iterator.next();
+      !done;
+      {value, done} = this.iterator.next()
     ) {
-      this.bufferArray.push(item.value);
+      this.bufferArray.push(value);
       if (this.bufferArray.length === this.size) {
-        const result = {done: item.done, value: this.bufferArray};
+        const result = valueResult(this.bufferArray);
         this.bufferArray = [];
         return result;
       }
@@ -23,9 +23,8 @@ class BufferIterator<T> implements Iterator<T[]> {
       const result = valueResult(this.bufferArray);
       this.bufferArray = [];
       return result;
-    } else {
-      return doneResult();
     }
+    return doneResult();
   }
 }
 

@@ -1,21 +1,18 @@
 import {OperationFunction} from '../../types';
-import {
-  doneResult,
-  monoTypeOperationToPrototypeFunction,
-  valueResult,
-  wrap,
-} from '../../utils';
-import {Stream} from '../../stream';
+import {doneResult, valueResult, wrap} from '../../utils';
+import {PredicateFunction, TypeGuardFunction} from '../../utils/util-types';
 
-export class FilterIterator<T> implements Iterator<T> {
+export class FilterIterator<T, TOfType extends T = T>
+  implements Iterator<TOfType>
+{
   index = 0;
 
   constructor(
     protected iterator: Iterator<T>,
-    private predicate: (value: T, index: number) => boolean
+    private predicate: PredicateFunction<T> | TypeGuardFunction<T, TOfType>
   ) {}
 
-  next(): IteratorResult<T> {
+  next(): IteratorResult<TOfType> {
     for (
       let {done, value} = this.iterator.next();
       !done;
@@ -30,16 +27,8 @@ export class FilterIterator<T> implements Iterator<T> {
 }
 
 /** Returns an Iterable that yields only entries of the source Iterable that satisfy the function. */
-export function filter<T>(
-  func: (value: T, index: number) => boolean
+export function filter<T, TOfType extends T = T>(
+  predicate: PredicateFunction<T> | TypeGuardFunction<T, TOfType>
 ): OperationFunction<T, T> {
-  return wrap(iterator => new FilterIterator(iterator, func));
+  return wrap(iterator => new FilterIterator(iterator, predicate));
 }
-
-declare module '../../stream' {
-  interface Stream<T> {
-    filter(func: (value: T, index: number) => boolean): Stream<T>;
-  }
-}
-
-Stream.prototype.filter = monoTypeOperationToPrototypeFunction(filter);

@@ -1,33 +1,17 @@
-import {AnyToAsyncCollectorFunction} from '../../types';
-import {getIterator, isPromise} from '../../utils';
+import {AsyncCollectorFunction} from '../../types';
 
 /** Creates a Map from an Iterable */
 export function toRecordAsync<T, TKey extends string | number | symbol, TValue>(
-  keySelector: (entry: T) => TKey | PromiseLike<TKey>,
-  valueSelector: (entry: T) => TValue | PromiseLike<TValue>
-): AnyToAsyncCollectorFunction<T, Record<TKey, TValue>> {
-  return async stream => {
-    const iterator = getIterator(stream);
+  keySelector: (entry: T) => TKey,
+  valueSelector: (entry: T) => TValue
+): AsyncCollectorFunction<T, Record<TKey, TValue>> {
+  return async source => {
     const result = {} as Record<TKey, TValue>;
-
-    // eslint-disable-next-line no-constant-condition
-    while (true) {
-      const nextValue = iterator.next();
-      const {value, done} = isPromise(nextValue) ? await nextValue : nextValue;
-
-      if (done) {
-        break;
-      }
-
-      const keyResult = keySelector(value);
-      const valueResult = valueSelector(value);
-
-      result[isPromise(keyResult) ? await keyResult : keyResult] = isPromise(
-        valueResult
-      )
-        ? await valueResult
-        : valueResult;
+    for await (const entry of source) {
+      result[keySelector(entry)] = valueSelector(entry);
     }
     return result;
   };
 }
+
+export const toObjectAsync = toRecordAsync;

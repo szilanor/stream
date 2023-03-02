@@ -1,21 +1,23 @@
 import {OperationFunction} from '../../types';
 import {wrap} from '../../utils';
+import {PredicateFunction} from '../../utils/util-types';
 
-export class TakeWhileIterator<T> implements Iterator<T> {
+class TakeWhileIterator<T> implements Iterator<T> {
+  index = 0;
   constructor(
     private iterator: Iterator<T>,
-    private predicate: (entry: T) => boolean
+    private predicate: PredicateFunction<T>
   ) {}
 
   next(): IteratorResult<T> {
     const {done, value} = this.iterator.next();
-    return {done: done || !this.predicate(value), value};
+    return {done: done || !this.predicate(value, this.index++), value};
   }
 }
 
 /** Returns an Iterable taking entries of the source Iterable while the parameter function returns true. */
 export function takeWhile<T>(
-  predicate: (entry: T) => boolean
+  predicate: PredicateFunction<T>
 ): OperationFunction<T, T> {
   return wrap(iterator => new TakeWhileIterator(iterator, predicate));
 }

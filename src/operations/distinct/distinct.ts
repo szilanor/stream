@@ -1,11 +1,5 @@
 import {OperationFunction} from '../../types';
-import {
-  doneResult,
-  monoTypeOperationToPrototypeFunction,
-  valueResult,
-  wrap,
-} from '../../utils';
-import {Stream} from '../../stream';
+import {doneResult, valueResult, wrap} from '../../utils';
 
 export class DistinctIterator<T> implements Iterator<T> {
   private items: Set<T> = new Set<T>();
@@ -32,11 +26,3 @@ export class DistinctIterator<T> implements Iterator<T> {
 export function distinct<T>(): OperationFunction<T, T> {
   return wrap(iterator => new DistinctIterator(iterator));
 }
-
-declare module '../../stream' {
-  interface Stream<T> {
-    distinct(): Stream<T>;
-  }
-}
-
-Stream.prototype.distinct = monoTypeOperationToPrototypeFunction(distinct);

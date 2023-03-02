@@ -1,44 +1,43 @@
-import {AsyncIterableIteratorBase, AsyncOperationFunction} from '../../types';
-import {isPromise} from '../../utils';
+import {AsyncOperationFunction} from '../../types';
+import {EqualsFunction} from '../../utils/util-types';
+import {doneResult, valueResult, wrapAsync} from '../../utils';
 
-export class DistinctByAsyncIterator<T> extends AsyncIterableIteratorBase<T> {
+export class DistinctByAsyncIterator<T> implements AsyncIterator<T> {
   private items: Array<T> = new Array<T>();
 
   constructor(
-    iterable: AsyncIterable<T>,
-    private comparer: (a: T, b: T) => boolean | PromiseLike<boolean> = (a, b) =>
-      a === b
-  ) {
-    super(iterable);
-  }
+    private iterator: AsyncIterator<T>,
+    private equalsFunction: EqualsFunction<T> = (a, b) => a === b
+  ) {}
 
   async next(): Promise<IteratorResult<T>> {
     for (
-      let item = await this.iterator.next();
-      !item.done;
-      item = await this.iterator.next()
+      let {value, done} = await this.iterator.next();
+      !done;
+      {value, done} = await this.iterator.next()
     ) {
       let found = false;
 
       for (const cached of this.items) {
-        const compareResult = this.comparer(cached, item.value);
-        found = isPromise(compareResult) ? await compareResult : compareResult;
+        found = this.equalsFunction(cached, value);
       }
 
       if (!found) {
-        this.items.push(item.value);
-        return {done: item.done, value: item.value};
+        this.items.push(value);
+        return valueResult(value);
       }
     }
 
     this.items = [];
-    return {done: true, value: undefined as unknown};
+    return doneResult();
   }
 }
 
 /** Returns an Iterable that yields only entries of the source Iterable without duplicates. */
 export function distinctByAsync<T>(
-  comparer: (a: T, b: T) => boolean | PromiseLike<boolean> = (a, b) => a === b
+  equalsFunction: EqualsFunction<T> = (a, b) => a === b
 ): AsyncOperationFunction<T, T> {
-  return iterable => new DistinctByAsyncIterator(iterable, comparer);
+  return wrapAsync(
+    iterator => new DistinctByAsyncIterator(iterator, equalsFunction)
+  );
 }

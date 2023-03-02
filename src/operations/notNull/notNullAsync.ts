@@ -1,11 +1,17 @@
 import {AsyncOperationFunction} from '../../types';
-import {OfTypeAsyncIterator} from '../ofType/ofTypeAsync';
-import {isNotNull} from '../../utils';
+import {isNotNull, wrapAsync} from '../../utils';
+import {FilterAsyncIterator} from '../filter';
 
 /** Returns an Iterable that yields only the non-null / non-undefined entries of the source Iterable. */
 export function notNullAsync<T>(): AsyncOperationFunction<
   T | undefined | null,
   NonNullable<T>
 > {
-  return iterable => new OfTypeAsyncIterator(iterable, isNotNull);
+  return wrapAsync(
+    source =>
+      new FilterAsyncIterator<T | undefined | null, NonNullable<T>>(
+        source,
+        isNotNull
+      )
+  );
 }

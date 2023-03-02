@@ -1,12 +1,13 @@
 import {AnyToAsyncCollectorFunction} from '../../types';
+import {PredicateFunction} from '../../utils/util-types';
 
 /** Returns the first entry from the Iterable that satisfy then 'predicate' function. */
 export function firstAsync<T>(
-  predicate: (item: T) => boolean | Promise<boolean> = () => true
+  predicate: PredicateFunction<T> = () => true
 ): AnyToAsyncCollectorFunction<T, T | undefined> {
-  return async stream => {
-    for await (const entry of stream) {
-      if (await predicate(entry)) {
+  return async source => {
+    for await (const entry of source) {
+      if (predicate(entry)) {
         return entry;
       }
     }

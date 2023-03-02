@@ -27,11 +27,21 @@ export function fromIterator<T>(factory: () => Iterator<T>): Iterable<T> {
   };
 }
 
+export function fromAsyncIterator<T>(
+  factory: () => AsyncIterator<T>
+): AsyncIterable<T> {
+  return {
+    [Symbol.asyncIterator](): AsyncIterator<T> {
+      return factory();
+    },
+  };
+}
+
+export function getIterator<T>(iterable: Iterable<T>): Iterator<T>;
+export function getIterator<T>(iterable: AsyncIterable<T>): AsyncIterator<T>;
 export function getIterator<T>(
   iterable: Iterable<T> | AsyncIterable<T>
 ): Iterator<T> | AsyncIterator<T>;
-export function getIterator<T>(iterable: Iterable<T>): Iterator<T>;
-export function getIterator<T>(iterable: AsyncIterable<T>): AsyncIterator<T>;
 export function getIterator<T>(
   iterable: Iterable<T> | AsyncIterable<T>
 ): Iterator<T> | AsyncIterator<T> {

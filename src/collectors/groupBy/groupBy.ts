@@ -4,9 +4,9 @@ import {CollectorFunction} from '../../types';
 export function groupBy<T, TKey>(
   keySelector: (entry: T) => TKey
 ): CollectorFunction<T, Map<TKey, T[]>> {
-  return stream => {
+  return source => {
     const result: Map<TKey, T[]> = new Map<TKey, T[]>();
-    for (const entry of stream) {
+    for (const entry of source) {
       const key = keySelector(entry);
       const value = result.get(key);
       if (value) {

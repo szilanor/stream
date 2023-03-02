@@ -4,8 +4,8 @@ import {CollectorFunction} from '../../types';
 export function forEach<T>(
   callback: (item: T) => void
 ): CollectorFunction<T, void> {
-  return stream => {
-    for (const entry of stream) {
+  return source => {
+    for (const entry of source) {
       callback(entry);
     }
   };

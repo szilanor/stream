@@ -1,4 +1,5 @@
 import {AsyncIterableIteratorBase, AsyncOperationFunction} from '../../types';
+import {doneResult, valueResult} from '../../utils';
 
 export class DistinctAsyncIterator<T> extends AsyncIterableIteratorBase<T> {
   private items: Set<T> = new Set<T>();
@@ -9,18 +10,18 @@ export class DistinctAsyncIterator<T> extends AsyncIterableIteratorBase<T> {
 
   async next(): Promise<IteratorResult<T>> {
     for (
-      let item = await this.iterator.next();
-      !item.done;
-      item = await this.iterator.next()
+      let {value, done} = await this.iterator.next();
+      !done;
+      {value, done} = await this.iterator.next()
     ) {
-      if (!this.items.has(item.value)) {
-        this.items.add(item.value);
-        return {done: item.done, value: item.value};
+      if (!this.items.has(value)) {
+        this.items.add(value);
+        return valueResult(value);
       }
     }
 
     this.items.clear();
-    return {done: true, value: undefined as unknown};
+    return doneResult();
   }
 }
 

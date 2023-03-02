@@ -1,13 +1,13 @@
 import {CollectorFunction} from '../../types';
+import {PredicateFunction} from '../../utils/util-types';
 
 /** Returns true if at least one of the entries satisfies the 'predicate' function. */
 export function any<T>(
-  predicate: (item: T, index: number) => boolean = () => true
+  predicate: PredicateFunction<T> = () => true
 ): CollectorFunction<T, boolean> {
-  return stream => {
-    let index = -1;
-    for (const entry of stream) {
-      if (predicate(entry, ++index)) {
+  return source => {
+    for (const entry of source) {
+      if (predicate(entry)) {
         return true;
       }
     }

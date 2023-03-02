@@ -12,7 +12,7 @@ describe('Operation function: distinctByAsync()', () => {
 
   test('should filter duplicates with comparer', async () => {
     const res = await new Stream([{a: 1}, {a: 1}, {a: 2}, {a: 2}, {a: 3}])
-      .pipeAsync(distinctByAsync(async (a, b) => a.a === b.a))
+      .pipeAsync(distinctByAsync((a, b) => a.a === b.a))
       .collectAsync(toArrayAsync());
     expect(res).toStrictEqual([{a: 1}, {a: 2}, {a: 3}]);
   });

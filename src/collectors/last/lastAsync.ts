@@ -1,13 +1,14 @@
-import {AnyToAsyncCollectorFunction} from '../../types';
+import {PredicateFunction} from '../../utils/util-types';
+import {AsyncCollectorFunction} from '../../types';
 
 /** Returns the last entry from the Iterable that satisfy then 'predicate' function. */
 export function lastAsync<T>(
-  predicate: (item: T) => boolean | Promise<boolean> = () => true
-): AnyToAsyncCollectorFunction<T, T | undefined> {
-  return async stream => {
+  predicate: PredicateFunction<T> = () => true
+): AsyncCollectorFunction<T, T | undefined> {
+  return async source => {
     let last = undefined;
-    for await (const entry of stream) {
-      if (await predicate(entry)) {
+    for await (const entry of source) {
+      if (predicate(entry)) {
         last = entry;
       }
     }

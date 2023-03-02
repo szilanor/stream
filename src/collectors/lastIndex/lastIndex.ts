@@ -1,15 +1,16 @@
 import {CollectorFunction} from '../../types';
+import {PredicateFunction} from '../../utils/util-types';
 
 /** Returns the index of the last entry from the Iterable that satisfy then 'predicate' function. */
 export function lastIndex<T>(
-  predicate: (item: T) => boolean = () => true
+  predicate: PredicateFunction<T> = () => true
 ): CollectorFunction<T, number> {
-  return stream => {
+  return source => {
     let index = -1;
     let lastIndex = index;
-    for (const entry of stream) {
+    for (const entry of source) {
       index++;
-      if (predicate(entry)) {
+      if (predicate(entry, index)) {
         lastIndex = index;
       }
     }

@@ -4,8 +4,8 @@ import {AnyToAsyncCollectorFunction} from '../../types';
 export function forEachAsync<T>(
   callback: (item: T) => void | Promise<void>
 ): AnyToAsyncCollectorFunction<T, void> {
-  return async stream => {
-    for await (const entry of stream) {
+  return async source => {
+    for await (const entry of source) {
       await callback(entry);
     }
   };

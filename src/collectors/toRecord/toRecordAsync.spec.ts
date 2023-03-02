@@ -7,7 +7,7 @@ describe('Processor function: toRecordAsync()', () => {
   test('should return an empty record for empty Stream', async () => {
     const res = await empty().collectAsync(
       toRecordAsync(
-        async () => '',
+        () => '',
         () => ''
       )
     );
@@ -18,7 +18,7 @@ describe('Processor function: toRecordAsync()', () => {
     const entries = [1, 2, 3, 4];
     const res = await new Stream(entries).collectAsync(
       toRecordAsync(
-        async entry => entry.toString(),
+        entry => entry.toString(),
         entry => entry
       )
     );

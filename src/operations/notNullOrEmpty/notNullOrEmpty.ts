@@ -1,11 +1,17 @@
 import {OperationFunction} from '../../types';
-import {OfTypeIterator} from '../ofType';
 import {isNotNullOrEmpty, wrap} from '../../utils';
+import {FilterIterator} from '../filter';
 
 /** Returns an Iterable that yields only the non-null / non-undefined / non-empty entries of the source Iterable. */
 export function notNullOrEmpty<T extends {length: number}>(): OperationFunction<
-  T | undefined | null,
+  T | null | undefined,
   NonNullable<T>
 > {
-  return wrap(iterator => new OfTypeIterator(iterator, isNotNullOrEmpty));
+  return wrap(
+    iterator =>
+      new FilterIterator<T | null | undefined, NonNullable<T>>(
+        iterator,
+        isNotNullOrEmpty
+      )
+  );
 }

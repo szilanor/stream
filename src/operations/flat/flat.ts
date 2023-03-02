@@ -1,7 +1,7 @@
 import {OperationFunction} from '../../types';
 
-export function* flatGenerator<T>(iterable: Iterable<T[]>): Iterable<T> {
-  for (const array of iterable) {
+export function* flatGenerator<T>(source: Iterable<T[]>): Iterable<T> {
+  for (const array of source) {
     yield* array;
   }
 }

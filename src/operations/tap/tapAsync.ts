@@ -1,33 +1,26 @@
-import {
-  AnyToAsyncIterableIteratorBase,
-  AnyToAsyncOperationFunction,
-} from '../../types';
-import {isPromise} from '../../utils';
+import {AsyncOperationFunction} from '../../types';
+import {wrapAsync} from '../../utils';
+import {CallbackFunction} from '../../utils/util-types';
 
-export class TapAsyncIterator<T> extends AnyToAsyncIterableIteratorBase<T> {
+export class TapAsyncIterator<T> implements AsyncIterator<T> {
+  index = 0;
   constructor(
-    iterable: Iterable<T> | AsyncIterable<T>,
-    private callback: (item: T) => void | PromiseLike<void>
-  ) {
-    super(iterable);
-  }
+    private iterator: AsyncIterator<T>,
+    private callback: CallbackFunction<T>
+  ) {}
 
   async next(): Promise<IteratorResult<T>> {
-    const item = this.iterator.next();
-    const {value, done} = isPromise(item) ? await item : item;
-    if (!done) {
-      const result = this.callback(value);
-      if (isPromise(result)) {
-        await result;
-      }
+    const result = await this.iterator.next();
+    if (!result.done) {
+      this.callback(result.value, this.index++);
     }
-    return item;
+    return result;
   }
 }
 
 /** Calls a callback function on each entry */
 export function tapAsync<T>(
-  callback: (item: T) => void | PromiseLike<void>
-): AnyToAsyncOperationFunction<T, T> {
-  return iterable => new TapAsyncIterator(iterable, callback);
+  callback: CallbackFunction<T>
+): AsyncOperationFunction<T, T> {
+  return wrapAsync(iterator => new TapAsyncIterator(iterator, callback));
 }

@@ -22,46 +22,6 @@ export class AsyncIterableWrapper<T, O = T> implements AsyncIterable<O> {
   }
 }
 
-export abstract class IteratorBase<T, O = T> implements Iterator<O> {
-  protected constructor(protected iterator: Iterator<T>) {}
-
-  abstract next(): IteratorResult<O>;
-}
-
-export abstract class IndexedIteratorBase<T, O = T> extends IteratorBase<T, O> {
-  protected index = 0;
-}
-
-export abstract class IterableIteratorBase<T, O = T>
-  implements IterableIterator<O>
-{
-  protected iterator: Iterator<T>;
-  protected constructor(protected iterable: Iterable<T>) {
-    this.iterator = this.iterable[Symbol.iterator]();
-  }
-
-  [Symbol.iterator](): IterableIterator<O> {
-    return this;
-  }
-
-  abstract next(): IteratorResult<O>;
-
-  protected doneResult(): IteratorResult<O> {
-    return {done: true, value: undefined as unknown};
-  }
-
-  protected valueResult(value: O): IteratorResult<O> {
-    return {done: false, value};
-  }
-}
-
-export abstract class IndexedIterableIteratorBase<
-  T,
-  O = T
-> extends IterableIteratorBase<T, O> {
-  protected index = 0;
-}
-
 export abstract class AsyncIterableIteratorBase<T, O = T>
   implements AsyncIterableIterator<O>
 {

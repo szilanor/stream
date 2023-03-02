@@ -4,9 +4,9 @@ import {AsyncCollectorFunction} from '../../types';
 export function elementAtAsync<T>(
   index: number
 ): AsyncCollectorFunction<T, T | undefined> {
-  return async stream => {
+  return async source => {
     let i = 0;
-    for await (const entry of stream) {
+    for await (const entry of source) {
       if (i === index) {
         return entry;
       }

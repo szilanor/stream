@@ -1,18 +1,15 @@
 import {CollectorFunction} from '../../types';
+import {ReduceFunction} from '../../utils/util-types';
 
 /** Executes a reducer function on each entry of the Iterable, resulting in a single output value. */
 export function reduce<T, O>(
-  reducerFunction: (
-    previousValue: O,
-    currentValue: T,
-    currentIndex: number
-  ) => O,
+  reducerFunction: ReduceFunction<T, O>,
   initialValue: O
 ): CollectorFunction<T, O> {
-  return stream => {
+  return source => {
     let prev = initialValue;
     let index = 0;
-    for (const entry of stream) {
+    for (const entry of source) {
       prev = reducerFunction(prev, entry, index++);
     }
     return prev;

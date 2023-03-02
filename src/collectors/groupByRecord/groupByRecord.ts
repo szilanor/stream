@@ -4,9 +4,9 @@ import {CollectorFunction} from '../../types';
 export function groupByRecord<T, TKey extends string | number | symbol>(
   keySelector: (entry: T) => TKey
 ): CollectorFunction<T, Record<TKey, T[]>> {
-  return stream => {
+  return source => {
     const result = {} as Record<TKey, T[]>;
-    for (const entry of stream) {
+    for (const entry of source) {
       const key = keySelector(entry);
       const value = result[key];
       if (value) {

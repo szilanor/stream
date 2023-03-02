@@ -1,45 +1,34 @@
-import {
-  AnyToAsyncIndexedIterableIteratorBase,
-  AnyToAsyncOperationFunction,
-} from '../../types';
-import {isPromise} from '../../utils';
+import {AsyncOperationFunction} from '../../types';
+import {doneResult, valueResult, wrapAsync} from '../../utils';
+import {PredicateFunction, TypeGuardFunction} from '../../utils/util-types';
 
-export class FilterAsyncIterator<
-  T
-> extends AnyToAsyncIndexedIterableIteratorBase<T> {
+export class FilterAsyncIterator<T, TOfType extends T = T>
+  implements AsyncIterator<TOfType>
+{
+  index = 0;
+
   constructor(
-    iterable: Iterable<T> | AsyncIterable<T>,
-    private predicate: (
-      value: T,
-      index: number
-    ) => boolean | PromiseLike<boolean>
-  ) {
-    super(iterable);
-  }
+    private iterator: AsyncIterator<T>,
+    private predicate: PredicateFunction<T> | TypeGuardFunction<T, TOfType>
+  ) {}
 
-  async next(): Promise<IteratorResult<T>> {
-    do {
-      const result = this.iterator.next();
-      const {value, done} = isPromise(result) ? await result : result;
-
-      if (done) {
-        return {done: true, value: undefined as unknown};
+  async next(): Promise<IteratorResult<TOfType>> {
+    for (
+      let {done, value} = await this.iterator.next();
+      !done;
+      {done, value} = await this.iterator.next()
+    ) {
+      if (this.predicate(value, this.index++)) {
+        return valueResult(value);
       }
-
-      const predicateResult = this.predicate(value, this.index++);
-      if (
-        isPromise(predicateResult) ? await predicateResult : predicateResult
-      ) {
-        return {done: false, value};
-      }
-      // eslint-disable-next-line no-constant-condition
-    } while (true);
+    }
+    return doneResult();
   }
 }
 
 /** Returns an Iterable that yields only entries of the source Iterable that satisfy the function. */
 export function filterAsync<T>(
-  func: (value: T, index: number) => boolean | PromiseLike<boolean>
-): AnyToAsyncOperationFunction<T, T> {
-  return iterable => new FilterAsyncIterator(iterable, func);
+  predicate: PredicateFunction<T>
+): AsyncOperationFunction<T, T> {
+  return wrapAsync(iterator => new FilterAsyncIterator(iterator, predicate));
 }

@@ -1,14 +1,15 @@
 import {CollectorFunction} from '../../types';
 import {first} from '../first';
 import {isFunction} from '../../utils';
+import {PredicateFunction} from '../../utils/util-types';
 
 /** Returns the first entry from the Iterable that satisfy then 'predicate' function or the 'defaultValue'. */
 export function firstOrDefault<T>(
   defaultValue: T | (() => T),
-  predicate: (item: T) => boolean = () => true
+  predicate: PredicateFunction<T> = () => true
 ): CollectorFunction<T, T> {
-  return stream =>
-    first<T>(predicate)(stream) ??
+  return source =>
+    first<T>(predicate)(source) ??
     (isFunction(defaultValue) ? defaultValue() : defaultValue);
 }
 

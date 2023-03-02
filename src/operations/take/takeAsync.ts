@@ -1,20 +1,20 @@
-import {
-  AsyncIndexedIterableIteratorBase,
-  AsyncOperationFunction,
-} from '../../types';
+import {AsyncOperationFunction} from '../../types';
+import {doneResult, valueResult, wrapAsync} from '../../utils';
 
-export class TakeAsyncIterator<T> extends AsyncIndexedIterableIteratorBase<T> {
-  constructor(iterable: AsyncIterable<T>, private count: number) {
-    super(iterable);
-  }
+export class TakeAsyncIterator<T> implements AsyncIterator<T> {
+  index = 0;
+  constructor(private iterator: AsyncIterator<T>, private count: number) {}
 
   async next(): Promise<IteratorResult<T>> {
-    const item = await this.iterator.next();
-    return {done: item.done || this.index++ >= this.count, value: item.value};
+    const {done, value} = await this.iterator.next();
+    if (done || this.index++ >= this.count) {
+      return doneResult();
+    }
+    return valueResult(value);
   }
 }
 
 /** Returns an Iterable taking the given amount of entries of the source Iterable. */
 export function takeAsync<T>(count: number): AsyncOperationFunction<T, T> {
-  return iterable => new TakeAsyncIterator(iterable, count);
+  return wrapAsync(iterator => new TakeAsyncIterator(iterator, count));
 }

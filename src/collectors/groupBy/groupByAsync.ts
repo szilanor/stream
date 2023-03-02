@@ -4,9 +4,9 @@ import {AsyncCollectorFunction} from '../../types';
 export function groupByAsync<T, TKey>(
   keySelector: (entry: T) => TKey
 ): AsyncCollectorFunction<T, Map<TKey, T[]>> {
-  return async stream => {
+  return async source => {
     const result: Map<TKey, T[]> = new Map<TKey, T[]>();
-    for await (const entry of stream) {
+    for await (const entry of source) {
       const key = keySelector(entry);
       const value = result.get(key);
       if (value) {

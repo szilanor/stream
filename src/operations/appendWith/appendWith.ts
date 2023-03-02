@@ -1,9 +1,9 @@
 import {OperationFunction} from '../../types';
-import {ConcatIterable} from '../../creators';
+import {concat} from '../../creators';
 
 /** Concatenates the Iterable with other Iterables in order */
 export function appendWith<T>(
   ...iterables: Iterable<T>[]
 ): OperationFunction<T, T> {
-  return iterable => new ConcatIterable([...iterables, iterable]);
+  return iterable => concat(...iterables, iterable);
 }

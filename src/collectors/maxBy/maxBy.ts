@@ -1,9 +1,10 @@
 import {CollectorFunction} from '../../types';
 import {reduce} from '../reduce';
+import {CompareFunction} from '../../utils/util-types';
 
 /** Return the largest value of all entries in the Iterable based on the comparer function */
 export function maxBy<T>(
-  comparer: (a: T, b: T) => number
+  comparer: CompareFunction<T>
 ): CollectorFunction<T, T | undefined> {
   return reduce<T, T | undefined>(
     (prev, curr) =>
