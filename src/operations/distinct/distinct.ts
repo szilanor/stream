@@ -1,7 +1,7 @@
 import {OperationFunction} from '../../types';
 import {doneResult, valueResult, wrap} from '../../utils';
 
-export class DistinctIterator<T> implements Iterator<T> {
+class DistinctIterator<T> implements Iterator<T> {
   private items: Set<T> = new Set<T>();
 
   constructor(protected iterator: Iterator<T>) {}

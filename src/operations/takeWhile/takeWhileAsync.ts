@@ -1,6 +1,5 @@
 import {AsyncOperationFunction} from '../../types';
-import {wrapAsync} from '../../utils';
-import {PredicateFunction} from '../../utils/util-types';
+import {PredicateFunction, wrapAsync} from '../../utils';
 
 class TakeWhileAsyncIterator<T> implements AsyncIterator<T> {
   index = 0;

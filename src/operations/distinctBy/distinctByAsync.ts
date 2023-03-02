@@ -1,8 +1,7 @@
 import {AsyncOperationFunction} from '../../types';
-import {EqualsFunction} from '../../utils/util-types';
-import {doneResult, valueResult, wrapAsync} from '../../utils';
+import {doneResult, EqualsFunction, valueResult, wrapAsync} from '../../utils';
 
-export class DistinctByAsyncIterator<T> implements AsyncIterator<T> {
+class DistinctByAsyncIterator<T> implements AsyncIterator<T> {
   private items: Array<T> = new Array<T>();
 
   constructor(

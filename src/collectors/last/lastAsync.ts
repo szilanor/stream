@@ -1,4 +1,4 @@
-import {PredicateFunction} from '../../utils/util-types';
+import {PredicateFunction} from '../../utils';
 import {AsyncCollectorFunction} from '../../types';
 
 /** Returns the last entry from the Iterable that satisfy then 'predicate' function. */

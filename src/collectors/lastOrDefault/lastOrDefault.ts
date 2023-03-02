@@ -1,7 +1,6 @@
 import {CollectorFunction} from '../../types';
 import {last} from '../last';
-import {isFunction} from '../../utils';
-import {PredicateFunction} from '../../utils/util-types';
+import {isFunction, PredicateFunction} from '../../utils';
 
 /** Returns the last entry from the Iterable that satisfy then 'predicate' function. */
 export function lastOrDefault<T>(

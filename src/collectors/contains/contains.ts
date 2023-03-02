@@ -1,5 +1,5 @@
 import {CollectorFunction} from '../../types';
-import {EqualsFunction} from '../../utils/util-types';
+import {EqualsFunction} from '../../utils';
 
 /** Returns if at least one of the entries equals with the given 'value'. */
 export function contains<T>(

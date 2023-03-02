@@ -1,7 +1,7 @@
 import {AsyncIterableIteratorBase, AsyncOperationFunction} from '../../types';
 import {doneResult, valueResult} from '../../utils';
 
-export class DistinctAsyncIterator<T> extends AsyncIterableIteratorBase<T> {
+class DistinctAsyncIterator<T> extends AsyncIterableIteratorBase<T> {
   private items: Set<T> = new Set<T>();
 
   constructor(iterable: AsyncIterable<T>) {

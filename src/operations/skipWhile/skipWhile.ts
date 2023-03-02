@@ -1,6 +1,5 @@
 import {OperationFunction} from '../../types';
-import {doneResult, valueResult, wrap} from '../../utils';
-import {PredicateFunction} from '../../utils/util-types';
+import {doneResult, PredicateFunction, valueResult, wrap} from '../../utils';
 
 export class SkipWhileIterator<T> implements Iterator<T> {
   index = 0;

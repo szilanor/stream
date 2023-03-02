@@ -1,7 +1,7 @@
 import {AsyncOperationFunction} from '../../types';
 import {doneResult, valueResult, wrapAsync} from '../../utils';
 
-export class BufferAsyncIterator<T> implements AsyncIterator<T[]> {
+class BufferAsyncIterator<T> implements AsyncIterator<T[]> {
   private bufferArray: T[] = [];
 
   constructor(private iterator: AsyncIterator<T>, private size: number) {}

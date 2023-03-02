@@ -1,6 +1,11 @@
 import {AsyncOperationFunction} from '../../types';
-import {doneResult, valueResult, wrapAsync} from '../../utils';
-import {PredicateFunction, TypeGuardFunction} from '../../utils/util-types';
+import {
+  doneResult,
+  PredicateFunction,
+  TypeGuardFunction,
+  valueResult,
+  wrapAsync,
+} from '../../utils';
 
 export class FilterAsyncIterator<T, TOfType extends T = T>
   implements AsyncIterator<TOfType>

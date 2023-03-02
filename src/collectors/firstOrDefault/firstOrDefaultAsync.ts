@@ -1,7 +1,6 @@
 import {AnyToAsyncCollectorFunction} from '../../types';
-import {isFunction} from '../../utils';
+import {isFunction, PredicateFunction} from '../../utils';
 import {firstAsync} from '../first';
-import {PredicateFunction} from '../../utils/util-types';
 
 /** Returns the first entry from the Iterable that satisfy then 'predicate' function or the 'defaultValue'. */
 export function firstOrDefaultAsync<T>(

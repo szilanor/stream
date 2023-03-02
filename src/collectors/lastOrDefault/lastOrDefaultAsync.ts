@@ -1,7 +1,6 @@
 import {AsyncCollectorFunction} from '../../types';
-import {isFunction} from '../../utils';
+import {isFunction, PredicateFunction} from '../../utils';
 import {lastAsync} from '../last';
-import {PredicateFunction} from '../../utils/util-types';
 
 /** Returns the last entry from the Iterable that satisfy then 'predicate' function. */
 export function lastOrDefaultAsync<T>(

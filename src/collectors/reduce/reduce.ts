@@ -1,5 +1,5 @@
 import {CollectorFunction} from '../../types';
-import {ReduceFunction} from '../../utils/util-types';
+import {ReduceFunction} from '../../utils';
 
 /** Executes a reducer function on each entry of the Iterable, resulting in a single output value. */
 export function reduce<T, O>(

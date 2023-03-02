@@ -1,5 +1,5 @@
 import {AnyToAsyncCollectorFunction} from '../../types';
-import {PredicateFunction} from '../../utils/util-types';
+import {PredicateFunction} from '../../utils';
 
 /** Returns the index of the first entry from the Iterable that satisfy then 'predicate' function. */
 export function firstIndexAsync<T>(

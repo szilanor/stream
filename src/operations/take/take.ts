@@ -1,7 +1,7 @@
 import {OperationFunction} from '../../types';
 import {doneResult, valueResult, wrap} from '../../utils';
 
-export class TakeIterator<T> implements Iterator<T> {
+class TakeIterator<T> implements Iterator<T> {
   index = 0;
   constructor(private iterator: Iterator<T>, private count: number) {}
 

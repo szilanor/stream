@@ -1,8 +1,7 @@
 import {OperationFunction} from '../../types';
-import {doneResult, valueResult, wrap} from '../../utils';
-import {EqualsFunction} from '../../utils/util-types';
+import {doneResult, EqualsFunction, valueResult, wrap} from '../../utils';
 
-export class DistinctByIterator<T> implements Iterator<T> {
+class DistinctByIterator<T> implements Iterator<T> {
   private items: Array<T> = new Array<T>();
 
   constructor(

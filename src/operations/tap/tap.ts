@@ -1,6 +1,5 @@
 import {OperationFunction} from '../../types';
-import {wrap} from '../../utils';
-import {CallbackFunction} from '../../utils/util-types';
+import {CallbackFunction, wrap} from '../../utils';
 
 export class TapIterator<T> implements Iterator<T> {
   index = 0;

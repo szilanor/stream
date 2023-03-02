@@ -1,6 +1,5 @@
 import {OperationFunction} from '../../types';
-import {wrap} from '../../utils';
-import {PredicateFunction} from '../../utils/util-types';
+import {PredicateFunction, wrap} from '../../utils';
 
 class TakeWhileIterator<T> implements Iterator<T> {
   index = 0;

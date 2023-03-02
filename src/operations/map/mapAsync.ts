@@ -1,6 +1,11 @@
-import {doneResult, valueResult, wrapAsync} from '../../utils';
+import {
+  AsyncMapperFunction,
+  doneResult,
+  MapperFunction,
+  valueResult,
+  wrapAsync,
+} from '../../utils';
 import {AsyncOperationFunction} from '../../types';
-import {AsyncMapperFunction, MapperFunction} from '../../utils/util-types';
 
 class MapAsyncIterator<T, O> implements AsyncIterator<O> {
   index = 0;

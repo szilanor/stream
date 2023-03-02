@@ -1,7 +1,7 @@
 import {AsyncOperationFunction} from '../../types';
 import {doneResult, valueResult, wrapAsync} from '../../utils';
 
-export class TakeAsyncIterator<T> implements AsyncIterator<T> {
+class TakeAsyncIterator<T> implements AsyncIterator<T> {
   index = 0;
   constructor(private iterator: AsyncIterator<T>, private count: number) {}
 

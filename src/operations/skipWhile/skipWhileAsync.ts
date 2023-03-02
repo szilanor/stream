@@ -1,5 +1,9 @@
-import {doneResult, valueResult, wrapAsync} from '../../utils';
-import {PredicateFunction} from '../../utils/util-types';
+import {
+  doneResult,
+  PredicateFunction,
+  valueResult,
+  wrapAsync,
+} from '../../utils';
 import {AsyncOperationFunction} from '../../types';
 
 export class SkipWhileAsyncIterator<T> implements AsyncIterator<T> {

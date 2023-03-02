@@ -1,5 +1,5 @@
 import {CollectorFunction} from '../../types';
-import {PredicateFunction} from '../../utils/util-types';
+import {PredicateFunction} from '../../utils';
 
 /** Returns the last entry from the Iterable that satisfy then 'predicate' function. */
 export function last<T>(

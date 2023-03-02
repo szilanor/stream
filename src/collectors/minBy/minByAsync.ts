@@ -1,6 +1,6 @@
 import {AsyncCollectorFunction} from '../../types';
 import {maxByAsync} from '../maxBy';
-import {CompareFunction} from '../../utils/util-types';
+import {CompareFunction} from '../../utils';
 
 /** Return the smallest value of all entries in the Iterable based on the comparer function */
 export function minByAsync<T>(

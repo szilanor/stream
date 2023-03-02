@@ -1,6 +1,11 @@
 import {OperationFunction} from '../../types';
-import {doneResult, valueResult, wrap} from '../../utils';
-import {PredicateFunction, TypeGuardFunction} from '../../utils/util-types';
+import {
+  doneResult,
+  PredicateFunction,
+  TypeGuardFunction,
+  valueResult,
+  wrap,
+} from '../../utils';
 
 export class FilterIterator<T, TOfType extends T = T>
   implements Iterator<TOfType>

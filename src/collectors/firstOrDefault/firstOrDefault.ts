@@ -1,7 +1,6 @@
 import {CollectorFunction} from '../../types';
 import {first} from '../first';
-import {isFunction} from '../../utils';
-import {PredicateFunction} from '../../utils/util-types';
+import {isFunction, PredicateFunction} from '../../utils';
 
 /** Returns the first entry from the Iterable that satisfy then 'predicate' function or the 'defaultValue'. */
 export function firstOrDefault<T>(

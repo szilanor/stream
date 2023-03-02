@@ -1,5 +1,5 @@
 import {AnyToAsyncCollectorFunction} from '../../types';
-import {AsyncReduceFunction} from '../../utils/util-types';
+import {AsyncReduceFunction} from '../../utils';
 
 /** Executes a reducer function on each entry of the Iterable, resulting in a single output value. */
 export function reduceAsync<T, O>(

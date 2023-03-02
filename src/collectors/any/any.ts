@@ -1,5 +1,5 @@
 import {CollectorFunction} from '../../types';
-import {PredicateFunction} from '../../utils/util-types';
+import {PredicateFunction} from '../../utils';
 
 /** Returns true if at least one of the entries satisfies the 'predicate' function. */
 export function any<T>(
