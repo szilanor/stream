@@ -1,8 +1,8 @@
 import {Configuration, ProgressPlugin} from 'webpack';
-import TerserPlugin from 'terser-webpack-plugin';
 import * as path from 'path';
 import {CleanWebpackPlugin} from 'clean-webpack-plugin';
 import ForkTsCheckerWebpackPlugin from 'fork-ts-checker-webpack-plugin';
+import {EsbuildPlugin} from 'esbuild-loader';
 
 const config: Configuration = {
   mode: 'production',
@@ -18,16 +18,19 @@ const config: Configuration = {
     globalObject: 'this',
   },
   optimization: {
-    minimize: true,
-    minimizer: [new TerserPlugin({extractComments: false})],
+    minimizer: [
+      new EsbuildPlugin({
+        target: 'es2015',
+      }),
+    ],
   },
   module: {
     rules: [
       {
-        test: /\.([mjt])s$/,
-        exclude: /(node_modules|bower_components)/,
-        use: {
-          loader: 'babel-loader',
+        test: /\.[jt]sx?$/,
+        loader: 'esbuild-loader',
+        options: {
+          target: 'es2015',
         },
       },
     ],

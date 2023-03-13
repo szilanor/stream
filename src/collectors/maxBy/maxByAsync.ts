@@ -6,10 +6,9 @@ import {CompareFunction} from '../../utils';
 export function maxByAsync<T>(
   comparer: CompareFunction<T>
 ): AsyncCollectorFunction<T, T | undefined> {
-  return reduceAsync<T, T | undefined>(async (prev, curr) => {
-    if (prev === undefined) {
-      return curr;
-    }
-    return comparer(prev, curr) < 0 ? curr : prev;
-  }, undefined);
+  return reduceAsync<T, T | undefined>(
+    (prev, curr) =>
+      prev === undefined || comparer(prev, curr) < 0 ? curr : prev,
+    () => undefined
+  );
 }

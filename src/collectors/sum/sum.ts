@@ -6,6 +6,6 @@ export function sum(): CollectorFunction<number, number | undefined> {
   return reduce(
     (prev: number | undefined, curr: number) =>
       prev === undefined ? curr : prev + curr,
-    undefined
+    () => undefined
   );
 }

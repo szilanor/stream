@@ -1,12 +1,13 @@
 import {AsyncCollectorFunction} from '../../types';
+import {reduceAsync} from '../reduce';
 
 /** Creates an Array from an Iterable */
 export function toArrayAsync<T>(): AsyncCollectorFunction<T, T[]> {
-  return async source => {
-    const result = [];
-    for await (const entry of source) {
+  return reduceAsync(
+    (result, entry) => {
       result.push(entry);
-    }
-    return result;
-  };
+      return result;
+    },
+    () => [] as T[]
+  );
 }

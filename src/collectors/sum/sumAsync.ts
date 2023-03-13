@@ -6,6 +6,6 @@ export function sumAsync(): AsyncCollectorFunction<number, number | undefined> {
   return reduceAsync(
     (prev: number | undefined, curr: number) =>
       prev === undefined ? curr : prev + curr,
-    undefined
+    () => undefined
   );
 }

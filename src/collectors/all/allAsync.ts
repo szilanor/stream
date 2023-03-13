@@ -6,8 +6,9 @@ export function allAsync<T>(
   predicate: PredicateFunction<T>
 ): AnyToAsyncCollectorFunction<T, boolean> {
   return async source => {
+    let index = 0;
     for await (const entry of source) {
-      if (!predicate(entry)) {
+      if (!predicate(entry, index++)) {
         return false;
       }
     }

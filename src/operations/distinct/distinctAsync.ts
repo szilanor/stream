@@ -1,12 +1,10 @@
-import {AsyncIterableIteratorBase, AsyncOperationFunction} from '../../types';
-import {doneResult, valueResult} from '../../utils';
+import {AsyncOperationFunction} from '../../types';
+import {doneResult, valueResult, wrapAsync} from '../../utils';
 
-class DistinctAsyncIterator<T> extends AsyncIterableIteratorBase<T> {
+class DistinctAsyncIterator<T> implements AsyncIterator<T> {
   private items: Set<T> = new Set<T>();
 
-  constructor(iterable: AsyncIterable<T>) {
-    super(iterable);
-  }
+  constructor(private iterator: AsyncIterator<T>) {}
 
   async next(): Promise<IteratorResult<T>> {
     for (
@@ -27,5 +25,5 @@ class DistinctAsyncIterator<T> extends AsyncIterableIteratorBase<T> {
 
 /** Returns an Iterable that yields only entries of the source Iterable without duplicates. */
 export function distinctAsync<T>(): AsyncOperationFunction<T, T> {
-  return iterable => new DistinctAsyncIterator(iterable);
+  return wrapAsync(iterator => new DistinctAsyncIterator(iterator));
 }

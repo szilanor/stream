@@ -17,11 +17,12 @@ import {Suite} from 'benchmark';
 import {
   distinct,
   filter,
-  from,
   groupBy,
   groupByRecord,
   map,
+  reduce,
   repeat,
+  stream,
   toArray,
 } from '../src';
 
@@ -59,15 +60,32 @@ suite
     });
   })
   .add('Stream groupBy', () =>
-    from(input)
+    stream(input)
       .pipe(distinct(), map(mapFunction), filter(filterFunction))
       .collect(groupBy(oddOrEvenFunction))
   )
   .add('Stream groupByRecord', () =>
-    from(input)
+    stream(input)
       .pipe(distinct(), map(mapFunction), filter(filterFunction))
       .collect(groupByRecord(oddOrEvenFunction))
   )
+  .add('Stream reduce', () => {
+    const result: TResultType = {};
+    stream(input)
+      .pipe(distinct(), map(mapFunction), filter(filterFunction))
+      .collect(
+        reduce((prev, current) => {
+          const key: TOddOrEven = oddOrEvenFunction(current);
+          const existing = result[key];
+          if (existing) {
+            existing.push(current);
+          } else {
+            result[key] = [current];
+          }
+          return prev;
+        }, result)
+      );
+  })
   .add('Object', () => {
     const result: TResultType = {};
     new Set(input).forEach(x => {

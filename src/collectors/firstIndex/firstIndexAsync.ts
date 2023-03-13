@@ -8,7 +8,7 @@ export function firstIndexAsync<T>(
   return async source => {
     let index = 0;
     for await (const entry of source) {
-      if (predicate(entry)) {
+      if (predicate(entry, index)) {
         return index;
       }
       index++;

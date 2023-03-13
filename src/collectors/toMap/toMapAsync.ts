@@ -1,15 +1,13 @@
 import {AsyncCollectorFunction} from '../../types';
+import {reduceAsync} from '../reduce';
 
 /** Creates a Map from an Iterable */
 export function toMapAsync<T, TKey, TValue>(
   keySelector: (entry: T) => TKey,
   valueSelector: (entry: T) => TValue
 ): AsyncCollectorFunction<T, Map<TKey, TValue>> {
-  return async source => {
-    const result: Map<TKey, TValue> = new Map<TKey, TValue>();
-    for await (const entry of source) {
-      result.set(keySelector(entry), valueSelector(entry));
-    }
-    return result;
-  };
+  return reduceAsync(
+    (result, entry) => result.set(keySelector(entry), valueSelector(entry)),
+    () => new Map<TKey, TValue>()
+  );
 }

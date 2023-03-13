@@ -9,6 +9,6 @@ export function maxBy<T>(
   return reduce<T, T | undefined>(
     (prev, curr) =>
       prev === undefined || comparer(prev, curr) < 0 ? curr : prev,
-    undefined
+    () => undefined
   );
 }

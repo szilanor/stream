@@ -3,3 +3,4 @@ export * from './operations';
 export * from './collectors';
 export * from './types';
 export * from './stream';
+export * from './async-stream';

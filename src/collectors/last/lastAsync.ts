@@ -7,8 +7,9 @@ export function lastAsync<T>(
 ): AsyncCollectorFunction<T, T | undefined> {
   return async source => {
     let last = undefined;
+    let index = 0;
     for await (const entry of source) {
-      if (predicate(entry)) {
+      if (predicate(entry, index++)) {
         last = entry;
       }
     }

@@ -10,7 +10,7 @@ export function lastIndexAsync<T>(
     let lastIndex = index;
     for await (const entry of source) {
       index++;
-      if (predicate(entry)) {
+      if (predicate(entry, index)) {
         lastIndex = index;
       }
     }

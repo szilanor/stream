@@ -1,12 +1,10 @@
 import {AsyncCollectorFunction} from '../../types';
+import {reduceAsync} from '../reduce';
 
 /** Creates a Set from an Iterable */
 export function toSetAsync<T>(): AsyncCollectorFunction<T, Set<T>> {
-  return async source => {
-    const result = new Set<T>();
-    for await (const entry of source) {
-      result.add(entry);
-    }
-    return result;
-  };
+  return reduceAsync(
+    (result, entry) => result.add(entry),
+    () => new Set<T>()
+  );
 }

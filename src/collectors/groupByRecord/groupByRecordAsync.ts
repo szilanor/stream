@@ -1,12 +1,12 @@
 import {AsyncCollectorFunction} from '../../types';
+import {reduceAsync} from '../reduce';
 
 /** Creates a group of entries where the group key is calculated by the selector function. */
 export function groupByRecordAsync<T, TKey extends string | number | symbol>(
   keySelector: (entry: T) => TKey
 ): AsyncCollectorFunction<T, Record<TKey, T[]>> {
-  return async source => {
-    const result = {} as Record<TKey, T[]>;
-    for await (const entry of source) {
+  return reduceAsync(
+    (result, entry) => {
       const key = keySelector(entry);
       const value = result[key];
       if (value) {
@@ -14,9 +14,10 @@ export function groupByRecordAsync<T, TKey extends string | number | symbol>(
       } else {
         result[key] = [entry];
       }
-    }
-    return result;
-  };
+      return result;
+    },
+    () => ({} as Record<TKey, T[]>)
+  );
 }
 
 export const groupAsync = groupByRecordAsync;

@@ -1,15 +1,18 @@
 import {AnyToAsyncCollectorFunction} from '../../types';
-import {isFunction, PredicateFunction} from '../../utils';
+import {
+  callValueOrFactory,
+  PredicateFunction,
+  ValueOrFactory,
+} from '../../utils';
 import {firstAsync} from '../first';
 
 /** Returns the first entry from the Iterable that satisfy then 'predicate' function or the 'defaultValue'. */
 export function firstOrDefaultAsync<T>(
-  defaultValue: T | (() => T | Promise<T>),
+  defaultValue: ValueOrFactory<T>,
   predicate: PredicateFunction<T> = () => true
 ): AnyToAsyncCollectorFunction<T, T> {
   return async source =>
-    (await firstAsync(predicate)(source)) ??
-    (isFunction(defaultValue) ? defaultValue() : defaultValue);
+    (await firstAsync(predicate)(source)) ?? callValueOrFactory(defaultValue);
 }
 
 export const findOrDefaultAsync = firstOrDefaultAsync;

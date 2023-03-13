@@ -6,8 +6,9 @@ export function first<T>(
   predicate: PredicateFunction<T> = () => true
 ): CollectorFunction<T, T | undefined> {
   return source => {
+    let index = 0;
     for (const entry of source) {
-      if (predicate(entry)) {
+      if (predicate(entry, index++)) {
         return entry;
       }
     }

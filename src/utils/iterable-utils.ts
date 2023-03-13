@@ -5,7 +5,8 @@ import {
   IterableWrapper,
   OperationFunction,
 } from '../types';
-import {isAsyncIterable, isIterable} from './type-guards';
+import {isAsyncIterable, isFunction, isIterable} from './type-guards';
+import {ValueOrFactory} from './util-types';
 
 export function wrap<T, O = T>(
   mapper: (iterator: Iterator<T>) => Iterator<O>
@@ -108,4 +109,8 @@ export function doneResult<T>(): IteratorResult<T> {
 
 export function valueResult<T>(value: T): IteratorResult<T> {
   return {done: false, value};
+}
+
+export function callValueOrFactory<T>(valueOrFactory: ValueOrFactory<T>) {
+  return isFunction(valueOrFactory) ? valueOrFactory() : valueOrFactory;
 }

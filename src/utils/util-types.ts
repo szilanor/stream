@@ -1,5 +1,7 @@
 export type EqualsFunction<T> = (a: T, b: T) => boolean;
 export type CompareFunction<T> = (a: T, b: T) => number;
+export type MaybeAsyncFunction<T> = () => T | PromiseLike<T>;
+export type MaybeAsyncValue<T> = T | PromiseLike<T>;
 export type ReduceFunction<T, O = T> = (
   previous: O,
   current: T,
@@ -10,12 +12,14 @@ export type AsyncReduceFunction<T, O = T> = (
   previous: O,
   current: T,
   index: number
-) => O | PromiseLike<O>;
+) => MaybeAsyncValue<O>;
 
-export type PredicateFunction<T> = (item: T, index?: number) => boolean;
+export type ValueOrFactory<T> = T | (() => T);
+
+export type PredicateFunction<T> = (item: T, index: number) => boolean;
 export type TypeGuardFunction<T, TOfType extends T> = (
   item: T,
-  index?: number
+  index: number
 ) => item is TOfType;
 
 export type CallbackFunction<T> = (item: T, index: number) => void;

@@ -7,8 +7,9 @@ export function last<T>(
 ): CollectorFunction<T, T | undefined> {
   return source => {
     let last = undefined;
+    let index = 0;
     for (const entry of source) {
-      if (predicate(entry)) {
+      if (predicate(entry, index++)) {
         last = entry;
       }
     }
