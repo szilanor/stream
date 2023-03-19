@@ -1,32 +1,61 @@
 import {lastOrDefault} from './lastOrDefault';
-import {stream} from '../../creators';
+import {runSyncAndAsyncTestCases} from '../../utils/test-utils';
+import {lastOrDefaultAsync} from './lastOrDefaultAsync';
 
-describe('Processor function: lastOrDefault()', () => {
-  const entries = [1, 2, 3, 4];
-  const onlyOdd = [1, 3];
-  const isEven = (entry: number) => entry % 2 === 0;
-  // eslint-disable-next-line @typescript-eslint/no-inferrable-types
-  const defaultValue: number = 5;
+describe('lastOrDefault() and lastOrDefaultAsync()', () => {
+  const defaultPredicateCases = [
+    {
+      input: [],
+      result: 5,
+    },
+    {
+      input: [1, 2, 3, 4],
+      result: 4,
+    },
+  ];
 
-  test('should return the defaultValue for empty Stream', () => {
-    const res = stream<number>().collect(
-      lastOrDefault(defaultValue, () => true)
-    );
-    expect(res).toBe(defaultValue);
-  });
+  runSyncAndAsyncTestCases(
+    lastOrDefault(5),
+    lastOrDefaultAsync(5),
+    defaultPredicateCases
+  );
 
-  test('should return the last element without the callback', () => {
-    const res = stream(entries).collect(lastOrDefault(defaultValue));
-    expect(res).toBe(4);
-  });
+  runSyncAndAsyncTestCases(
+    lastOrDefault(() => 5),
+    lastOrDefaultAsync(() => 5),
+    defaultPredicateCases
+  );
 
-  test('should return the last even element', () => {
-    const res = stream(entries).collect(lastOrDefault(defaultValue, isEven));
-    expect(res).toBe(4);
-  });
+  const withPredicateCases = [
+    {
+      input: [],
+      result: 10,
+    },
+    {
+      input: [1, 2, 3, 4, 5],
+      result: 4,
+    },
+    {
+      input: [1, 3, 5],
+      result: 10,
+    },
+  ];
 
-  test('should return the defaultValue if the callback function returns false for every entry', () => {
-    const res = stream(onlyOdd).collect(lastOrDefault(defaultValue, isEven));
-    expect(res).toBe(defaultValue);
-  });
+  runSyncAndAsyncTestCases(
+    lastOrDefault(10, entry => entry % 2 === 0),
+    lastOrDefaultAsync(10, entry => entry % 2 === 0),
+    withPredicateCases
+  );
+
+  runSyncAndAsyncTestCases(
+    lastOrDefault(
+      () => 10,
+      entry => entry % 2 === 0
+    ),
+    lastOrDefaultAsync(
+      () => 10,
+      entry => entry % 2 === 0
+    ),
+    withPredicateCases
+  );
 });

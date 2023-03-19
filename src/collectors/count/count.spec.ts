@@ -1,26 +1,38 @@
 import {count} from './count';
-import {stream} from '../../creators';
+import {runSyncAndAsyncTestCases} from '../../utils/test-utils';
+import {countAsync} from './countAsync';
 
-describe('Processor function: count()', () => {
-  test('should return 0 for empty Stream', () => {
-    const res = stream().collect(count());
-    expect(res).toBe(0);
-  });
-
-  test('should return proper element count for non-empty Array', () => {
-    const res = stream([1]).collect(count());
-    expect(res).toBe(1);
-  });
-
-  test('should return proper element count for non-empty Set', () => {
-    const set = new Set([1]);
-    const res = stream(set).collect(count());
-    expect(res).toBe(1);
-  });
-
-  test('should return proper element count for non-empty Map', () => {
-    const map = new Map([['a', 1]]);
-    const res = stream(map).collect(count());
-    expect(res).toBe(1);
-  });
+describe('count() and countAsync()', () => {
+  runSyncAndAsyncTestCases(count(), countAsync(), [
+    {
+      input: [],
+      result: 0,
+    },
+    {
+      input: [1],
+      result: 1,
+    },
+    {
+      input: new Set([1]),
+      result: 1,
+    },
+  ]);
+  runSyncAndAsyncTestCases(
+    count(entry => entry % 2 === 0),
+    countAsync(entry => entry % 2 === 0),
+    [
+      {
+        input: [],
+        result: 0,
+      },
+      {
+        input: [1, 2, 3],
+        result: 1,
+      },
+      {
+        input: [1, 3, 5],
+        result: 0,
+      },
+    ]
+  );
 });

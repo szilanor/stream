@@ -1,15 +1,20 @@
 import {toArray} from './toArray';
-import {stream} from '../../creators';
+import {runSyncAndAsyncTestCases} from '../../utils/test-utils';
+import {toArrayAsync} from './toArrayAsync';
 
-describe('Processor function: toArray()', () => {
-  test('should return an empty array for empty Stream', () => {
-    const res = stream().collect(toArray());
-    expect(res).toStrictEqual([]);
-  });
-
-  test('should return an array of the entries', () => {
-    const entries = [1, 1, 1, 1];
-    const res = stream(entries).collect(toArray());
-    expect(res).toStrictEqual(entries);
-  });
+describe('toArray() and toArrayAsync()', () => {
+  runSyncAndAsyncTestCases(toArray(), toArrayAsync(), [
+    {
+      input: [],
+      result: [],
+    },
+    {
+      input: [1, 2, 3, 4],
+      result: [1, 2, 3, 4],
+    },
+    {
+      input: new Set<number>(),
+      result: [],
+    },
+  ]);
 });

@@ -1,12 +1,17 @@
 import {AsyncCollectorFunction} from '../../types';
+import {PredicateFunction} from '../../utils';
 
 /** Returns the number of entries in the Iterable. */
-export function countAsync<T>(): AsyncCollectorFunction<T, number> {
+export function countAsync<T>(
+  predicateFunction: PredicateFunction<T> = () => true
+): AsyncCollectorFunction<T, number> {
   return async source => {
     let counter = 0;
-    // eslint-disable-next-line @typescript-eslint/no-unused-vars
-    for await (const _ of source) {
-      counter++;
+    let index = 0;
+    for await (const entry of source) {
+      if (predicateFunction(entry, index++)) {
+        counter++;
+      }
     }
     return counter;
   };

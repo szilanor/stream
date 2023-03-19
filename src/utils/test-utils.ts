@@ -27,3 +27,18 @@ export function runAsyncTestCases<T, O>(
     });
   });
 }
+
+export function runSyncAndAsyncTestCases<T, O>(
+  collector: CollectorFunction<T, O>,
+  asyncCollector: AsyncCollectorFunction<T, O>,
+  testCases: CollectorTestCase<T, O>[]
+): void {
+  testCases.forEach(({input, result}, index) => {
+    test(`Sync test case ${index}`, () => {
+      expect(collector(input)).toStrictEqual(result);
+    });
+    test(`Async test case ${index}`, async () => {
+      expect(await collector(stream(input))).toStrictEqual(result);
+    });
+  });
+}

@@ -1,15 +1,34 @@
 import {reduce} from './reduce';
-import {stream} from '../../creators';
+import {runSyncAndAsyncTestCases} from '../../utils/test-utils';
+import {reduceAsync} from './reduceAsync';
 
-describe('Processor function: reduce()', () => {
-  test('should return the initial value for empty Stream', () => {
-    const res = stream(Array<number>(0)).collect(reduce((a, b) => a + b, 0));
-    expect(res).toBe(0);
-  });
+describe('reduce() and reduceAsync()', () => {
+  const testCases = [
+    {
+      input: [],
+      result: 0,
+    },
+    {
+      input: [1, 2, 3, 4],
+      result: 10,
+    },
+  ];
 
-  test('should return the sum of the entries', () => {
-    const entries = [1, 2, 3, 4];
-    const res = stream(entries).collect(reduce((a, b) => a + b, 0));
-    expect(res).toBe(10);
-  });
+  runSyncAndAsyncTestCases(
+    reduce((a, b) => a + b, 0),
+    reduceAsync((a, b) => a + b, 0),
+    testCases
+  );
+
+  runSyncAndAsyncTestCases(
+    reduce(
+      (a, b) => a + b,
+      () => 0
+    ),
+    reduceAsync(
+      (a, b) => a + b,
+      () => 0
+    ),
+    testCases
+  );
 });

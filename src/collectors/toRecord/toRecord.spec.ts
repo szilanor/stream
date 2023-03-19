@@ -1,31 +1,35 @@
+import {runSyncAndAsyncTestCases} from '../../utils/test-utils';
 import {toRecord} from './toRecord';
-import {CollectorTestCase, runTestCases} from '../../utils/test-utils';
+import {toRecordAsync} from './toRecordAsync';
 
-export const testCases: CollectorTestCase<number, Record<string, number>>[] = [
-  {
-    input: [1, 1, 1, 1],
-    result: {'1': 1},
-  },
-  {
-    input: [],
-    result: {},
-  },
-  {
-    input: [1, 2, 3, 4],
-    result: {
-      '1': 1,
-      '2': 2,
-      '3': 3,
-      '4': 4,
-    },
-  },
-];
-
-describe('toRecord()', () =>
-  runTestCases(
+describe('toRecord() and toRecordAsync()', () => {
+  runSyncAndAsyncTestCases(
     toRecord(
       entry => entry.toString(),
       entry => entry
     ),
-    ...testCases
-  ));
+    toRecordAsync(
+      entry => entry.toString(),
+      entry => entry
+    ),
+    [
+      {
+        input: [1, 1, 1, 1],
+        result: {'1': 1},
+      },
+      {
+        input: [],
+        result: {},
+      },
+      {
+        input: [1, 2, 3, 4],
+        result: {
+          '1': 1,
+          '2': 2,
+          '3': 3,
+          '4': 4,
+        },
+      },
+    ]
+  );
+});

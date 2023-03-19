@@ -1,15 +1,16 @@
 import {sum} from './sum';
-import {stream} from '../../creators';
+import {runSyncAndAsyncTestCases} from '../../utils/test-utils';
+import {sumAsync} from './sumAsync';
 
-describe('Processor function: sum()', () => {
-  test('should return undefined for empty Stream', () => {
-    const res = stream([]).collect(sum());
-    expect(res).toBe(undefined);
-  });
-
-  test('should return the sum of the entries', () => {
-    const entries = [1, 2, 3, 4];
-    const res = stream(entries).collect(sum());
-    expect(res).toBe(10);
-  });
+describe('sum() and sumAsync()', () => {
+  runSyncAndAsyncTestCases(sum(), sumAsync(), [
+    {
+      input: [],
+      result: undefined,
+    },
+    {
+      input: [1, 2, 3, 4],
+      result: 10,
+    },
+  ]);
 });

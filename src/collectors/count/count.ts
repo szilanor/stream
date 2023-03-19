@@ -1,12 +1,17 @@
 import {CollectorFunction} from '../../types';
+import {PredicateFunction} from '../../utils';
 
 /** Returns the number of entries in the Iterable. */
-export function count<T>(): CollectorFunction<T, number> {
+export function count<T>(
+  predicateFunction: PredicateFunction<T> = () => true
+): CollectorFunction<T, number> {
   return source => {
     let counter = 0;
-    // eslint-disable-next-line @typescript-eslint/no-unused-vars
-    for (const _ of source) {
-      counter++;
+    let index = 0;
+    for (const entry of source) {
+      if (predicateFunction(entry, index++)) {
+        counter++;
+      }
     }
     return counter;
   };

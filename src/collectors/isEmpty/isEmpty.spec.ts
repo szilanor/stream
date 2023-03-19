@@ -1,14 +1,16 @@
 import {isEmpty} from './isEmpty';
-import {stream} from '../../creators';
+import {runSyncAndAsyncTestCases} from '../../utils/test-utils';
+import {isEmptyAsync} from './isEmptyAsync';
 
-describe('Processor function: isEmpty()', () => {
-  test('should return true for empty Stream', () => {
-    const res = stream().collect(isEmpty());
-    expect(res).toBe(true);
-  });
-
-  test('should return false for non-empty Array', () => {
-    const res = stream([1]).collect(isEmpty());
-    expect(res).toBe(false);
-  });
+describe('isEmpty() and isEmptyAsync()', () => {
+  runSyncAndAsyncTestCases(isEmpty(), isEmptyAsync(), [
+    {
+      input: [],
+      result: true,
+    },
+    {
+      input: [1, 2, 3, 4],
+      result: false,
+    },
+  ]);
 });

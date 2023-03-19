@@ -1,15 +1,20 @@
 import {min} from './min';
-import {stream} from '../../creators';
+import {runSyncAndAsyncTestCases} from '../../utils/test-utils';
+import {minAsync} from './minAsync';
 
-describe('Processor function: min()', () => {
-  test('should return undefined for empty Stream', () => {
-    const res = stream<number>().collect(min());
-    expect(res).toBe(undefined);
-  });
-
-  test('should return min value of the entries', () => {
-    const entries = [1, 2, 3, 4];
-    const res = stream(entries).collect(min());
-    expect(res).toBe(1);
-  });
+describe('min and minAsync', () => {
+  runSyncAndAsyncTestCases(min, minAsync, [
+    {
+      input: [],
+      result: undefined,
+    },
+    {
+      input: [1, 2, 3, 4],
+      result: 1,
+    },
+    {
+      input: [1, 2, 13, 4, 0],
+      result: 0,
+    },
+  ]);
 });

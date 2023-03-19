@@ -1,7 +1,7 @@
 import {forEach} from './forEach';
 import {stream} from '../../creators';
 
-describe('Processor function: forEach()', () => {
+describe('forEach() and forEachAsync()', () => {
   test('should call the callback function 0 times for empty Stream', () => {
     let counter = 0;
     const callback = () => {
