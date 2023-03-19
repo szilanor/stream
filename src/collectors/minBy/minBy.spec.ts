@@ -1,9 +1,9 @@
 import {minBy} from './minBy';
-import {runSyncAndAsyncTestCases} from '../../utils/test-utils';
+import {runSyncAndAsyncCollectorTestCases} from '../../utils/test-utils';
 import {minByAsync} from './minByAsync';
 
 describe('minBy() and minByAsync()', () => {
-  runSyncAndAsyncTestCases(
+  runSyncAndAsyncCollectorTestCases(
     minBy((a, b) => a - b),
     minByAsync((a, b) => a - b),
     [
@@ -21,7 +21,7 @@ describe('minBy() and minByAsync()', () => {
       },
     ]
   );
-  runSyncAndAsyncTestCases(
+  runSyncAndAsyncCollectorTestCases(
     minBy((a, b) => a.a - b.a),
     minByAsync((a, b) => a.a - b.a),
     [

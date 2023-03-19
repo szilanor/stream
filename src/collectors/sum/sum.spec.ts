@@ -1,9 +1,9 @@
 import {sum} from './sum';
-import {runSyncAndAsyncTestCases} from '../../utils/test-utils';
+import {runSyncAndAsyncCollectorTestCases} from '../../utils/test-utils';
 import {sumAsync} from './sumAsync';
 
 describe('sum() and sumAsync()', () => {
-  runSyncAndAsyncTestCases(sum(), sumAsync(), [
+  runSyncAndAsyncCollectorTestCases(sum(), sumAsync(), [
     {
       input: [],
       result: undefined,

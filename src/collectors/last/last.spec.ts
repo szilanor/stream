@@ -1,9 +1,9 @@
 import {last} from './last';
-import {runSyncAndAsyncTestCases} from '../../utils/test-utils';
+import {runSyncAndAsyncCollectorTestCases} from '../../utils/test-utils';
 import {lastAsync} from './lastAsync';
 
 describe('last() and lastAsync()', () => {
-  runSyncAndAsyncTestCases(last(), lastAsync(), [
+  runSyncAndAsyncCollectorTestCases(last(), lastAsync(), [
     {
       input: [],
       result: undefined,
@@ -13,7 +13,7 @@ describe('last() and lastAsync()', () => {
       result: 4,
     },
   ]);
-  runSyncAndAsyncTestCases(
+  runSyncAndAsyncCollectorTestCases(
     last(entry => entry % 2 === 0),
     lastAsync(entry => entry % 2 === 0),
     [

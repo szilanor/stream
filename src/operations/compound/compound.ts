@@ -77,7 +77,7 @@ export function compound<T, A, B, C, D, E, F, G, H, I, J>(
   op8: OperationFunction<G, H>,
   op9: OperationFunction<H, I>,
   op10: OperationFunction<I, J>
-): OperationFunction<T, unknown>;
+): OperationFunction<T, J>;
 export function compound(
   ...ops: OperationFunction<any, any>[]
 ): OperationFunction<any, any> {

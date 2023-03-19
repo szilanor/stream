@@ -1,9 +1,9 @@
 import {count} from './count';
-import {runSyncAndAsyncTestCases} from '../../utils/test-utils';
+import {runSyncAndAsyncCollectorTestCases} from '../../utils/test-utils';
 import {countAsync} from './countAsync';
 
 describe('count() and countAsync()', () => {
-  runSyncAndAsyncTestCases(count(), countAsync(), [
+  runSyncAndAsyncCollectorTestCases(count(), countAsync(), [
     {
       input: [],
       result: 0,
@@ -17,7 +17,7 @@ describe('count() and countAsync()', () => {
       result: 1,
     },
   ]);
-  runSyncAndAsyncTestCases(
+  runSyncAndAsyncCollectorTestCases(
     count(entry => entry % 2 === 0),
     countAsync(entry => entry % 2 === 0),
     [

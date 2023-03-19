@@ -1,16 +1,16 @@
-import {Stream} from '../../stream';
-import {toArray} from '../../collectors';
 import {endWith} from './endWith';
-import {empty} from '../../creators';
+import {runSyncAndAsyncOperationTestCases} from '../../utils/test-utils';
+import {endWithAsync} from './endWithAsync';
 
-describe('Operation function: endWith()', () => {
-  test('should return only the value parameter on empty stream', () => {
-    const res = empty<number>().pipe(endWith(1)).collect(toArray());
-    expect(res).toStrictEqual([1]);
-  });
-
-  test('should prepend the value', () => {
-    const res = new Stream([1, 2, 3]).pipe(endWith(4)).collect(toArray());
-    expect(res).toStrictEqual([1, 2, 3, 4]);
-  });
+describe('endWith() and endWithAsync()', () => {
+  runSyncAndAsyncOperationTestCases(endWith(1), endWithAsync(1), [
+    {
+      input: [],
+      result: [1],
+    },
+    {
+      input: [1, 2, 3],
+      result: [1, 2, 3, 1],
+    },
+  ]);
 });

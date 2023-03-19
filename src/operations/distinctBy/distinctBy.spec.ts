@@ -1,19 +1,36 @@
-import {Stream} from '../../stream';
-import {toArray} from '../../collectors';
 import {distinctBy} from './distinctBy';
+import {runSyncAndAsyncOperationTestCases} from '../../utils/test-utils';
+import {distinctByAsync} from './distinctByAsync';
 
-describe('Operation function: distinct()', () => {
-  test('should filter duplicates', () => {
-    const res = new Stream([1, 1, 2, 2, 2, 3])
-      .pipe(distinctBy())
-      .collect(toArray());
-    expect(res).toStrictEqual([1, 2, 3]);
-  });
-
-  test('should filter duplicates with comparer', () => {
-    const res = new Stream([{a: 1}, {a: 1}, {a: 2}, {a: 2}, {a: 3}])
-      .pipe(distinctBy((a, b) => a.a === b.a))
-      .collect(toArray());
-    expect(res).toStrictEqual([{a: 1}, {a: 2}, {a: 3}]);
-  });
+describe('distinctBy() and distinctByAsync()', () => {
+  runSyncAndAsyncOperationTestCases(distinctBy(), distinctByAsync(), [
+    {
+      input: [],
+      result: [],
+    },
+    {
+      input: [1, 1, 2, 2, 2, 3],
+      result: [1, 2, 3],
+    },
+  ]);
+  runSyncAndAsyncOperationTestCases(distinctBy(), distinctByAsync(), [
+    {
+      input: [{a: 1}, {a: 1}, {a: 2}, {a: 2}, {a: 3}],
+      result: [{a: 1}, {a: 1}, {a: 2}, {a: 2}, {a: 3}],
+    },
+  ]);
+  runSyncAndAsyncOperationTestCases(
+    distinctBy((a, b) => a.a === b.a),
+    distinctByAsync((a, b) => a.a === b.a),
+    [
+      {
+        input: [],
+        result: [],
+      },
+      {
+        input: [{a: 1}, {a: 1}, {a: 2}, {a: 2}, {a: 3}],
+        result: [{a: 1}, {a: 2}, {a: 3}],
+      },
+    ]
+  );
 });

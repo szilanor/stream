@@ -1,9 +1,9 @@
 import {min} from './min';
-import {runSyncAndAsyncTestCases} from '../../utils/test-utils';
+import {runSyncAndAsyncCollectorTestCases} from '../../utils/test-utils';
 import {minAsync} from './minAsync';
 
 describe('min and minAsync', () => {
-  runSyncAndAsyncTestCases(min, minAsync, [
+  runSyncAndAsyncCollectorTestCases(min, minAsync, [
     {
       input: [],
       result: undefined,

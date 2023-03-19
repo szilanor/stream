@@ -1,9 +1,9 @@
 import {groupByRecord} from './groupByRecord';
-import {runSyncAndAsyncTestCases} from '../../utils/test-utils';
+import {runSyncAndAsyncCollectorTestCases} from '../../utils/test-utils';
 import {groupByRecordAsync} from './groupByRecordAsync';
 
 describe('groupByRecord() and groupByRecordAsync()', () => {
-  runSyncAndAsyncTestCases(
+  runSyncAndAsyncCollectorTestCases(
     groupByRecord(entry => (entry % 2 === 0 ? 'even' : 'odd')),
     groupByRecordAsync(entry => (entry % 2 === 0 ? 'even' : 'odd')),
     [

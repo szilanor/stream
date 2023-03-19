@@ -1,9 +1,9 @@
-import {runSyncAndAsyncTestCases} from '../../utils/test-utils';
+import {runSyncAndAsyncCollectorTestCases} from '../../utils/test-utils';
 import {toRecord} from './toRecord';
 import {toRecordAsync} from './toRecordAsync';
 
 describe('toRecord() and toRecordAsync()', () => {
-  runSyncAndAsyncTestCases(
+  runSyncAndAsyncCollectorTestCases(
     toRecord(
       entry => entry.toString(),
       entry => entry

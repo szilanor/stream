@@ -1,5 +1,5 @@
 import {lastOrDefault} from './lastOrDefault';
-import {runSyncAndAsyncTestCases} from '../../utils/test-utils';
+import {runSyncAndAsyncCollectorTestCases} from '../../utils/test-utils';
 import {lastOrDefaultAsync} from './lastOrDefaultAsync';
 
 describe('lastOrDefault() and lastOrDefaultAsync()', () => {
@@ -14,13 +14,13 @@ describe('lastOrDefault() and lastOrDefaultAsync()', () => {
     },
   ];
 
-  runSyncAndAsyncTestCases(
+  runSyncAndAsyncCollectorTestCases(
     lastOrDefault(5),
     lastOrDefaultAsync(5),
     defaultPredicateCases
   );
 
-  runSyncAndAsyncTestCases(
+  runSyncAndAsyncCollectorTestCases(
     lastOrDefault(() => 5),
     lastOrDefaultAsync(() => 5),
     defaultPredicateCases
@@ -41,13 +41,13 @@ describe('lastOrDefault() and lastOrDefaultAsync()', () => {
     },
   ];
 
-  runSyncAndAsyncTestCases(
+  runSyncAndAsyncCollectorTestCases(
     lastOrDefault(10, entry => entry % 2 === 0),
     lastOrDefaultAsync(10, entry => entry % 2 === 0),
     withPredicateCases
   );
 
-  runSyncAndAsyncTestCases(
+  runSyncAndAsyncCollectorTestCases(
     lastOrDefault(
       () => 10,
       entry => entry % 2 === 0

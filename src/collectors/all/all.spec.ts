@@ -1,10 +1,10 @@
 import {all} from './all';
 
-import {runSyncAndAsyncTestCases} from '../../utils/test-utils';
+import {runSyncAndAsyncCollectorTestCases} from '../../utils/test-utils';
 import {allAsync} from './allAsync';
 
 describe('all() and allAsync()', () => {
-  runSyncAndAsyncTestCases(
+  runSyncAndAsyncCollectorTestCases(
     all(entry => !!entry),
     allAsync(entry => !!entry),
     [
@@ -14,7 +14,7 @@ describe('all() and allAsync()', () => {
       },
     ]
   );
-  runSyncAndAsyncTestCases(
+  runSyncAndAsyncCollectorTestCases(
     all(entry => entry % 2 === 1),
     allAsync(entry => entry % 2 === 1),
     [

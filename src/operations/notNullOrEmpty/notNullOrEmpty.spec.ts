@@ -1,12 +1,16 @@
-import {Stream} from '../../stream';
-import {toArray} from '../../collectors';
 import {notNullOrEmpty} from './notNullOrEmpty';
+import {runSyncAndAsyncOperationTestCases} from '../../utils/test-utils';
+import {notNullOrEmptyAsync} from './notNullOrEmptyAsync';
 
-describe('Operation function: notNullOrEmpty()', () => {
-  test('should filter null or undefined or empty entries', () => {
-    const res = new Stream(['1', '', '2', [], [1], null, undefined])
-      .pipe(notNullOrEmpty())
-      .collect(toArray());
-    expect(res).toStrictEqual(['1', '2', [1]]);
-  });
+describe('notNullOrEmpty() and notNullOrEmptyAsync()', () => {
+  runSyncAndAsyncOperationTestCases(notNullOrEmpty(), notNullOrEmptyAsync(), [
+    {
+      input: [],
+      result: [],
+    },
+    {
+      input: ['1', '', '2', [], [1], null, undefined],
+      result: ['1', '2', [1]],
+    },
+  ]);
 });

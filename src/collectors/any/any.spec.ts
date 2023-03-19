@@ -1,9 +1,9 @@
 import {any} from './any';
-import {runSyncAndAsyncTestCases} from '../../utils/test-utils';
+import {runSyncAndAsyncCollectorTestCases} from '../../utils/test-utils';
 import {anyAsync} from './anyAsync';
 
 describe('any() and anyAsync()', () => {
-  runSyncAndAsyncTestCases(
+  runSyncAndAsyncCollectorTestCases(
     any(entry => !!entry),
     anyAsync(entry => !!entry),
     [
@@ -13,7 +13,7 @@ describe('any() and anyAsync()', () => {
       },
     ]
   );
-  runSyncAndAsyncTestCases(any(), anyAsync(), [
+  runSyncAndAsyncCollectorTestCases(any(), anyAsync(), [
     {
       input: [1],
       result: true,
@@ -23,7 +23,7 @@ describe('any() and anyAsync()', () => {
       result: false,
     },
   ]);
-  runSyncAndAsyncTestCases(
+  runSyncAndAsyncCollectorTestCases(
     any(entry => entry % 2 === 1),
     anyAsync(entry => entry % 2 === 1),
     [

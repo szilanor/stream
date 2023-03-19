@@ -1,9 +1,9 @@
 import {toMap} from './toMap';
-import {runSyncAndAsyncTestCases} from '../../utils/test-utils';
+import {runSyncAndAsyncCollectorTestCases} from '../../utils/test-utils';
 import {toMapAsync} from './toMapAsync';
 
 describe('toMap() and toMapAsync()', () => {
-  runSyncAndAsyncTestCases(
+  runSyncAndAsyncCollectorTestCases(
     toMap(
       entry => entry.toString(),
       entry => entry

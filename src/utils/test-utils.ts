@@ -1,34 +1,43 @@
-import {AsyncCollectorFunction, CollectorFunction} from '../types';
+import {
+  AsyncCollectorFunction,
+  AsyncOperationFunction,
+  CollectorFunction,
+  OperationFunction,
+} from '../types';
 import {stream} from '../creators';
+import {toArray, toArrayAsync} from '../collectors';
+
+export type OperationTestCase<T, O = T> = {
+  input: Iterable<T>;
+  result: Array<O>;
+};
 
 export type CollectorTestCase<T, O> = {
   input: Iterable<T>;
   result: O;
 };
 
-export function runTestCases<T, O>(
-  collector: CollectorFunction<T, O>,
-  ...testCases: CollectorTestCase<T, O>[]
+export function runSyncAndAsyncOperationTestCases<T, O>(
+  operation: OperationFunction<T, O>,
+  asyncOperation: AsyncOperationFunction<T, O>,
+  testCases: OperationTestCase<T, O>[]
 ): void {
   testCases.forEach(({input, result}, index) => {
-    test(`Test case ${index}`, () => {
-      expect(collector(input)).toStrictEqual(result);
+    test(`Sync test case ${index}`, () => {
+      expect(stream(input).pipe(operation).collect(toArray())).toStrictEqual(
+        result
+      );
+    });
+    test(`Async test case ${index}`, async () => {
+      const result = await stream(input)
+        .pipeAsync(asyncOperation)
+        .collectAsync(toArrayAsync());
+      expect(result).toStrictEqual(result);
     });
   });
 }
 
-export function runAsyncTestCases<T, O>(
-  collector: AsyncCollectorFunction<T, O>,
-  ...testCases: CollectorTestCase<T, O>[]
-): void {
-  testCases.forEach(({input, result}, index) => {
-    test(`Test case ${index}`, async () => {
-      expect(await collector(stream(input))).toStrictEqual(result);
-    });
-  });
-}
-
-export function runSyncAndAsyncTestCases<T, O>(
+export function runSyncAndAsyncCollectorTestCases<T, O>(
   collector: CollectorFunction<T, O>,
   asyncCollector: AsyncCollectorFunction<T, O>,
   testCases: CollectorTestCase<T, O>[]
@@ -38,7 +47,8 @@ export function runSyncAndAsyncTestCases<T, O>(
       expect(collector(input)).toStrictEqual(result);
     });
     test(`Async test case ${index}`, async () => {
-      expect(await collector(stream(input))).toStrictEqual(result);
+      const result = await asyncCollector(stream(input));
+      expect(result).toStrictEqual(result);
     });
   });
 }

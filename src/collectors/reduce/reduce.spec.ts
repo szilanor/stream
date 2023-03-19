@@ -1,5 +1,5 @@
 import {reduce} from './reduce';
-import {runSyncAndAsyncTestCases} from '../../utils/test-utils';
+import {runSyncAndAsyncCollectorTestCases} from '../../utils/test-utils';
 import {reduceAsync} from './reduceAsync';
 
 describe('reduce() and reduceAsync()', () => {
@@ -14,13 +14,13 @@ describe('reduce() and reduceAsync()', () => {
     },
   ];
 
-  runSyncAndAsyncTestCases(
+  runSyncAndAsyncCollectorTestCases(
     reduce((a, b) => a + b, 0),
     reduceAsync((a, b) => a + b, 0),
     testCases
   );
 
-  runSyncAndAsyncTestCases(
+  runSyncAndAsyncCollectorTestCases(
     reduce(
       (a, b) => a + b,
       () => 0

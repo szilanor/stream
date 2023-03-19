@@ -1,9 +1,9 @@
 import {lastIndex} from './lastIndex';
-import {runSyncAndAsyncTestCases} from '../../utils/test-utils';
+import {runSyncAndAsyncCollectorTestCases} from '../../utils/test-utils';
 import {lastIndexAsync} from './lastIndexAsync';
 
 describe('lastIndex() and lastIndexAsync()', () => {
-  runSyncAndAsyncTestCases(lastIndex(), lastIndexAsync(), [
+  runSyncAndAsyncCollectorTestCases(lastIndex(), lastIndexAsync(), [
     {
       input: [],
       result: -1,
@@ -13,7 +13,7 @@ describe('lastIndex() and lastIndexAsync()', () => {
       result: 3,
     },
   ]);
-  runSyncAndAsyncTestCases(
+  runSyncAndAsyncCollectorTestCases(
     lastIndex(entry => entry % 2 === 0),
     lastIndexAsync(entry => entry % 2 === 0),
     [

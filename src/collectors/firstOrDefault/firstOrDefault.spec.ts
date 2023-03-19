@@ -1,5 +1,5 @@
 import {firstOrDefault} from './firstOrDefault';
-import {runSyncAndAsyncTestCases} from '../../utils/test-utils';
+import {runSyncAndAsyncCollectorTestCases} from '../../utils/test-utils';
 import {firstOrDefaultAsync} from './firstOrDefaultAsync';
 
 describe('firstOrDefault() and firstOrDefaultAsync()', () => {
@@ -14,12 +14,12 @@ describe('firstOrDefault() and firstOrDefaultAsync()', () => {
     },
   ];
 
-  runSyncAndAsyncTestCases(
+  runSyncAndAsyncCollectorTestCases(
     firstOrDefault(5),
     firstOrDefaultAsync(5),
     emptyTestCases
   );
-  runSyncAndAsyncTestCases(
+  runSyncAndAsyncCollectorTestCases(
     firstOrDefault(() => 5),
     firstOrDefaultAsync(() => 5),
     emptyTestCases
@@ -40,12 +40,12 @@ describe('firstOrDefault() and firstOrDefaultAsync()', () => {
     },
   ];
 
-  runSyncAndAsyncTestCases(
+  runSyncAndAsyncCollectorTestCases(
     firstOrDefault(5, entry => entry % 2 === 0),
     firstOrDefaultAsync(5, entry => entry % 2 === 0),
     evenTestCases
   );
-  runSyncAndAsyncTestCases(
+  runSyncAndAsyncCollectorTestCases(
     firstOrDefault(
       () => 5,
       entry => entry % 2 === 0

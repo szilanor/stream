@@ -1,12 +1,20 @@
-import {Stream} from '../../stream';
-import {toArray} from '../../collectors';
 import {appendWith} from './appendWith';
+import {runSyncAndAsyncOperationTestCases} from '../../utils/test-utils';
+import {appendWithAsync} from './appendWithAsync';
 
-describe('Operation function: appendWith()', () => {
-  test('should appendWith an iterable before the Stream', () => {
-    const res = new Stream([1, 2, 3])
-      .pipe(appendWith([4, 5], [6]))
-      .collect(toArray());
-    expect(res).toStrictEqual([4, 5, 6, 1, 2, 3]);
-  });
+describe('appendWith() and appendWithAsync()', () => {
+  runSyncAndAsyncOperationTestCases(
+    appendWith([4, 5], [6]),
+    appendWithAsync([4, 5], [6]),
+    [
+      {
+        input: [],
+        result: [4, 5, 6],
+      },
+      {
+        input: [1, 2, 3],
+        result: [4, 5, 6, 1, 2, 3],
+      },
+    ]
+  );
 });

@@ -1,9 +1,9 @@
 import {join} from './join';
-import {runSyncAndAsyncTestCases} from '../../utils/test-utils';
+import {runSyncAndAsyncCollectorTestCases} from '../../utils/test-utils';
 import {joinAsync} from './joinAsync';
 
 describe('join() and joinAsync()', () => {
-  runSyncAndAsyncTestCases(join(), joinAsync(), [
+  runSyncAndAsyncCollectorTestCases(join(), joinAsync(), [
     {
       input: [],
       result: '',
@@ -13,7 +13,7 @@ describe('join() and joinAsync()', () => {
       result: '1,2,3,4',
     },
   ]);
-  runSyncAndAsyncTestCases(join(':'), joinAsync(':'), [
+  runSyncAndAsyncCollectorTestCases(join(':'), joinAsync(':'), [
     {
       input: [],
       result: '',

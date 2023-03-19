@@ -1,10 +1,16 @@
-import {Stream} from '../../stream';
-import {toArray} from '../../collectors';
 import {noop} from './noop';
+import {runSyncAndAsyncOperationTestCases} from '../../utils/test-utils';
+import {noopAsync} from './noopAsync';
 
-describe('Operation function: noop()', () => {
-  test('should do nothing with the entries', () => {
-    const res = new Stream([1, 2, 3]).pipe(noop()).collect(toArray());
-    expect(res).toStrictEqual([1, 2, 3]);
-  });
+describe('noop() and noopAsync()', () => {
+  runSyncAndAsyncOperationTestCases(noop(), noopAsync(), [
+    {
+      input: [],
+      result: [],
+    },
+    {
+      input: [1, 2, 3],
+      result: [1, 2, 3],
+    },
+  ]);
 });

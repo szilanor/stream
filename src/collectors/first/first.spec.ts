@@ -1,9 +1,9 @@
 import {first} from './first';
-import {runSyncAndAsyncTestCases} from '../../utils/test-utils';
+import {runSyncAndAsyncCollectorTestCases} from '../../utils/test-utils';
 import {firstAsync} from './firstAsync';
 
 describe('first() and firstAsync()', () => {
-  runSyncAndAsyncTestCases(first(), firstAsync(), [
+  runSyncAndAsyncCollectorTestCases(first(), firstAsync(), [
     {
       input: [],
       result: undefined,
@@ -13,7 +13,7 @@ describe('first() and firstAsync()', () => {
       result: 1,
     },
   ]);
-  runSyncAndAsyncTestCases(
+  runSyncAndAsyncCollectorTestCases(
     first(entry => entry % 2 === 0),
     firstAsync(entry => entry % 2 === 0),
     [

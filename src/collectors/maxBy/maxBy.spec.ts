@@ -1,9 +1,9 @@
 import {maxBy} from './maxBy';
-import {runSyncAndAsyncTestCases} from '../../utils/test-utils';
+import {runSyncAndAsyncCollectorTestCases} from '../../utils/test-utils';
 import {maxByAsync} from './maxByAsync';
 
 describe('maxBy() and maxByAsync()', () => {
-  runSyncAndAsyncTestCases(
+  runSyncAndAsyncCollectorTestCases(
     maxBy((a, b) => a - b),
     maxByAsync((a, b) => a - b),
     [
@@ -21,7 +21,7 @@ describe('maxBy() and maxByAsync()', () => {
       },
     ]
   );
-  runSyncAndAsyncTestCases(
+  runSyncAndAsyncCollectorTestCases(
     maxBy((a, b) => a.a - b.a),
     maxByAsync((a, b) => a.a - b.a),
     [

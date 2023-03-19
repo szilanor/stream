@@ -1,9 +1,9 @@
 import {toArray} from './toArray';
-import {runSyncAndAsyncTestCases} from '../../utils/test-utils';
+import {runSyncAndAsyncCollectorTestCases} from '../../utils/test-utils';
 import {toArrayAsync} from './toArrayAsync';
 
 describe('toArray() and toArrayAsync()', () => {
-  runSyncAndAsyncTestCases(toArray(), toArrayAsync(), [
+  runSyncAndAsyncCollectorTestCases(toArray(), toArrayAsync(), [
     {
       input: [],
       result: [],

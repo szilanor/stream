@@ -1,9 +1,9 @@
 import {max} from './max';
-import {runSyncAndAsyncTestCases} from '../../utils/test-utils';
+import {runSyncAndAsyncCollectorTestCases} from '../../utils/test-utils';
 import {maxAsync} from './maxAsync';
 
 describe('max and maxAsync', () => {
-  runSyncAndAsyncTestCases(max, maxAsync, [
+  runSyncAndAsyncCollectorTestCases(max, maxAsync, [
     {
       input: [],
       result: undefined,

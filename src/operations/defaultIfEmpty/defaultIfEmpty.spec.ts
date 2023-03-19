@@ -1,18 +1,28 @@
-import {Stream} from '../../stream';
-import {toArray} from '../../collectors';
 import {defaultIfEmpty} from './defaultIfEmpty';
-import {empty} from '../../creators';
+import {runSyncAndAsyncOperationTestCases} from '../../utils/test-utils';
+import {defaultIfEmptyAsync} from './defaultIfEmptyAsync';
 
-describe('Operation function: defaultIfEmpty()', () => {
-  test('should return only the value parameter on empty stream', () => {
-    const res = empty<number>().pipe(defaultIfEmpty(1)).collect(toArray());
-    expect(res).toStrictEqual([1]);
-  });
+describe('defaultIfEmpty() and defaultIfEmptyAsync()', () => {
+  const testCases = [
+    {
+      input: [],
+      result: [1],
+    },
+    {
+      input: [1, 2, 3],
+      result: [1, 2, 3],
+    },
+  ];
 
-  test('should return the source without the value parameter', () => {
-    const res = new Stream([1, 2, 3])
-      .pipe(defaultIfEmpty(4))
-      .collect(toArray());
-    expect(res).toStrictEqual([1, 2, 3]);
-  });
+  runSyncAndAsyncOperationTestCases(
+    defaultIfEmpty(1),
+    defaultIfEmptyAsync(1),
+    testCases
+  );
+
+  runSyncAndAsyncOperationTestCases(
+    defaultIfEmpty(() => 1),
+    defaultIfEmptyAsync(() => 1),
+    testCases
+  );
 });

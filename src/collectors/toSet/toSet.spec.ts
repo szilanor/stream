@@ -1,9 +1,9 @@
 import {toSet} from './toSet';
-import {runSyncAndAsyncTestCases} from '../../utils/test-utils';
+import {runSyncAndAsyncCollectorTestCases} from '../../utils/test-utils';
 import {toSetAsync} from './toSetAsync';
 
 describe('toSet() and toSetAsync()', () => {
-  runSyncAndAsyncTestCases(toSet(), toSetAsync(), [
+  runSyncAndAsyncCollectorTestCases(toSet(), toSetAsync(), [
     {
       input: [1, 1, 1, 1],
       result: new Set<number>([1]),
