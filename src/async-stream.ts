@@ -33,6 +33,7 @@ export class AsyncStream<T> implements AsyncIterable<T> {
 
 declare module './async-stream' {
   export interface AsyncSteam<T> {
+    pipe(): AsyncSteam<T>;
     pipeAsync<A>(op1: AsyncOperationFunction<T, A>): AsyncStream<A>;
     pipeAsync<A, B>(
       op1: AsyncOperationFunction<T, A>,
@@ -104,7 +105,7 @@ declare module './async-stream' {
       op7: AsyncOperationFunction<F, G>,
       op8: AsyncOperationFunction<G, H>,
       op9: AsyncOperationFunction<H, I>
-    ): AsyncStream<unknown>;
+    ): AsyncStream<I>;
     pipeAsync(...ops: AsyncOperationFunction<T, T>[]): AsyncStream<T>;
   }
 }

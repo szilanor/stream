@@ -36,6 +36,7 @@ export class Stream<T> extends AsyncStream<T> implements Iterable<T> {
 
 declare module './stream' {
   export interface Stream<T> {
+    pipe(): Stream<T>;
     pipe<A>(op1: OperationFunction<T, A>): Stream<A>;
     pipe<A, B>(
       op1: OperationFunction<T, A>,
