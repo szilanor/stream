@@ -1,5 +1,10 @@
 import {Stream} from '../../stream';
-import {doneResult, fromIterator, isFunction, valueResult} from '../../utils';
+import {
+  doneResult,
+  fromIteratorFactory,
+  isFunction,
+  valueResult,
+} from '../../utils';
 
 class RepeatIterator<T> implements Iterator<T> {
   private index = 0;
@@ -22,5 +27,7 @@ export function repeat<T>(
   value: T | (() => T),
   times: number = Number.POSITIVE_INFINITY
 ): Stream<T> {
-  return new Stream<T>(fromIterator(() => new RepeatIterator(value, times)));
+  return new Stream<T>(
+    fromIteratorFactory(() => new RepeatIterator(value, times))
+  );
 }

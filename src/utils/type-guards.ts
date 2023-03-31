@@ -17,20 +17,6 @@ export function isIterable<T>(
   );
 }
 
-export function isAsyncIterable<T>(
-  x: Iterable<T> | AsyncIterable<T>
-): x is AsyncIterable<T> {
-  return (
-    x !== null &&
-    x !== undefined &&
-    isFunction((x as any)[Symbol.asyncIterator])
-  );
-}
-
-export function isPromise<T>(x: T | PromiseLike<T>): x is PromiseLike<any> {
-  return isFunction((x as any)?.then);
-}
-
 export function isNotNullOrEmpty<T extends {length: number}>(
   value: T | null | undefined
 ): value is NonNullable<T> {

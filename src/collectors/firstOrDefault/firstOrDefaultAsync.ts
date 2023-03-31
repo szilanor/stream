@@ -1,4 +1,4 @@
-import {AnyToAsyncCollectorFunction} from '../../types';
+import {AsyncCollectorFunction} from '../../types';
 import {
   callValueOrFactory,
   PredicateFunction,
@@ -10,7 +10,7 @@ import {firstAsync} from '../first';
 export function firstOrDefaultAsync<T>(
   defaultValue: ValueOrFactory<T>,
   predicate: PredicateFunction<T> = () => true
-): AnyToAsyncCollectorFunction<T, T> {
+): AsyncCollectorFunction<T, T> {
   return async source =>
     (await firstAsync(predicate)(source)) ?? callValueOrFactory(defaultValue);
 }

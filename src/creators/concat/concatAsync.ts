@@ -1,6 +1,6 @@
 import {
   doneResult,
-  fromAsyncIterator,
+  fromAsyncIteratorFactory,
   getIterator,
   valueResult,
 } from '../../utils';
@@ -37,6 +37,6 @@ export function concatAsync<T>(
   ...iterables: Array<Iterable<T> | AsyncIterable<T>>
 ): AsyncStream<T> {
   return new AsyncStream<T>(
-    fromAsyncIterator(() => new ConcatAsyncIterator(iterables))
+    fromAsyncIteratorFactory(() => new ConcatAsyncIterator(iterables))
   );
 }

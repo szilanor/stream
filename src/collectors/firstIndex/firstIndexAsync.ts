@@ -1,10 +1,10 @@
-import {AnyToAsyncCollectorFunction} from '../../types';
+import {AsyncCollectorFunction} from '../../types';
 import {PredicateFunction} from '../../utils';
 
 /** Returns the index of the first entry from the Iterable that satisfy then 'predicate' function. */
 export function firstIndexAsync<T>(
   predicate: PredicateFunction<T> = () => true
-): AnyToAsyncCollectorFunction<T, number> {
+): AsyncCollectorFunction<T, number> {
   return async source => {
     let index = 0;
     for await (const entry of source) {

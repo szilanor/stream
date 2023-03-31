@@ -1,4 +1,4 @@
-import {AnyToAsyncCollectorFunction} from '../../types';
+import {AsyncCollectorFunction} from '../../types';
 import {
   AsyncReduceFunction,
   callValueOrFactory,
@@ -9,7 +9,7 @@ import {
 export function reduceAsync<T, O>(
   reducerFunction: AsyncReduceFunction<T, O>,
   initialValue: ValueOrFactory<O>
-): AnyToAsyncCollectorFunction<T, O> {
+): AsyncCollectorFunction<T, O> {
   return async stream => {
     let prev = callValueOrFactory(initialValue);
     let index = 0;

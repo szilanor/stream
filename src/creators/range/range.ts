@@ -1,5 +1,5 @@
 import {Stream} from '../../stream';
-import {doneResult, fromIterator, valueResult} from '../../utils';
+import {doneResult, fromIteratorFactory, valueResult} from '../../utils';
 
 class RangeIterator implements Iterator<number> {
   private index = 0;
@@ -18,6 +18,6 @@ class RangeIterator implements Iterator<number> {
  */
 export function range(start: number, count: number, by = 1): Stream<number> {
   return new Stream<number>(
-    fromIterator(() => new RangeIterator(start, count, by))
+    fromIteratorFactory(() => new RangeIterator(start, count, by))
   );
 }

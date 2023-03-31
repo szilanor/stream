@@ -5,11 +5,3 @@ export type OperationFunction<TInput, TOutput> = (
 export type AsyncOperationFunction<TInput, TOutput> = (
   entries: AsyncIterable<TInput>
 ) => AsyncIterable<TOutput>;
-
-export type AnyToAsyncOperationFunction<TInput, TOutput> = (
-  entries: AsyncIterable<TInput> | Iterable<TInput>
-) => AsyncIterable<TOutput>;
-
-export type ToAsyncOperationFunction<TInput, TOutput> =
-  | AnyToAsyncOperationFunction<TInput, TOutput>
-  | AsyncOperationFunction<TInput, TOutput>;

@@ -1,10 +1,10 @@
-import {AnyToAsyncCollectorFunction} from '../../types';
+import {AsyncCollectorFunction} from '../../types';
 import {PredicateFunction} from '../../utils';
 
 /** Returns true if at least one of the entries satisfies the 'predicate' function. */
 export function anyAsync<T>(
   predicate: PredicateFunction<T> = () => true
-): AnyToAsyncCollectorFunction<T, boolean> {
+): AsyncCollectorFunction<T, boolean> {
   return async source => {
     let index = 0;
     for await (const entry of source) {

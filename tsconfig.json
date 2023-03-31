@@ -4,7 +4,9 @@
     "noImplicitAny": true,
     "outDir": "build",
     "isolatedModules": true,
-    "esModuleInterop": true
+    "esModuleInterop": true,
+    "emitDeclarationOnly": true,
+    "declaration": true
   },
   "include": ["src/**/*.ts"],
   "exclude": ["src/**/*.spec.ts"]

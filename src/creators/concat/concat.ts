@@ -1,5 +1,5 @@
 import {Stream} from '../../stream';
-import {doneResult, fromIterator, valueResult} from '../../utils';
+import {doneResult, fromIteratorFactory, valueResult} from '../../utils';
 
 class ConcatIterator<T> implements Iterator<T> {
   private index = 0;
@@ -30,5 +30,7 @@ class ConcatIterator<T> implements Iterator<T> {
  * Returns a Stream that yields elements of all Iterable parameters in order.
  */
 export function concat<T>(...iterables: Array<Iterable<T>>): Stream<T> {
-  return new Stream<T>(fromIterator(() => new ConcatIterator(iterables)));
+  return new Stream<T>(
+    fromIteratorFactory(() => new ConcatIterator(iterables))
+  );
 }

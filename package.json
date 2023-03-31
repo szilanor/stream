@@ -8,7 +8,7 @@
     "build"
   ],
   "scripts": {
-    "build": "webpack && tsc --emitDeclarationOnly",
+    "build": "webpack",
     "docs": "npx typedoc src/index.ts",
     "test": "jest --silent",
     "coverage": "npm run test -- --coverage",

@@ -5,11 +5,3 @@ export type CollectorFunction<TInput, TOutput> = (
 export type AsyncCollectorFunction<TInput, TOutput> = (
   iterable: AsyncIterable<TInput>
 ) => PromiseLike<TOutput>;
-
-export type SyncToAsyncCollectorFunction<TInput, TOutput> = (
-  iterable: Iterable<TInput>
-) => PromiseLike<TOutput>;
-
-export type AnyToAsyncCollectorFunction<TInput, TOutput> = (
-  iterable: Iterable<TInput> | AsyncIterable<TInput>
-) => PromiseLike<TOutput>;
