@@ -18,6 +18,7 @@ export * from './max';
 export * from './maxBy';
 export * from './min';
 export * from './minBy';
+export * from './partition';
 export * from './reduce';
 export * from './sum';
 export * from './toArray';

@@ -14,6 +14,10 @@ export type AsyncReduceFunction<T, O = T> = (
 ) => MaybeAsyncValue<O>;
 export type ValueOrFactory<T> = T | (() => T);
 export type PredicateFunction<T> = (item: T, index: number) => boolean;
+export type MaybeAsyncPredicateFunction<T> = (
+  item: T,
+  index: number
+) => boolean | Promise<boolean>;
 export type TypeGuardFunction<T, TOfType extends T> = (
   item: T,
   index: number
