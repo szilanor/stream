@@ -15,13 +15,10 @@ class DistinctByIterator<T> implements Iterator<T> {
       !done;
       {value, done} = this.iterator.next()
     ) {
-      let found = false;
-
-      for (const cached of this.items) {
-        found = this.equalsFunction(cached, value);
-      }
-
-      if (!found) {
+      if (
+        this.items.findIndex(cached => this.equalsFunction(cached, value)) ===
+        -1
+      ) {
         this.items.push(value);
         return valueResult(value);
       }
