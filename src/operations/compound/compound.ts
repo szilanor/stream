@@ -83,3 +83,5 @@ export function compound(
 ): OperationFunction<any, any> {
   return iterable => ops.reduce((piped, op) => op(piped), iterable);
 }
+
+export const pipe = compound;

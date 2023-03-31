@@ -20,6 +20,7 @@ export * from './min';
 export * from './minBy';
 export * from './partition';
 export * from './reduce';
+export * from './sequenceEquals';
 export * from './sum';
 export * from './toArray';
 export * from './toMap';
