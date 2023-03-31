@@ -7,6 +7,8 @@ export * from './concatWith';
 export * from './defaultIfEmpty';
 export * from './distinct';
 export * from './distinctBy';
+export * from './distinctUntilChanged';
+export * from './distinctUntilKeyChanged';
 export * from './endWith';
 export * from './falsy';
 export * from './filter';
