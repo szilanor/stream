@@ -1,7 +1,7 @@
 import {concat} from './concat';
 import {Stream} from '../../stream';
 import {toArray} from '../../collectors';
-import {empty} from '../empty/empty';
+import {empty} from '../empty/';
 
 describe('Creator function: concat()', () => {
   test('should return empty Stream for empty iterables', () => {

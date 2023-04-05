@@ -1,5 +1,5 @@
 import {AsyncOperationFunction} from '../../types';
-import {concatAsync} from '../../creators/concat/concatAsync';
+import {concatAsync} from '../../creators';
 
 /** Concatenates the Iterable with other Iterables in order */
 export function appendWithAsync<T>(
