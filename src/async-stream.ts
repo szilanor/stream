@@ -1,6 +1,6 @@
 /* eslint-disable @typescript-eslint/no-explicit-any */
 import {AsyncCollectorFunction, AsyncOperationFunction} from './types';
-import {EMPTY_ASYNC} from './utils';
+import {EMPTY} from './utils';
 
 /** Wrapper class to extend the functionality of an Iterable */
 export class AsyncStream<T> implements AsyncIterable<T> {
@@ -8,7 +8,7 @@ export class AsyncStream<T> implements AsyncIterable<T> {
     return this.asyncIterable[Symbol.asyncIterator]();
   }
 
-  constructor(private readonly asyncIterable: AsyncIterable<T> = EMPTY_ASYNC) {}
+  constructor(private readonly asyncIterable: AsyncIterable<T> = EMPTY) {}
 
   /** Calls a collector function on the Iterable */
   collectAsync<O>(collector: AsyncCollectorFunction<T, O>): PromiseLike<O> {

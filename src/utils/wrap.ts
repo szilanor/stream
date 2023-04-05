@@ -4,6 +4,7 @@ import {
   IterableWrapper,
   OperationFunction,
 } from '../types';
+import {EMPTY} from './empty';
 
 class SyncToAsyncIterableWrapper<T> implements AsyncIterable<T>, Iterable<T> {
   constructor(private iterable: Iterable<T>) {}
@@ -37,6 +38,8 @@ export function wrapAsync<T, O = T>(
   return asyncIterator => new AsyncIterableWrapper(asyncIterator, mapper);
 }
 
-export function toAsyncIterable<T>(iterable: Iterable<T>): AsyncIterable<T> {
-  return new SyncToAsyncIterableWrapper(iterable);
+export function toAsyncIterable<T>(
+  iterable: Iterable<T>
+): AsyncIterable<T> & Iterable<T> {
+  return iterable === EMPTY ? EMPTY : new SyncToAsyncIterableWrapper(iterable);
 }
