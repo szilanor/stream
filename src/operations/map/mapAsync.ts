@@ -9,6 +9,7 @@ import {AsyncOperationFunction} from '../../types';
 
 class MapAsyncIterator<T, O> implements AsyncIterator<O> {
   index = 0;
+
   constructor(
     protected iterator: AsyncIterator<T>,
     private mapper: MapperFunction<T, O> | AsyncMapperFunction<T, O>

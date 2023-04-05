@@ -5,12 +5,12 @@ import {EMPTY, toAsyncIterable} from './utils';
 
 /** Wrapper class to extend the functionality of an Iterable */
 export class Stream<T> extends AsyncStream<T> implements Iterable<T> {
-  [Symbol.iterator](): Iterator<T> {
-    return this.iterable[Symbol.iterator]();
-  }
-
   constructor(private readonly iterable: Iterable<T> = EMPTY) {
     super(toAsyncIterable(iterable));
+  }
+
+  [Symbol.iterator](): Iterator<T> {
+    return this.iterable[Symbol.iterator]();
   }
 
   /** Calls a collector function on the Iterable */

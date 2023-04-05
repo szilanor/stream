@@ -23,6 +23,11 @@ export type TypeGuardFunction<T, TOfType extends T> = (
   index: number
 ) => item is TOfType;
 export type CallbackFunction<T> = (item: T, index: number) => void;
+export type MaybeAsyncCallbackFunction<T> = (
+  item: T,
+  index: number
+) => void | Promise<void>;
+
 export type MapperFunction<T, O> = (item: T, index: number) => O;
 export type AsyncMapperFunction<T, O> = (
   item: T,

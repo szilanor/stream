@@ -3,6 +3,7 @@ import {doneResult, valueResult, wrap} from '../../utils';
 
 class MapIterator<T, O> implements Iterator<O> {
   index = 0;
+
   constructor(
     protected iterator: Iterator<T>,
     private mapper: (value: T, index: number) => O

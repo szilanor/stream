@@ -3,6 +3,7 @@ import {PredicateFunction, wrap} from '../../utils';
 
 class TakeWhileIterator<T> implements Iterator<T> {
   index = 0;
+
   constructor(
     private iterator: Iterator<T>,
     private predicate: PredicateFunction<T>

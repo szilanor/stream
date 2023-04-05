@@ -2,6 +2,7 @@ import {Stream} from '../../stream';
 
 class DeferIterable<T> implements Iterable<T> {
   private _iterable?: Iterable<T>;
+
   constructor(private factory: () => Iterable<T>) {}
 
   [Symbol.iterator](): Iterator<T> {

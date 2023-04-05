@@ -3,6 +3,7 @@ import {CallbackFunction, wrap} from '../../utils';
 
 export class TapIterator<T> implements Iterator<T> {
   index = 0;
+
   constructor(
     private iterator: Iterator<T>,
     private callback: CallbackFunction<T>

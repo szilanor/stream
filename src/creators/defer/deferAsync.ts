@@ -2,6 +2,7 @@ import {AsyncStream} from '../../async-stream';
 
 class DeferAsyncIterable<T> implements AsyncIterable<T> {
   private _asyncIterable?: AsyncIterable<T>;
+
   constructor(private factory: () => AsyncIterable<T>) {}
 
   [Symbol.asyncIterator](): AsyncIterator<T> {

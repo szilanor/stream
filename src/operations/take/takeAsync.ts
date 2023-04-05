@@ -3,6 +3,7 @@ import {doneResult, valueResult, wrapAsync} from '../../utils';
 
 class TakeAsyncIterator<T> implements AsyncIterator<T> {
   index = 0;
+
   constructor(private iterator: AsyncIterator<T>, private count: number) {}
 
   async next(): Promise<IteratorResult<T>> {

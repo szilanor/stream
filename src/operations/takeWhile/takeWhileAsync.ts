@@ -3,6 +3,7 @@ import {PredicateFunction, wrapAsync} from '../../utils';
 
 class TakeWhileAsyncIterator<T> implements AsyncIterator<T> {
   index = 0;
+
   constructor(
     private iterator: AsyncIterator<T>,
     private predicate: PredicateFunction<T>

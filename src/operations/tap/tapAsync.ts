@@ -3,6 +3,7 @@ import {CallbackFunction, wrapAsync} from '../../utils';
 
 export class TapAsyncIterator<T> implements AsyncIterator<T> {
   index = 0;
+
   constructor(
     private iterator: AsyncIterator<T>,
     private callback: CallbackFunction<T>

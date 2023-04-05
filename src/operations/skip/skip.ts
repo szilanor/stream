@@ -3,6 +3,7 @@ import {doneResult, valueResult, wrap} from '../../utils';
 
 class SkipIterator<T> implements Iterator<T> {
   index = 0;
+
   constructor(private iterator: Iterator<T>, private count: number) {}
 
   next(): IteratorResult<T> {

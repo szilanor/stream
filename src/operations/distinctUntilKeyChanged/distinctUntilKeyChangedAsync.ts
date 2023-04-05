@@ -28,6 +28,7 @@ class DistinctUntilKeyChangedAsyncIterator<T, K extends keyof T>
     return doneResult();
   }
 }
+
 export function distinctUntilKeyChangedAsync<T, K extends keyof T>(
   key: K,
   equalsFunction?: EqualsFunction<T[K]>

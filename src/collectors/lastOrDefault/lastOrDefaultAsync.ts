@@ -1,7 +1,7 @@
 import {AsyncCollectorFunction} from '../../types';
 import {
   callValueOrFactory,
-  PredicateFunction,
+  MaybeAsyncPredicateFunction,
   ValueOrFactory,
 } from '../../utils';
 import {lastAsync} from '../last';
@@ -9,7 +9,7 @@ import {lastAsync} from '../last';
 /** Returns the last entry from the Iterable that satisfy then 'predicate' function. */
 export function lastOrDefaultAsync<T>(
   defaultValue: ValueOrFactory<T>,
-  predicate: PredicateFunction<T> = () => true
+  predicate: MaybeAsyncPredicateFunction<T> = () => true
 ): AsyncCollectorFunction<T, T | undefined> {
   return async source =>
     (await lastAsync(predicate)(source)) ?? callValueOrFactory(defaultValue);
