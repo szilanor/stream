@@ -1,12 +1,9 @@
-import {Configuration, ProgressPlugin} from 'webpack';
+import {Configuration} from 'webpack';
 import * as path from 'path';
-import {CleanWebpackPlugin} from 'clean-webpack-plugin';
-import ForkTsCheckerWebpackPlugin from 'fork-ts-checker-webpack-plugin';
 import {EsbuildPlugin} from 'esbuild-loader';
 
 const config: Configuration = {
   mode: 'production',
-  devtool: 'source-map',
   entry: './src/index.ts',
   output: {
     filename: 'index.js',
@@ -18,11 +15,7 @@ const config: Configuration = {
     globalObject: 'this',
   },
   optimization: {
-    minimizer: [
-      new EsbuildPlugin({
-        target: 'es2015',
-      }),
-    ],
+    minimizer: [new EsbuildPlugin()],
   },
   module: {
     rules: [
@@ -35,13 +28,8 @@ const config: Configuration = {
       },
     ],
   },
-  plugins: [
-    new ProgressPlugin(),
-    new CleanWebpackPlugin(),
-    new ForkTsCheckerWebpackPlugin(),
-  ],
   resolve: {
-    extensions: ['.ts', '.js', '.json'],
+    extensions: ['.ts'],
   },
 };
 
