@@ -5,11 +5,15 @@ import {
   OperationFunction,
 } from '../types';
 
-class SyncToAsyncIterableWrapper<T> implements AsyncIterable<T> {
+class SyncToAsyncIterableWrapper<T> implements AsyncIterable<T>, Iterable<T> {
   constructor(private iterable: Iterable<T>) {}
 
   [Symbol.asyncIterator](): AsyncIterator<T> {
     return new SyncToAsyncIteratorWrapper(this.iterable[Symbol.iterator]());
+  }
+
+  [Symbol.iterator](): Iterator<T> {
+    return this.iterable[Symbol.iterator]();
   }
 }
 

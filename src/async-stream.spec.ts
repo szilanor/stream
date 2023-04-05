@@ -1,6 +1,6 @@
 import {from} from './creators';
 import {toArrayAsync} from './collectors';
-import {mapAsync} from './operations/map/mapAsync';
+import {mapAsync} from './operations';
 
 describe('AsyncStream', () => {
   test('Pipe chaining', async () => {
