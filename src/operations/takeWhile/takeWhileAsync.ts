@@ -1,5 +1,5 @@
 import {AsyncOperationFunction} from '../../types';
-import {PredicateFunction, wrapAsync} from '../../utils';
+import {fromAsyncIteratorMapper, PredicateFunction} from '../../utils';
 
 class TakeWhileAsyncIterator<T> implements AsyncIterator<T> {
   index = 0;
@@ -19,5 +19,7 @@ class TakeWhileAsyncIterator<T> implements AsyncIterator<T> {
 export function takeWhileAsync<T>(
   predicate: PredicateFunction<T>
 ): AsyncOperationFunction<T, T> {
-  return wrapAsync(iterator => new TakeWhileAsyncIterator(iterator, predicate));
+  return fromAsyncIteratorMapper(
+    iterator => new TakeWhileAsyncIterator(iterator, predicate)
+  );
 }

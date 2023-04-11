@@ -1,9 +1,9 @@
 import {
   AsyncMapperFunction,
   doneResult,
+  fromAsyncIteratorMapper,
   MapperFunction,
   valueResult,
-  wrapAsync,
 } from '../../utils';
 import {AsyncOperationFunction} from '../../types';
 
@@ -27,5 +27,7 @@ class MapAsyncIterator<T, O> implements AsyncIterator<O> {
 export function mapAsync<T, O>(
   mapper: MapperFunction<T, O> | AsyncMapperFunction<T, O>
 ): AsyncOperationFunction<T, O> {
-  return wrapAsync(iterator => new MapAsyncIterator(iterator, mapper));
+  return fromAsyncIteratorMapper(
+    iterator => new MapAsyncIterator(iterator, mapper)
+  );
 }

@@ -1,5 +1,5 @@
 import {OperationFunction} from '../../types';
-import {doneResult, valueResult, wrap} from '../../utils';
+import {doneResult, fromIteratorMapper, valueResult} from '../../utils';
 
 class MapIterator<T, O> implements Iterator<O> {
   index = 0;
@@ -19,5 +19,5 @@ class MapIterator<T, O> implements Iterator<O> {
 export function map<T, O>(
   mapper: (value: T, index: number) => O
 ): OperationFunction<T, O> {
-  return wrap(iterator => new MapIterator(iterator, mapper));
+  return fromIteratorMapper(iterator => new MapIterator(iterator, mapper));
 }

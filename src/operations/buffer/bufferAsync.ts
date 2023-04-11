@@ -1,5 +1,5 @@
 import {AsyncOperationFunction} from '../../types';
-import {doneResult, valueResult, wrapAsync} from '../../utils';
+import {doneResult, fromAsyncIteratorMapper, valueResult} from '../../utils';
 
 class BufferAsyncIterator<T> implements AsyncIterator<T[]> {
   private bufferArray: T[] = [];
@@ -30,5 +30,7 @@ class BufferAsyncIterator<T> implements AsyncIterator<T[]> {
 
 /** Returns an Iterable that yields array of entries of the source Iterable with the given length. */
 export function bufferAsync<T>(size: number): AsyncOperationFunction<T, T[]> {
-  return wrapAsync(iterator => new BufferAsyncIterator(iterator, size));
+  return fromAsyncIteratorMapper(
+    iterator => new BufferAsyncIterator(iterator, size)
+  );
 }

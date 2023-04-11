@@ -1,5 +1,5 @@
 import {OperationFunction} from '../../types';
-import {doneResult, valueResult, wrap} from '../../utils';
+import {doneResult, fromIteratorMapper, valueResult} from '../../utils';
 
 class DistinctIterator<T> implements Iterator<T> {
   private items: Set<T> = new Set<T>();
@@ -24,5 +24,5 @@ class DistinctIterator<T> implements Iterator<T> {
 
 /** Returns an Iterable that yields only entries of the source Iterable without duplicates. */
 export function distinct<T>(): OperationFunction<T, T> {
-  return wrap(iterator => new DistinctIterator(iterator));
+  return fromIteratorMapper(iterator => new DistinctIterator(iterator));
 }

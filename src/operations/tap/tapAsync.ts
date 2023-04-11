@@ -1,5 +1,5 @@
 import {AsyncOperationFunction} from '../../types';
-import {CallbackFunction, wrapAsync} from '../../utils';
+import {CallbackFunction, fromAsyncIteratorMapper} from '../../utils';
 
 export class TapAsyncIterator<T> implements AsyncIterator<T> {
   index = 0;
@@ -22,5 +22,7 @@ export class TapAsyncIterator<T> implements AsyncIterator<T> {
 export function tapAsync<T>(
   callback: CallbackFunction<T>
 ): AsyncOperationFunction<T, T> {
-  return wrapAsync(iterator => new TapAsyncIterator(iterator, callback));
+  return fromAsyncIteratorMapper(
+    iterator => new TapAsyncIterator(iterator, callback)
+  );
 }

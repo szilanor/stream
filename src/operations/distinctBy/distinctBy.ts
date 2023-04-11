@@ -1,5 +1,10 @@
 import {OperationFunction} from '../../types';
-import {doneResult, EqualsFunction, valueResult, wrap} from '../../utils';
+import {
+  doneResult,
+  EqualsFunction,
+  fromIteratorMapper,
+  valueResult,
+} from '../../utils';
 
 class DistinctByIterator<T> implements Iterator<T> {
   private items: Array<T> = new Array<T>();
@@ -33,5 +38,7 @@ class DistinctByIterator<T> implements Iterator<T> {
 export function distinctBy<T>(
   equalsFunction: EqualsFunction<T> = (a, b) => a === b
 ): OperationFunction<T, T> {
-  return wrap(iterator => new DistinctByIterator(iterator, equalsFunction));
+  return fromIteratorMapper(
+    iterator => new DistinctByIterator(iterator, equalsFunction)
+  );
 }

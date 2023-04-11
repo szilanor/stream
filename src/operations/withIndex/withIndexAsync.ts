@@ -1,4 +1,4 @@
-import {doneResult, valueResult, wrapAsync} from '../../utils';
+import {doneResult, fromAsyncIteratorMapper, valueResult} from '../../utils';
 import {AsyncOperationFunction} from '../../types';
 
 export class IndexedAsyncIterator<T> implements AsyncIterator<[T, number]> {
@@ -12,5 +12,7 @@ export class IndexedAsyncIterator<T> implements AsyncIterator<[T, number]> {
 }
 
 export function withIndexAsync<T>(): AsyncOperationFunction<T, [T, number]> {
-  return wrapAsync(iterator => new IndexedAsyncIterator(iterator));
+  return fromAsyncIteratorMapper(
+    iterator => new IndexedAsyncIterator(iterator)
+  );
 }

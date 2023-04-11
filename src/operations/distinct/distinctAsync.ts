@@ -1,5 +1,5 @@
 import {AsyncOperationFunction} from '../../types';
-import {doneResult, valueResult, wrapAsync} from '../../utils';
+import {doneResult, fromAsyncIteratorMapper, valueResult} from '../../utils';
 
 class DistinctAsyncIterator<T> implements AsyncIterator<T> {
   private items: Set<T> = new Set<T>();
@@ -25,5 +25,7 @@ class DistinctAsyncIterator<T> implements AsyncIterator<T> {
 
 /** Returns an Iterable that yields only entries of the source Iterable without duplicates. */
 export function distinctAsync<T>(): AsyncOperationFunction<T, T> {
-  return wrapAsync(iterator => new DistinctAsyncIterator(iterator));
+  return fromAsyncIteratorMapper(
+    iterator => new DistinctAsyncIterator(iterator)
+  );
 }

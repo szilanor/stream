@@ -1,5 +1,5 @@
 import {OperationFunction} from '../../types';
-import {PredicateFunction, wrap} from '../../utils';
+import {fromIteratorMapper, PredicateFunction} from '../../utils';
 
 class TakeWhileIterator<T> implements Iterator<T> {
   index = 0;
@@ -19,5 +19,7 @@ class TakeWhileIterator<T> implements Iterator<T> {
 export function takeWhile<T>(
   predicate: PredicateFunction<T>
 ): OperationFunction<T, T> {
-  return wrap(iterator => new TakeWhileIterator(iterator, predicate));
+  return fromIteratorMapper(
+    iterator => new TakeWhileIterator(iterator, predicate)
+  );
 }

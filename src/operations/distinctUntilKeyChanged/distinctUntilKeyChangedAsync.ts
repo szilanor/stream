@@ -1,5 +1,10 @@
 import {AsyncOperationFunction} from '../../types';
-import {doneResult, EqualsFunction, valueResult, wrapAsync} from '../../utils';
+import {
+  doneResult,
+  EqualsFunction,
+  fromAsyncIteratorMapper,
+  valueResult,
+} from '../../utils';
 
 class DistinctUntilKeyChangedAsyncIterator<T, K extends keyof T>
   implements AsyncIterator<T>
@@ -33,7 +38,7 @@ export function distinctUntilKeyChangedAsync<T, K extends keyof T>(
   key: K,
   equalsFunction?: EqualsFunction<T[K]>
 ): AsyncOperationFunction<T, T> {
-  return wrapAsync(
+  return fromAsyncIteratorMapper(
     iterator =>
       new DistinctUntilKeyChangedAsyncIterator(iterator, key, equalsFunction)
   );

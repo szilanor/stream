@@ -1,5 +1,5 @@
 import {OperationFunction} from '../../types';
-import {doneResult, valueResult, wrap} from '../../utils';
+import {doneResult, fromIteratorMapper, valueResult} from '../../utils';
 
 class BufferIterator<T> implements Iterator<T[]> {
   private bufferArray: T[] = [];
@@ -30,5 +30,5 @@ class BufferIterator<T> implements Iterator<T[]> {
 
 /** Returns an Iterable that yields array of entries of the source Iterable with the given length. */
 export function buffer<T>(size: number): OperationFunction<T, T[]> {
-  return wrap(iterator => new BufferIterator(iterator, size));
+  return fromIteratorMapper(iterator => new BufferIterator(iterator, size));
 }

@@ -1,4 +1,4 @@
-import {from} from './creators';
+import {stream} from './creators';
 import {distinct, map, noop} from './operations';
 import {all, groupBy, toArray} from './collectors';
 
@@ -12,7 +12,7 @@ describe('Stream', () => {
       resultClassic.set(key, [...(resultClassic.get(key) || []), x]);
     });
 
-    const resultStreamApi: Map<string, number[]> = from(input)
+    const resultStreamApi: Map<string, number[]> = stream(input)
       .pipe(distinct())
       .collect(groupBy(x => (x % 2 === 0 ? 'even' : 'odd')));
 
@@ -26,7 +26,7 @@ describe('Stream', () => {
       .map(x => x + 1)
       .every(x => x % 2 === 0);
 
-    const allEvenStreamApi: boolean = from(input)
+    const allEvenStreamApi: boolean = stream(input)
       .pipe(map(x => x + 1))
       .collect(all(x => x % 2 === 0));
 
@@ -36,7 +36,7 @@ describe('Stream', () => {
   test('Pipe chaining', () => {
     const input = [1, 2, 3, 4, 5];
 
-    const res = from(input)
+    const res = stream(input)
       .pipe(
         noop(),
         noop(),
@@ -52,8 +52,7 @@ describe('Stream', () => {
 
   test('Empty pipe', () => {
     const input = [1, 2, 3, 4, 5];
-
-    const res = from(input).pipe().collect(toArray());
+    const res = stream(input).pipe().collect(toArray());
 
     expect(res).toStrictEqual(input);
   });

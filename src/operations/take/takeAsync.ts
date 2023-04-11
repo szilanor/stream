@@ -1,5 +1,5 @@
 import {AsyncOperationFunction} from '../../types';
-import {doneResult, valueResult, wrapAsync} from '../../utils';
+import {doneResult, fromAsyncIteratorMapper, valueResult} from '../../utils';
 
 class TakeAsyncIterator<T> implements AsyncIterator<T> {
   index = 0;
@@ -17,5 +17,7 @@ class TakeAsyncIterator<T> implements AsyncIterator<T> {
 
 /** Returns an Iterable taking the given amount of entries of the source Iterable. */
 export function takeAsync<T>(count: number): AsyncOperationFunction<T, T> {
-  return wrapAsync(iterator => new TakeAsyncIterator(iterator, count));
+  return fromAsyncIteratorMapper(
+    iterator => new TakeAsyncIterator(iterator, count)
+  );
 }

@@ -1,5 +1,5 @@
 import {AsyncOperationFunction} from '../../types';
-import {doneResult, valueResult, wrapAsync} from '../../utils';
+import {doneResult, fromAsyncIteratorMapper, valueResult} from '../../utils';
 
 class PairwiseAsyncIterator<T> implements AsyncIterator<[T, T]> {
   private prev: T | undefined;
@@ -25,5 +25,7 @@ class PairwiseAsyncIterator<T> implements AsyncIterator<[T, T]> {
 
 /** Returns an Iterable that yields the current and the previous entry of the source Iterable. */
 export function pairwiseAsync<T>(): AsyncOperationFunction<T, [T, T]> {
-  return wrapAsync(iterator => new PairwiseAsyncIterator(iterator));
+  return fromAsyncIteratorMapper(
+    iterator => new PairwiseAsyncIterator(iterator)
+  );
 }

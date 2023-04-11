@@ -1,5 +1,10 @@
 import {AsyncOperationFunction} from '../../types';
-import {doneResult, EqualsFunction, valueResult, wrapAsync} from '../../utils';
+import {
+  doneResult,
+  EqualsFunction,
+  fromAsyncIteratorMapper,
+  valueResult,
+} from '../../utils';
 
 class DistinctByAsyncIterator<T> implements AsyncIterator<T> {
   private items: Array<T> = new Array<T>();
@@ -33,7 +38,7 @@ class DistinctByAsyncIterator<T> implements AsyncIterator<T> {
 export function distinctByAsync<T>(
   equalsFunction: EqualsFunction<T> = (a, b) => a === b
 ): AsyncOperationFunction<T, T> {
-  return wrapAsync(
+  return fromAsyncIteratorMapper(
     iterator => new DistinctByAsyncIterator(iterator, equalsFunction)
   );
 }

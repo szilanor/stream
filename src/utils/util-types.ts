@@ -1,6 +1,5 @@
 export type EqualsFunction<T> = (a: T, b: T) => boolean;
 export type CompareFunction<T> = (a: T, b: T) => number;
-export type MaybeAsyncFunction<T> = () => T | PromiseLike<T>;
 export type MaybeAsyncValue<T> = T | PromiseLike<T>;
 export type ReduceFunction<T, O = T> = (
   previous: O,

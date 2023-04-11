@@ -1,10 +1,10 @@
 import {OperationFunction} from '../../types';
 import {
   doneResult,
+  fromIteratorMapper,
   PredicateFunction,
   TypeGuardFunction,
   valueResult,
-  wrap,
 } from '../../utils';
 
 export class FilterIterator<T, TOfType extends T = T>
@@ -35,5 +35,7 @@ export class FilterIterator<T, TOfType extends T = T>
 export function filter<T, TOfType extends T = T>(
   predicate: PredicateFunction<T> | TypeGuardFunction<T, TOfType>
 ): OperationFunction<T, T> {
-  return wrap(iterator => new FilterIterator(iterator, predicate));
+  return fromIteratorMapper(
+    iterator => new FilterIterator(iterator, predicate)
+  );
 }

@@ -1,8 +1,8 @@
 import {
   doneResult,
+  fromAsyncIteratorMapper,
   PredicateFunction,
   valueResult,
-  wrapAsync,
 } from '../../utils';
 import {AsyncOperationFunction} from '../../types';
 
@@ -33,5 +33,7 @@ export class SkipWhileAsyncIterator<T> implements AsyncIterator<T> {
 export function skipWhileAsync<T>(
   predicate: PredicateFunction<T>
 ): AsyncOperationFunction<T, T> {
-  return wrapAsync(iterator => new SkipWhileAsyncIterator(iterator, predicate));
+  return fromAsyncIteratorMapper(
+    iterator => new SkipWhileAsyncIterator(iterator, predicate)
+  );
 }

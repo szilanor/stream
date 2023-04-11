@@ -1,5 +1,5 @@
 import {OperationFunction} from '../../types';
-import {doneResult, valueResult, wrap} from '../../utils';
+import {doneResult, fromIteratorMapper, valueResult} from '../../utils';
 
 class SkipIterator<T> implements Iterator<T> {
   index = 0;
@@ -22,5 +22,5 @@ class SkipIterator<T> implements Iterator<T> {
 
 /** Returns an Iterable skipping the given amount of entries of the source Iterable. */
 export function skip<T>(count: number): OperationFunction<T, T> {
-  return wrap(iterator => new SkipIterator(iterator, count));
+  return fromIteratorMapper(iterator => new SkipIterator(iterator, count));
 }

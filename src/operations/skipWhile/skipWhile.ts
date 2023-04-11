@@ -1,5 +1,10 @@
 import {OperationFunction} from '../../types';
-import {doneResult, PredicateFunction, valueResult, wrap} from '../../utils';
+import {
+  doneResult,
+  fromIteratorMapper,
+  PredicateFunction,
+  valueResult,
+} from '../../utils';
 
 export class SkipWhileIterator<T> implements Iterator<T> {
   index = 0;
@@ -28,5 +33,7 @@ export class SkipWhileIterator<T> implements Iterator<T> {
 export function skipWhile<T>(
   predicate: PredicateFunction<T>
 ): OperationFunction<T, T> {
-  return wrap(iterator => new SkipWhileIterator(iterator, predicate));
+  return fromIteratorMapper(
+    iterator => new SkipWhileIterator(iterator, predicate)
+  );
 }

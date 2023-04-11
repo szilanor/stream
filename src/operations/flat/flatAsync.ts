@@ -1,5 +1,5 @@
 import {AsyncOperationFunction} from '../../types';
-import {doneResult, valueResult, wrapAsync} from '../../utils';
+import {doneResult, fromAsyncIteratorMapper, valueResult} from '../../utils';
 
 class FlatAsyncIterator<T> implements AsyncIterator<T> {
   private current: AsyncIterator<T> | null = null;
@@ -29,7 +29,7 @@ class FlatAsyncIterator<T> implements AsyncIterator<T> {
 
 /** Returns an Iterable that yields the inner entries of array entries of the source Iterable. */
 export function flatAsync<T>(): AsyncOperationFunction<Iterable<T>, T> {
-  return wrapAsync(iterator => new FlatAsyncIterator(iterator));
+  return fromAsyncIteratorMapper(iterator => new FlatAsyncIterator(iterator));
 }
 
 export const flattenAsync = flatAsync;

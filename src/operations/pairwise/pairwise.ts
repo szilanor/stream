@@ -1,5 +1,5 @@
 import {OperationFunction} from '../../types';
-import {doneResult, valueResult, wrap} from '../../utils';
+import {doneResult, fromIteratorMapper, valueResult} from '../../utils';
 
 export class PairwiseIterator<T> implements Iterator<[T, T]> {
   private prev: T | undefined;
@@ -25,5 +25,5 @@ export class PairwiseIterator<T> implements Iterator<[T, T]> {
 
 /** Returns an Iterable that yields the current and the previous entry of the source Iterable. */
 export function pairwise<T>(): OperationFunction<T, [T, T]> {
-  return wrap(iterator => new PairwiseIterator(iterator));
+  return fromIteratorMapper(iterator => new PairwiseIterator(iterator));
 }

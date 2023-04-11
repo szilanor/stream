@@ -1,5 +1,10 @@
 import {OperationFunction} from '../../types';
-import {doneResult, EqualsFunction, valueResult, wrap} from '../../utils';
+import {
+  doneResult,
+  EqualsFunction,
+  fromIteratorMapper,
+  valueResult,
+} from '../../utils';
 
 class DistinctUntilChangedIterator<T> implements Iterator<T> {
   private previous?: T;
@@ -29,7 +34,7 @@ class DistinctUntilChangedIterator<T> implements Iterator<T> {
 export function distinctUntilChanged<T>(
   equalsFunction?: EqualsFunction<T>
 ): OperationFunction<T, T> {
-  return wrap(
+  return fromIteratorMapper(
     iterator => new DistinctUntilChangedIterator(iterator, equalsFunction)
   );
 }

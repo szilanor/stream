@@ -1,9 +1,9 @@
 import {OperationFunction} from '../../types';
 import {
   callValueOrFactory,
+  fromIteratorMapper,
   ValueOrFactory,
   valueResult,
-  wrap,
 } from '../../utils';
 
 class DefaultIfEmptyIterator<T> implements Iterator<T> {
@@ -30,5 +30,7 @@ class DefaultIfEmptyIterator<T> implements Iterator<T> {
 export function defaultIfEmpty<T>(
   defaultValue: ValueOrFactory<T>
 ): OperationFunction<T, T> {
-  return wrap(iterator => new DefaultIfEmptyIterator(iterator, defaultValue));
+  return fromIteratorMapper(
+    iterator => new DefaultIfEmptyIterator(iterator, defaultValue)
+  );
 }

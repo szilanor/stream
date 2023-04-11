@@ -1,9 +1,9 @@
 import {AsyncOperationFunction} from '../../types';
 import {
   callValueOrFactory,
+  fromAsyncIteratorMapper,
   ValueOrFactory,
   valueResult,
-  wrapAsync,
 } from '../../utils';
 
 class DefaultIfEmptyAsyncIterator<T> implements AsyncIterator<T> {
@@ -30,7 +30,7 @@ class DefaultIfEmptyAsyncIterator<T> implements AsyncIterator<T> {
 export function defaultIfEmptyAsync<T>(
   defaultValue: ValueOrFactory<T>
 ): AsyncOperationFunction<T, T> {
-  return wrapAsync(
+  return fromAsyncIteratorMapper(
     iterator => new DefaultIfEmptyAsyncIterator(iterator, defaultValue)
   );
 }

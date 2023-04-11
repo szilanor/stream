@@ -1,5 +1,5 @@
 import {OperationFunction} from '../../types';
-import {doneResult, valueResult, wrap} from '../../utils';
+import {doneResult, fromIteratorMapper, valueResult} from '../../utils';
 
 class FlatIterator<T> implements Iterator<T> {
   private current: Iterator<T> | null = null;
@@ -29,7 +29,7 @@ class FlatIterator<T> implements Iterator<T> {
 
 /** Returns an Iterable that yields the inner entries of array entries of the source Iterable. */
 export function flat<T>(): OperationFunction<Iterable<T>, T> {
-  return wrap(iterator => new FlatIterator(iterator));
+  return fromIteratorMapper(iterator => new FlatIterator(iterator));
 }
 
 export const flatten = flat;

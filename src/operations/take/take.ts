@@ -1,5 +1,5 @@
 import {OperationFunction} from '../../types';
-import {doneResult, valueResult, wrap} from '../../utils';
+import {doneResult, fromIteratorMapper, valueResult} from '../../utils';
 
 class TakeIterator<T> implements Iterator<T> {
   index = 0;
@@ -17,5 +17,5 @@ class TakeIterator<T> implements Iterator<T> {
 
 /** Returns an Iterable taking the given amount of entries of the source Iterable. */
 export function take<T>(count: number): OperationFunction<T, T> {
-  return wrap(iterator => new TakeIterator(iterator, count));
+  return fromIteratorMapper(iterator => new TakeIterator(iterator, count));
 }
