@@ -43,6 +43,17 @@ allOdd = from(input)
 // Result: 2, false
 ```
 
+- Async support
+
+```typescript
+const result = await stream([1, 2, 3, 4])
+  .pipeAsync(mapAsync(async (id) => 
+      await fetch(`https://jsonplaceholder.typicode.com/users/${id}`)
+      .then(result => result.json()))
+  )
+  .collectAsync(toArrayAsync());
+```
+
 - More readable and fewer lines of code
 
 ```typescript
