@@ -39,7 +39,7 @@
     "tsup": "^8.2.3",
     "typescript": "^5.5.4"
   },
-  "license": "MIT",
+  "license": "Apache-2.0",
   "keywords": [
     "stream",
     "iterable",
