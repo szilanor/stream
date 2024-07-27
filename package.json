@@ -1,6 +1,6 @@
 {
   "name": "@szilanor/stream",
-  "version": "2.0.0",
+  "version": "3.0.0",
   "description": "Typesafe API for processing iterable data in TypeScript and JavaScript",
   "type": "module",
   "types": "./dist/index.d.cts",
