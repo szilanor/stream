@@ -36,6 +36,7 @@
     "ts-jest": "^29.2.3",
     "ts-node": "^10.9.2",
     "tsup": "^8.2.3",
+    "typedoc": "^0.26.5",
     "typescript": "^5.5.4"
   },
   "license": "Apache-2.0",
