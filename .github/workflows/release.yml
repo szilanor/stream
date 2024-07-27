@@ -11,6 +11,7 @@ on:
         - patch
 
 permissions:
+  actions: write
   contents: write
 
 jobs:
