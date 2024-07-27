@@ -20,6 +20,7 @@
   },
   "scripts": {
     "build": "tsup",
+    "docs": "npx typedoc src/index.ts",
     "format": "prettier --write src/",
     "lint": "npm run lint:eslint && npm run lint:prettier",
     "lint:eslint": "eslint --report-unused-disable-directives src/",

@@ -1,0 +1,57 @@
+name: Publish
+
+on:
+  workflow_dispatch:
+    inputs:
+      version:
+        type: choice
+        options: 
+        - major
+        - minor
+        - patch
+
+permissions:
+  contents: write
+
+jobs:
+  build:
+    environment: npm
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+
+      - uses: actions/setup-node@v4
+        with:
+          node-version: 20
+
+      - name: Install dependencies
+        run: | 
+          npm ci --ignore-scripts
+
+      - name: Build
+        run: |
+          npm run build
+        
+      - name: Update version and docs
+        run: |
+          git reset --hard
+          git config --local --list
+          git checkout main
+          git config user.name 'github-actions[bot]'
+          git config user.email 'github-actions[bot]@users.noreply.github.com'
+
+          npm version ${{ inputs.version }}
+          npm run docs
+
+          git add . || true
+          git commit -m "Update package version and docs" || true
+          git push "https://$GITHUB_ACTOR:$GITHUB_TOKEN@github.com/$GITHUB_REPOSITORY" -f
+        env:
+          GITHUB_TOKEN: ${{secrets.GITHUB_TOKEN}}
+
+      - name: Publish
+        run: |
+          npm config set //registry.npmjs.org/:_authToken=$NODE_AUTH_TOKEN
+          npm publish --access public
+        env:
+          NODE_AUTH_TOKEN: ${{secrets.NODE_AUTH_TOKEN}}
