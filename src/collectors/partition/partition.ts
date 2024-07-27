@@ -1,9 +1,9 @@
-import {CollectorFunction} from '../../types';
-import {PredicateFunction} from '../../utils';
-import {reduce} from '../reduce';
+import { CollectorFunction } from "../../types";
+import { PredicateFunction } from "../../utils";
+import { reduce } from "../reduce";
 
 export function partition<T>(
-  predicate: PredicateFunction<T>
+  predicate: PredicateFunction<T>,
 ): CollectorFunction<T, [T[], T[]]> {
   return reduce(
     (previous, current, index) => {
@@ -14,6 +14,6 @@ export function partition<T>(
       }
       return previous;
     },
-    () => [new Array<T>(), new Array<T>()]
+    () => [new Array<T>(), new Array<T>()],
   );
 }

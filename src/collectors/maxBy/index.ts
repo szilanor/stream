@@ -1,2 +1,2 @@
-export * from './maxBy';
-export * from './maxByAsync';
+export * from "./maxBy";
+export * from "./maxByAsync";

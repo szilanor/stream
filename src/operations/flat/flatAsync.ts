@@ -1,8 +1,8 @@
-import {AsyncOperationFunction} from '../../types';
-import {doneResult, fromAsyncIteratorMapper, valueResult} from '../../utils';
+import { AsyncOperationFunction } from "../../types";
+import { doneResult, fromAsyncIteratorMapper, valueResult } from "../../utils";
 
 class FlatAsyncIterator<T> implements AsyncIterator<T> {
-  private current: AsyncIterator<T> | null = null;
+  private current: Iterator<T> | null = null;
 
   constructor(private readonly iterator: AsyncIterator<Iterable<T>>) {}
 
@@ -10,14 +10,14 @@ class FlatAsyncIterator<T> implements AsyncIterator<T> {
     // eslint-disable-next-line no-constant-condition
     while (true) {
       if (this.current) {
-        const {value, done} = await this.current.next();
+        const { value, done } = this.current.next();
         if (!done) {
           return valueResult(value);
         }
         this.current = null;
       }
 
-      const {value, done} = await this.iterator.next();
+      const { value, done } = await this.iterator.next();
       if (done) {
         return doneResult();
       }
@@ -29,7 +29,7 @@ class FlatAsyncIterator<T> implements AsyncIterator<T> {
 
 /** Returns an Iterable that yields the inner entries of array entries of the source Iterable. */
 export function flatAsync<T>(): AsyncOperationFunction<Iterable<T>, T> {
-  return fromAsyncIteratorMapper(iterator => new FlatAsyncIterator(iterator));
+  return fromAsyncIteratorMapper((iterator) => new FlatAsyncIterator(iterator));
 }
 
 export const flattenAsync = flatAsync;

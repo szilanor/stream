@@ -1,9 +1,9 @@
-import {AsyncCollectorFunction} from '../../types';
-import {MaybeAsyncPredicateFunction} from '../../utils';
-import {reduceAsync} from '../reduce';
+import { AsyncCollectorFunction } from "../../types";
+import { MaybeAsyncPredicateFunction } from "../../utils";
+import { reduceAsync } from "../reduce";
 
 export function partitionAsync<T>(
-  predicate: MaybeAsyncPredicateFunction<T>
+  predicate: MaybeAsyncPredicateFunction<T>,
 ): AsyncCollectorFunction<T, [T[], T[]]> {
   return reduceAsync(
     async (previous, current, index) => {
@@ -14,6 +14,6 @@ export function partitionAsync<T>(
       }
       return previous;
     },
-    () => [new Array<T>(), new Array<T>()]
+    () => [new Array<T>(), new Array<T>()],
   );
 }

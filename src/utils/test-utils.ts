@@ -3,9 +3,9 @@ import {
   AsyncOperationFunction,
   CollectorFunction,
   OperationFunction,
-} from '../types';
-import {stream} from '../creators';
-import {toArray, toArrayAsync} from '../collectors';
+} from "../types";
+import { stream } from "../creators";
+import { toArray, toArrayAsync } from "../collectors";
 
 export type OperationTestCase<T, O = T> = {
   input: Iterable<T>;
@@ -20,12 +20,12 @@ export type CollectorTestCase<T, O> = {
 export function runSyncAndAsyncOperationTestCases<T, O>(
   operation: OperationFunction<T, O>,
   asyncOperation: AsyncOperationFunction<T, O>,
-  testCases: OperationTestCase<T, O>[]
+  testCases: OperationTestCase<T, O>[],
 ): void {
-  testCases.forEach(({input, result}, index) => {
+  testCases.forEach(({ input, result }, index) => {
     test(`Sync test case ${index}`, () => {
       expect(stream(input).pipe(operation).collect(toArray())).toStrictEqual(
-        result
+        result,
       );
     });
     test(`Async test case ${index}`, async () => {
@@ -40,9 +40,9 @@ export function runSyncAndAsyncOperationTestCases<T, O>(
 export function runSyncAndAsyncCollectorTestCases<T, O>(
   collector: CollectorFunction<T, O>,
   asyncCollector: AsyncCollectorFunction<T, O>,
-  testCases: CollectorTestCase<T, O>[]
+  testCases: CollectorTestCase<T, O>[],
 ): void {
-  testCases.forEach(({input, result}, index) => {
+  testCases.forEach(({ input, result }, index) => {
     test(`Sync test case ${index}`, () => {
       expect(collector(input)).toStrictEqual(result);
     });

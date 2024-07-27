@@ -1,2 +1,2 @@
-export * from './all';
-export * from './allAsync';
+export * from "./all";
+export * from "./allAsync";

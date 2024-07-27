@@ -1,2 +1,2 @@
-export * from './skipWhile';
-export * from './skipWhileAsync';
+export * from "./skipWhile";
+export * from "./skipWhileAsync";

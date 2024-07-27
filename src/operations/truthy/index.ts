@@ -1,2 +1,2 @@
-export * from './truthy';
-export * from './truthyAsync';
+export * from "./truthy";
+export * from "./truthyAsync";

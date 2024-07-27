@@ -1,2 +1,2 @@
-export * from './partition';
-export * from './partitionAsync';
+export * from "./partition";
+export * from "./partitionAsync";

@@ -1,2 +1,2 @@
-export * from './groupByRecord';
-export * from './groupByRecordAsync';
+export * from "./groupByRecord";
+export * from "./groupByRecordAsync";

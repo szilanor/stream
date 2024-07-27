@@ -1,8 +1,8 @@
-import {toSet} from './toSet';
-import {runSyncAndAsyncCollectorTestCases} from '../../utils/test-utils';
-import {toSetAsync} from './toSetAsync';
+import { toSet } from "./toSet";
+import { runSyncAndAsyncCollectorTestCases } from "../../utils/test-utils";
+import { toSetAsync } from "./toSetAsync";
 
-describe('toSet() and toSetAsync()', () => {
+describe("toSet() and toSetAsync()", () => {
   runSyncAndAsyncCollectorTestCases(toSet(), toSetAsync(), [
     {
       input: [1, 1, 1, 1],

@@ -1,8 +1,8 @@
-import {lastOrDefault} from './lastOrDefault';
-import {runSyncAndAsyncCollectorTestCases} from '../../utils/test-utils';
-import {lastOrDefaultAsync} from './lastOrDefaultAsync';
+import { lastOrDefault } from "./lastOrDefault";
+import { runSyncAndAsyncCollectorTestCases } from "../../utils/test-utils";
+import { lastOrDefaultAsync } from "./lastOrDefaultAsync";
 
-describe('lastOrDefault() and lastOrDefaultAsync()', () => {
+describe("lastOrDefault() and lastOrDefaultAsync()", () => {
   const defaultPredicateCases = [
     {
       input: [],
@@ -17,13 +17,13 @@ describe('lastOrDefault() and lastOrDefaultAsync()', () => {
   runSyncAndAsyncCollectorTestCases(
     lastOrDefault(5),
     lastOrDefaultAsync(5),
-    defaultPredicateCases
+    defaultPredicateCases,
   );
 
   runSyncAndAsyncCollectorTestCases(
     lastOrDefault(() => 5),
     lastOrDefaultAsync(() => 5),
-    defaultPredicateCases
+    defaultPredicateCases,
   );
 
   const withPredicateCases = [
@@ -42,20 +42,20 @@ describe('lastOrDefault() and lastOrDefaultAsync()', () => {
   ];
 
   runSyncAndAsyncCollectorTestCases(
-    lastOrDefault(10, entry => entry % 2 === 0),
-    lastOrDefaultAsync(10, entry => entry % 2 === 0),
-    withPredicateCases
+    lastOrDefault(10, (entry) => entry % 2 === 0),
+    lastOrDefaultAsync(10, (entry) => entry % 2 === 0),
+    withPredicateCases,
   );
 
   runSyncAndAsyncCollectorTestCases(
     lastOrDefault(
       () => 10,
-      entry => entry % 2 === 0
+      (entry) => entry % 2 === 0,
     ),
     lastOrDefaultAsync(
       () => 10,
-      entry => entry % 2 === 0
+      (entry) => entry % 2 === 0,
     ),
-    withPredicateCases
+    withPredicateCases,
   );
 });

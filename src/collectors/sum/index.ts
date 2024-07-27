@@ -1,2 +1,2 @@
-export * from './sum';
-export * from './sumAsync';
+export * from "./sum";
+export * from "./sumAsync";

@@ -1,2 +1,2 @@
-export * from './distinct';
-export * from './distinctAsync';
+export * from "./distinct";
+export * from "./distinctAsync";

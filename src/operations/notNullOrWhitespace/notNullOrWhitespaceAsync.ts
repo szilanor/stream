@@ -1,6 +1,6 @@
-import {AsyncOperationFunction} from '../../types';
-import {fromAsyncIteratorMapper, isNotNullOrWhitespace} from '../../utils';
-import {FilterAsyncIterator} from '../filter';
+import { AsyncOperationFunction } from "../../types";
+import { fromAsyncIteratorMapper, isNotNullOrWhitespace } from "../../utils";
+import { FilterAsyncIterator } from "../filter/filterAsync";
 
 /** Returns an Iterable that yields only the non-null / non-undefined / non-empty entries of the source Iterable. */
 export function notNullOrWhitespaceAsync(): AsyncOperationFunction<
@@ -8,10 +8,10 @@ export function notNullOrWhitespaceAsync(): AsyncOperationFunction<
   NonNullable<string>
 > {
   return fromAsyncIteratorMapper(
-    iterator =>
+    (iterator) =>
       new FilterAsyncIterator<string | null | undefined, NonNullable<string>>(
         iterator,
-        isNotNullOrWhitespace
-      )
+        isNotNullOrWhitespace,
+      ),
   );
 }

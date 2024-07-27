@@ -1,2 +1,2 @@
-export * from './operation-function';
-export * from './collector-function';
+export * from "./operation-function";
+export * from "./collector-function";

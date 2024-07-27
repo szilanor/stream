@@ -1,2 +1,2 @@
-export * from './minBy';
-export * from './minByAsync';
+export * from "./minBy";
+export * from "./minByAsync";

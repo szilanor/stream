@@ -1,26 +1,26 @@
-import {join} from './join';
-import {runSyncAndAsyncCollectorTestCases} from '../../utils/test-utils';
-import {joinAsync} from './joinAsync';
+import { join } from "./join";
+import { runSyncAndAsyncCollectorTestCases } from "../../utils/test-utils";
+import { joinAsync } from "./joinAsync";
 
-describe('join() and joinAsync()', () => {
+describe("join() and joinAsync()", () => {
   runSyncAndAsyncCollectorTestCases(join(), joinAsync(), [
     {
       input: [],
-      result: '',
+      result: "",
     },
     {
       input: [1, 2, 3, 4],
-      result: '1,2,3,4',
+      result: "1,2,3,4",
     },
   ]);
-  runSyncAndAsyncCollectorTestCases(join(':'), joinAsync(':'), [
+  runSyncAndAsyncCollectorTestCases(join(":"), joinAsync(":"), [
     {
       input: [],
-      result: '',
+      result: "",
     },
     {
       input: [1, 2, 3, 4],
-      result: '1:2:3:4',
+      result: "1:2:3:4",
     },
   ]);
 });

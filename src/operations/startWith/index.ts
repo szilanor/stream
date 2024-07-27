@@ -1,2 +1,2 @@
-export * from './startWith';
-export * from './startWithAsync';
+export * from "./startWith";
+export * from "./startWithAsync";

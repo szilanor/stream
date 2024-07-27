@@ -1,8 +1,8 @@
-import {runSyncAndAsyncOperationTestCases} from '../../utils/test-utils';
-import {flatAsync} from './flatAsync';
-import {flat} from './flat';
+import { runSyncAndAsyncOperationTestCases } from "../../utils/test-utils";
+import { flatAsync } from "./flatAsync";
+import { flat } from "./flat";
 
-describe('flat() and flatAsync()', () => {
+describe("flat() and flatAsync()", () => {
   runSyncAndAsyncOperationTestCases(flat(), flatAsync(), [
     {
       input: [],

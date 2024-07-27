@@ -1,8 +1,8 @@
-import {count} from './count';
-import {runSyncAndAsyncCollectorTestCases} from '../../utils/test-utils';
-import {countAsync} from './countAsync';
+import { count } from "./count";
+import { runSyncAndAsyncCollectorTestCases } from "../../utils/test-utils";
+import { countAsync } from "./countAsync";
 
-describe('count() and countAsync()', () => {
+describe("count() and countAsync()", () => {
   runSyncAndAsyncCollectorTestCases(count(), countAsync(), [
     {
       input: [],
@@ -18,8 +18,8 @@ describe('count() and countAsync()', () => {
     },
   ]);
   runSyncAndAsyncCollectorTestCases(
-    count(entry => entry % 2 === 0),
-    countAsync(entry => entry % 2 === 0),
+    count((entry) => entry % 2 === 0),
+    countAsync((entry) => entry % 2 === 0),
     [
       {
         input: [],
@@ -33,6 +33,6 @@ describe('count() and countAsync()', () => {
         input: [1, 3, 5],
         result: 0,
       },
-    ]
+    ],
   );
 });

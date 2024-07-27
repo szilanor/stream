@@ -1,2 +1,2 @@
-export * from './toArray';
-export * from './toArrayAsync';
+export * from "./toArray";
+export * from "./toArrayAsync";

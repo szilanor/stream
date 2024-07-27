@@ -1,11 +1,11 @@
-import {CollectorFunction} from '../../types';
-import {EqualsFunction} from '../../utils';
+import { CollectorFunction } from "../../types";
+import { EqualsFunction } from "../../utils";
 
 export function sequenceEquals<T>(
   other: Iterable<T>,
-  equalsFunction: EqualsFunction<T> = (a, b) => a === b
+  equalsFunction: EqualsFunction<T> = (a, b) => a === b,
 ): CollectorFunction<T, boolean> {
-  return source => {
+  return (source) => {
     const sourceIterator = source[Symbol.iterator]();
     const otherIterator = other[Symbol.iterator]();
 

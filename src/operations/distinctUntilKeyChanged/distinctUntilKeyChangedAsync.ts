@@ -1,10 +1,10 @@
-import {AsyncOperationFunction} from '../../types';
+import { AsyncOperationFunction } from "../../types";
 import {
   doneResult,
   EqualsFunction,
   fromAsyncIteratorMapper,
   valueResult,
-} from '../../utils';
+} from "../../utils";
 
 class DistinctUntilKeyChangedAsyncIterator<T, K extends keyof T>
   implements AsyncIterator<T>
@@ -14,14 +14,14 @@ class DistinctUntilKeyChangedAsyncIterator<T, K extends keyof T>
   constructor(
     private iterator: AsyncIterator<T>,
     private key: K,
-    private equalsFunction: EqualsFunction<T[K]> = (a, b) => a === b
+    private equalsFunction: EqualsFunction<T[K]> = (a, b) => a === b,
   ) {}
 
   async next(): Promise<IteratorResult<T>> {
     for (
-      let {value, done} = await this.iterator.next();
+      let { value, done } = await this.iterator.next();
       !done;
-      {value, done} = await this.iterator.next()
+      { value, done } = await this.iterator.next()
     ) {
       const keyValue = value[this.key];
       if (!this.previous || !this.equalsFunction(keyValue, this.previous)) {
@@ -36,10 +36,10 @@ class DistinctUntilKeyChangedAsyncIterator<T, K extends keyof T>
 
 export function distinctUntilKeyChangedAsync<T, K extends keyof T>(
   key: K,
-  equalsFunction?: EqualsFunction<T[K]>
+  equalsFunction?: EqualsFunction<T[K]>,
 ): AsyncOperationFunction<T, T> {
   return fromAsyncIteratorMapper(
-    iterator =>
-      new DistinctUntilKeyChangedAsyncIterator(iterator, key, equalsFunction)
+    (iterator) =>
+      new DistinctUntilKeyChangedAsyncIterator(iterator, key, equalsFunction),
   );
 }

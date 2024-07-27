@@ -1,8 +1,8 @@
-import {firstOrDefault} from './firstOrDefault';
-import {runSyncAndAsyncCollectorTestCases} from '../../utils/test-utils';
-import {firstOrDefaultAsync} from './firstOrDefaultAsync';
+import { firstOrDefault } from "./firstOrDefault";
+import { runSyncAndAsyncCollectorTestCases } from "../../utils/test-utils";
+import { firstOrDefaultAsync } from "./firstOrDefaultAsync";
 
-describe('firstOrDefault() and firstOrDefaultAsync()', () => {
+describe("firstOrDefault() and firstOrDefaultAsync()", () => {
   const emptyTestCases = [
     {
       input: [],
@@ -17,12 +17,12 @@ describe('firstOrDefault() and firstOrDefaultAsync()', () => {
   runSyncAndAsyncCollectorTestCases(
     firstOrDefault(5),
     firstOrDefaultAsync(5),
-    emptyTestCases
+    emptyTestCases,
   );
   runSyncAndAsyncCollectorTestCases(
     firstOrDefault(() => 5),
     firstOrDefaultAsync(() => 5),
-    emptyTestCases
+    emptyTestCases,
   );
 
   const evenTestCases = [
@@ -41,19 +41,19 @@ describe('firstOrDefault() and firstOrDefaultAsync()', () => {
   ];
 
   runSyncAndAsyncCollectorTestCases(
-    firstOrDefault(5, entry => entry % 2 === 0),
-    firstOrDefaultAsync(5, entry => entry % 2 === 0),
-    evenTestCases
+    firstOrDefault(5, (entry) => entry % 2 === 0),
+    firstOrDefaultAsync(5, (entry) => entry % 2 === 0),
+    evenTestCases,
   );
   runSyncAndAsyncCollectorTestCases(
     firstOrDefault(
       () => 5,
-      entry => entry % 2 === 0
+      (entry) => entry % 2 === 0,
     ),
     firstOrDefaultAsync(
       () => 5,
-      entry => entry % 2 === 0
+      (entry) => entry % 2 === 0,
     ),
-    evenTestCases
+    evenTestCases,
   );
 });

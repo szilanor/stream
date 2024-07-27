@@ -1,9 +1,10 @@
-import {AsyncOperationFunction, OperationFunction} from '../types';
+import { AsyncOperationFunction, OperationFunction } from "../types";
+import { doneResult } from "./iterable-utils";
 
 class IteratorMapper<T, O = T> implements Iterable<O> {
   constructor(
     protected iterable: Iterable<T>,
-    protected iteratorMapper: (iterator: Iterator<T>) => Iterator<O>
+    protected iteratorMapper: (iterator: Iterator<T>) => Iterator<O>,
   ) {}
 
   [Symbol.iterator](): Iterator<O> {
@@ -14,7 +15,7 @@ class IteratorMapper<T, O = T> implements Iterable<O> {
 class AsyncIteratorMapper<T, O = T> implements AsyncIterable<O> {
   constructor(
     protected iterable: AsyncIterable<T>,
-    protected iteratorMapper: (iterator: AsyncIterator<T>) => AsyncIterator<O>
+    protected iteratorMapper: (iterator: AsyncIterator<T>) => AsyncIterator<O>,
   ) {}
 
   [Symbol.asyncIterator](): AsyncIterator<O> {
@@ -22,44 +23,34 @@ class AsyncIteratorMapper<T, O = T> implements AsyncIterable<O> {
   }
 }
 
-interface SyncAndAsyncIterable<T> extends AsyncIterable<T>, Iterable<T> {}
+export function fromIteratorMapper<T, O = T>(
+  mapper: (iterator: Iterator<T>) => Iterator<O>,
+): OperationFunction<T, O> {
+  return (iterable) => new IteratorMapper(iterable, mapper);
+}
 
-class AsAsyncIterable<T> implements SyncAndAsyncIterable<T> {
-  constructor(private iterable: Iterable<T>) {}
+export function fromAsyncIteratorMapper<T, O = T>(
+  mapper: (asyncIterator: AsyncIterator<T>) => AsyncIterator<O>,
+): AsyncOperationFunction<T, O> {
+  return (asyncIterator) => new AsyncIteratorMapper(asyncIterator, mapper);
+}
 
-  [Symbol.asyncIterator](): AsyncIterator<T> {
-    return new AsAsyncIterator(this.iterable[Symbol.iterator]());
-  }
-
-  [Symbol.iterator](): Iterator<T> {
-    return this.iterable[Symbol.iterator]();
+export class EmptyIterator implements Iterator<never> {
+  next(): IteratorResult<never> {
+    return doneResult();
   }
 }
 
-class AsAsyncIterator<T> implements AsyncIterator<T> {
+export class EmptyAsyncIterator implements AsyncIterator<never> {
+  async next(): Promise<IteratorResult<never>> {
+    return doneResult();
+  }
+}
+
+export class SyncToAsyncIterator<T> implements AsyncIterator<T> {
   constructor(private iterator: Iterator<T>) {}
 
   async next(): Promise<IteratorResult<T>> {
     return this.iterator.next();
   }
-}
-
-export function fromIteratorMapper<T, O = T>(
-  mapper: (iterator: Iterator<T>) => Iterator<O>
-): OperationFunction<T, O> {
-  return iterable => new IteratorMapper(iterable, mapper);
-}
-
-export function fromAsyncIteratorMapper<T, O = T>(
-  mapper: (asyncIterator: AsyncIterator<T>) => AsyncIterator<O>
-): AsyncOperationFunction<T, O> {
-  return asyncIterator => new AsyncIteratorMapper(asyncIterator, mapper);
-}
-
-export const EMPTY: SyncAndAsyncIterable<never> = new AsAsyncIterable([]);
-
-export function toAsyncIterable<T>(
-  iterable: Iterable<T>
-): SyncAndAsyncIterable<T> {
-  return iterable === EMPTY ? EMPTY : new AsAsyncIterable(iterable);
 }

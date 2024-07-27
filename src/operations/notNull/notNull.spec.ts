@@ -1,8 +1,8 @@
-import {notNull} from './notNull';
-import {runSyncAndAsyncOperationTestCases} from '../../utils/test-utils';
-import {notNullAsync} from './notNullAsync';
+import { notNull } from "./notNull";
+import { runSyncAndAsyncOperationTestCases } from "../../utils/test-utils";
+import { notNullAsync } from "./notNullAsync";
 
-describe('notNull() and notNullAsync()', () => {
+describe("notNull() and notNullAsync()", () => {
   runSyncAndAsyncOperationTestCases(notNull(), notNullAsync(), [
     {
       input: [],

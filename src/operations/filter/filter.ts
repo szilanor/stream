@@ -1,11 +1,11 @@
-import {OperationFunction} from '../../types';
+import { OperationFunction } from "../../types";
 import {
   doneResult,
   fromIteratorMapper,
   PredicateFunction,
   TypeGuardFunction,
   valueResult,
-} from '../../utils';
+} from "../../utils";
 
 export class FilterIterator<T, TOfType extends T = T>
   implements Iterator<TOfType>
@@ -14,14 +14,14 @@ export class FilterIterator<T, TOfType extends T = T>
 
   constructor(
     protected iterator: Iterator<T>,
-    private predicate: PredicateFunction<T> | TypeGuardFunction<T, TOfType>
+    private predicate: PredicateFunction<T> | TypeGuardFunction<T, TOfType>,
   ) {}
 
   next(): IteratorResult<TOfType> {
     for (
-      let {done, value} = this.iterator.next();
+      let { done, value } = this.iterator.next();
       !done;
-      {done, value} = this.iterator.next()
+      { done, value } = this.iterator.next()
     ) {
       if (this.predicate(value, this.index++)) {
         return valueResult(value);
@@ -33,9 +33,9 @@ export class FilterIterator<T, TOfType extends T = T>
 
 /** Returns an Iterable that yields only entries of the source Iterable that satisfy the function. */
 export function filter<T, TOfType extends T = T>(
-  predicate: PredicateFunction<T> | TypeGuardFunction<T, TOfType>
+  predicate: PredicateFunction<T> | TypeGuardFunction<T, TOfType>,
 ): OperationFunction<T, T> {
   return fromIteratorMapper(
-    iterator => new FilterIterator(iterator, predicate)
+    (iterator) => new FilterIterator(iterator, predicate),
   );
 }

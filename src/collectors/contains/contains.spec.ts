@@ -1,13 +1,13 @@
-import {contains} from './contains';
+import { contains } from "./contains";
 
-import {runSyncAndAsyncCollectorTestCases} from '../../utils/test-utils';
-import {containsAsync} from './containsAsync';
+import { runSyncAndAsyncCollectorTestCases } from "../../utils/test-utils";
+import { containsAsync } from "./containsAsync";
 
-const testEntry = {test: 1};
-const entries = [{test: 1}, {test: 2}];
-const entriesWithReference = [testEntry, {test: 2}];
+const testEntry = { test: 1 };
+const entries = [{ test: 1 }, { test: 2 }];
+const entriesWithReference = [testEntry, { test: 2 }];
 
-describe('contains() and containsAsync()', () => {
+describe("contains() and containsAsync()", () => {
   runSyncAndAsyncCollectorTestCases(
     contains(testEntry),
     containsAsync(testEntry),
@@ -24,7 +24,7 @@ describe('contains() and containsAsync()', () => {
         input: entriesWithReference,
         result: true,
       },
-    ]
+    ],
   );
   runSyncAndAsyncCollectorTestCases(
     contains(testEntry, (a, b) => a.test === b.test),
@@ -42,6 +42,6 @@ describe('contains() and containsAsync()', () => {
         input: entriesWithReference,
         result: true,
       },
-    ]
+    ],
   );
 });

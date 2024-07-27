@@ -1,9 +1,9 @@
-import {AsyncCollectorFunction} from '../../types';
-import {reduceAsync} from '../reduce';
+import { AsyncCollectorFunction } from "../../types";
+import { reduceAsync } from "../reduce";
 
 /** Creates a group of entries where the group key is calculated by the selector function. */
 export function groupByRecordAsync<T, TKey extends string | number | symbol>(
-  keySelector: (entry: T) => TKey
+  keySelector: (entry: T) => TKey,
 ): AsyncCollectorFunction<T, Record<TKey, T[]>> {
   return reduceAsync(
     (result, entry) => {
@@ -16,7 +16,7 @@ export function groupByRecordAsync<T, TKey extends string | number | symbol>(
       }
       return result;
     },
-    () => ({} as Record<TKey, T[]>)
+    () => ({}) as Record<TKey, T[]>,
   );
 }
 

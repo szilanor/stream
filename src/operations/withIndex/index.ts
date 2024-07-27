@@ -1,2 +1,2 @@
-export * from './withIndex';
-export * from './withIndexAsync';
+export * from "./withIndex";
+export * from "./withIndexAsync";

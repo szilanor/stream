@@ -1,8 +1,8 @@
-import {first} from './first';
-import {runSyncAndAsyncCollectorTestCases} from '../../utils/test-utils';
-import {firstAsync} from './firstAsync';
+import { first } from "./first";
+import { runSyncAndAsyncCollectorTestCases } from "../../utils/test-utils";
+import { firstAsync } from "./firstAsync";
 
-describe('first() and firstAsync()', () => {
+describe("first() and firstAsync()", () => {
   runSyncAndAsyncCollectorTestCases(first(), firstAsync(), [
     {
       input: [],
@@ -14,8 +14,8 @@ describe('first() and firstAsync()', () => {
     },
   ]);
   runSyncAndAsyncCollectorTestCases(
-    first(entry => entry % 2 === 0),
-    firstAsync(entry => entry % 2 === 0),
+    first((entry) => entry % 2 === 0),
+    firstAsync((entry) => entry % 2 === 0),
     [
       {
         input: [1, 2, 3, 4],
@@ -25,6 +25,6 @@ describe('first() and firstAsync()', () => {
         input: [1, 3],
         result: undefined,
       },
-    ]
+    ],
   );
 });

@@ -1,4 +1,4 @@
-import {Stream} from '../../stream';
+import { Stream } from "../../stream";
 
 /*
  * Creates a Stream that returns 0 entries

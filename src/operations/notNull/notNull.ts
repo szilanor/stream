@@ -1,6 +1,6 @@
-import {OperationFunction} from '../../types';
-import {fromIteratorMapper, isNotNull} from '../../utils';
-import {FilterIterator} from '../filter';
+import { OperationFunction } from "../../types";
+import { fromIteratorMapper, isNotNull } from "../../utils";
+import { FilterIterator } from "../filter/filter";
 
 /** Returns an Iterable that yields only the non-null / non-undefined entries of the source Iterable. */
 export function notNull<T>(): OperationFunction<
@@ -8,10 +8,10 @@ export function notNull<T>(): OperationFunction<
   NonNullable<T>
 > {
   return fromIteratorMapper(
-    source =>
+    (source) =>
       new FilterIterator<T | undefined | null, NonNullable<T>>(
         source,
-        isNotNull
-      )
+        isNotNull,
+      ),
   );
 }

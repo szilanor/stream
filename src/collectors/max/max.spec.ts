@@ -1,8 +1,8 @@
-import {max} from './max';
-import {runSyncAndAsyncCollectorTestCases} from '../../utils/test-utils';
-import {maxAsync} from './maxAsync';
+import { max } from "./max";
+import { runSyncAndAsyncCollectorTestCases } from "../../utils/test-utils";
+import { maxAsync } from "./maxAsync";
 
-describe('max and maxAsync', () => {
+describe("max and maxAsync", () => {
   runSyncAndAsyncCollectorTestCases(max, maxAsync, [
     {
       input: [],

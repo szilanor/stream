@@ -1,8 +1,8 @@
-import {defaultIfEmpty} from './defaultIfEmpty';
-import {runSyncAndAsyncOperationTestCases} from '../../utils/test-utils';
-import {defaultIfEmptyAsync} from './defaultIfEmptyAsync';
+import { defaultIfEmpty } from "./defaultIfEmpty";
+import { runSyncAndAsyncOperationTestCases } from "../../utils/test-utils";
+import { defaultIfEmptyAsync } from "./defaultIfEmptyAsync";
 
-describe('defaultIfEmpty() and defaultIfEmptyAsync()', () => {
+describe("defaultIfEmpty() and defaultIfEmptyAsync()", () => {
   const testCases = [
     {
       input: [],
@@ -17,12 +17,12 @@ describe('defaultIfEmpty() and defaultIfEmptyAsync()', () => {
   runSyncAndAsyncOperationTestCases(
     defaultIfEmpty(1),
     defaultIfEmptyAsync(1),
-    testCases
+    testCases,
   );
 
   runSyncAndAsyncOperationTestCases(
     defaultIfEmpty(() => 1),
     defaultIfEmptyAsync(() => 1),
-    testCases
+    testCases,
   );
 });

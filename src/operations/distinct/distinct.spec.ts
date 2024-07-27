@@ -1,8 +1,8 @@
-import {distinct} from './distinct';
-import {runSyncAndAsyncOperationTestCases} from '../../utils/test-utils';
-import {distinctAsync} from './distinctAsync';
+import { distinct } from "./distinct";
+import { runSyncAndAsyncOperationTestCases } from "../../utils/test-utils";
+import { distinctAsync } from "./distinctAsync";
 
-describe('distinct() and distinctAsync()', () => {
+describe("distinct() and distinctAsync()", () => {
   runSyncAndAsyncOperationTestCases(distinct(), distinctAsync(), [
     {
       input: [],

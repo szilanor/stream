@@ -1,8 +1,8 @@
-import {concatWith} from './concatWith';
-import {runSyncAndAsyncOperationTestCases} from '../../utils/test-utils';
-import {concatWithAsync} from './concatWithAsync';
+import { concatWith } from "./concatWith";
+import { runSyncAndAsyncOperationTestCases } from "../../utils/test-utils";
+import { concatWithAsync } from "./concatWithAsync";
 
-describe('concatWith() and concatWithAsync()', () => {
+describe("concatWith() and concatWithAsync()", () => {
   runSyncAndAsyncOperationTestCases(
     concatWith([4, 5], [6]),
     concatWithAsync([4, 5], [6]),
@@ -15,6 +15,6 @@ describe('concatWith() and concatWithAsync()', () => {
         input: [1, 2, 3],
         result: [1, 2, 3, 4, 5, 6],
       },
-    ]
+    ],
   );
 });

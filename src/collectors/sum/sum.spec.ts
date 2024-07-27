@@ -1,8 +1,8 @@
-import {sum} from './sum';
-import {runSyncAndAsyncCollectorTestCases} from '../../utils/test-utils';
-import {sumAsync} from './sumAsync';
+import { sum } from "./sum";
+import { runSyncAndAsyncCollectorTestCases } from "../../utils/test-utils";
+import { sumAsync } from "./sumAsync";
 
-describe('sum() and sumAsync()', () => {
+describe("sum() and sumAsync()", () => {
   runSyncAndAsyncCollectorTestCases(sum(), sumAsync(), [
     {
       input: [],

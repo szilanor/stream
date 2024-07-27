@@ -1,2 +1,2 @@
-export * from './isEmpty';
-export * from './isEmptyAsync';
+export * from "./isEmpty";
+export * from "./isEmptyAsync";

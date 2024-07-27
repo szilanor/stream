@@ -1,2 +1,2 @@
-export * from './filter';
-export * from './filterAsync';
+export { filter } from "./filter";
+export { filterAsync } from "./filterAsync";

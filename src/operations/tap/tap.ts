@@ -1,12 +1,12 @@
-import {OperationFunction} from '../../types';
-import {CallbackFunction, fromIteratorMapper} from '../../utils';
+import { OperationFunction } from "../../types";
+import { CallbackFunction, fromIteratorMapper } from "../../utils";
 
-export class TapIterator<T> implements Iterator<T> {
+class TapIterator<T> implements Iterator<T> {
   index = 0;
 
   constructor(
     private iterator: Iterator<T>,
-    private callback: CallbackFunction<T>
+    private callback: CallbackFunction<T>,
   ) {}
 
   next(): IteratorResult<T> {
@@ -20,5 +20,5 @@ export class TapIterator<T> implements Iterator<T> {
 
 /** Calls a callback function on each entry */
 export function tap<T>(callback: CallbackFunction<T>): OperationFunction<T, T> {
-  return fromIteratorMapper(iterator => new TapIterator(iterator, callback));
+  return fromIteratorMapper((iterator) => new TapIterator(iterator, callback));
 }

@@ -1,2 +1,2 @@
-export * from './toSet';
-export * from './toSetAsync';
+export * from "./toSet";
+export * from "./toSetAsync";

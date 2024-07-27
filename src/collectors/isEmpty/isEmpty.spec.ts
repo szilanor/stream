@@ -1,8 +1,8 @@
-import {isEmpty} from './isEmpty';
-import {runSyncAndAsyncCollectorTestCases} from '../../utils/test-utils';
-import {isEmptyAsync} from './isEmptyAsync';
+import { isEmpty } from "./isEmpty";
+import { runSyncAndAsyncCollectorTestCases } from "../../utils/test-utils";
+import { isEmptyAsync } from "./isEmptyAsync";
 
-describe('isEmpty() and isEmptyAsync()', () => {
+describe("isEmpty() and isEmptyAsync()", () => {
   runSyncAndAsyncCollectorTestCases(isEmpty(), isEmptyAsync(), [
     {
       input: [],

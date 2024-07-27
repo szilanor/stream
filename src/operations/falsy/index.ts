@@ -1,2 +1,2 @@
-export * from './falsy';
-export * from './falsyAsync';
+export * from "./falsy";
+export * from "./falsyAsync";

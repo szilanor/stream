@@ -3,8 +3,8 @@ import {
   fromAsyncIteratorFactory,
   getIterator,
   valueResult,
-} from '../../utils';
-import {AsyncStream} from '../../async-stream';
+} from "../../utils";
+import { AsyncStream } from "../../async-stream";
 
 class ConcatAsyncIterator<T> implements AsyncIterator<T> {
   private index = 0;
@@ -15,7 +15,7 @@ class ConcatAsyncIterator<T> implements AsyncIterator<T> {
   async next(): Promise<IteratorResult<T>> {
     while (this.index < this.iterables.length) {
       this.iterator = this.iterator || getIterator(this.iterables[this.index]);
-      const {value, done} = await this.iterator.next();
+      const { value, done } = await this.iterator.next();
       if (done) {
         this.index++;
         if (this.index < this.iterables.length) {
@@ -37,6 +37,6 @@ export function concatAsync<T>(
   ...iterables: Array<Iterable<T> | AsyncIterable<T>>
 ): AsyncStream<T> {
   return new AsyncStream<T>(
-    fromAsyncIteratorFactory(() => new ConcatAsyncIterator(iterables))
+    fromAsyncIteratorFactory(() => new ConcatAsyncIterator(iterables)),
   );
 }
