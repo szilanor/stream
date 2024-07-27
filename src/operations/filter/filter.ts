@@ -1,34 +1,41 @@
-import {OperationFunction} from '../../types';
+import { OperationFunction } from "../../types";
+import {
+  doneResult,
+  fromIteratorMapper,
+  PredicateFunction,
+  TypeGuardFunction,
+  valueResult,
+} from "../../utils";
 
-export class FilterIterator<T> implements IterableIterator<T> {
-  private index = 0;
+export class FilterIterator<T, TOfType extends T = T>
+  implements Iterator<TOfType>
+{
+  index = 0;
 
   constructor(
-    private iterator: Iterator<T>,
-    private predicate: (value: T, index: number) => boolean
+    protected iterator: Iterator<T>,
+    private predicate: PredicateFunction<T> | TypeGuardFunction<T, TOfType>,
   ) {}
 
-  [Symbol.iterator](): IterableIterator<T> {
-    return this;
-  }
-
-  next(): IteratorResult<T> {
+  next(): IteratorResult<TOfType> {
     for (
-      let item = this.iterator.next();
-      !item.done;
-      item = this.iterator.next()
+      let { done, value } = this.iterator.next();
+      !done;
+      { done, value } = this.iterator.next()
     ) {
-      if (this.predicate(item.value, this.index++)) {
-        return {done: false, value: item.value};
+      if (this.predicate(value, this.index++)) {
+        return valueResult(value);
       }
     }
-    return {done: true, value: undefined as unknown};
+    return doneResult();
   }
 }
 
 /** Returns an Iterable that yields only entries of the source Iterable that satisfy the function. */
-export function filter<T>(
-  func: (value: T, index: number) => boolean
+export function filter<T, TOfType extends T = T>(
+  predicate: PredicateFunction<T> | TypeGuardFunction<T, TOfType>,
 ): OperationFunction<T, T> {
-  return entries => new FilterIterator(entries[Symbol.iterator](), func);
+  return fromIteratorMapper(
+    (iterator) => new FilterIterator(iterator, predicate),
+  );
 }

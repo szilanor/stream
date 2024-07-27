@@ -1,13 +1,15 @@
-import {CollectorFunction} from '../../types';
+import { CollectorFunction } from "../../types";
+import { PredicateFunction } from "../../utils";
 
 /** Returns the last entry from the Iterable that satisfy then 'predicate' function. */
 export function last<T>(
-  predicate: (item: T) => boolean = () => true
+  predicate: PredicateFunction<T> = () => true,
 ): CollectorFunction<T, T | undefined> {
-  return stream => {
+  return (source) => {
     let last = undefined;
-    for (const entry of stream) {
-      if (predicate(entry)) {
+    let index = 0;
+    for (const entry of source) {
+      if (predicate(entry, index++)) {
         last = entry;
       }
     }

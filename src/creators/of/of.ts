@@ -1,4 +1,4 @@
-import {Stream} from '../../stream';
+import { Stream } from "../../stream";
 
 /**
  * Return a Stream from the parameter entries
@@ -6,3 +6,5 @@ import {Stream} from '../../stream';
 export function of<T>(...entries: T[]): Stream<T> {
   return new Stream(entries);
 }
+
+export const streamOf = of;

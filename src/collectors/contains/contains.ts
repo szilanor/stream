@@ -1,13 +1,14 @@
-import {CollectorFunction} from '../../types';
+import { CollectorFunction } from "../../types";
+import { EqualsFunction } from "../../utils";
 
 /** Returns if at least one of the entries equals with the given 'value'. */
 export function contains<T>(
   value: T,
-  compareFunction: (a: T, b: T) => boolean = (a, b) => a === b
+  equalsFunction: EqualsFunction<T> = (a, b) => a === b,
 ): CollectorFunction<T, boolean> {
-  return stream => {
-    for (const entry of stream) {
-      if (compareFunction(entry, value)) {
+  return (source) => {
+    for (const entry of source) {
+      if (equalsFunction(entry, value)) {
         return true;
       }
     }

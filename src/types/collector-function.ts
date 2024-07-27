@@ -1,3 +1,7 @@
 export type CollectorFunction<TInput, TOutput> = (
-  stream: Iterable<TInput>
+  iterable: Iterable<TInput>,
 ) => TOutput;
+
+export type AsyncCollectorFunction<TInput, TOutput> = (
+  iterable: AsyncIterable<TInput>,
+) => PromiseLike<TOutput>;

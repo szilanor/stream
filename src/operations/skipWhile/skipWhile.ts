@@ -1,34 +1,39 @@
-import {OperationFunction} from '../../types';
+import { OperationFunction } from "../../types";
+import {
+  doneResult,
+  fromIteratorMapper,
+  PredicateFunction,
+  valueResult,
+} from "../../utils";
 
-export class SkipWhileIterator<T> implements IterableIterator<T> {
+class SkipWhileIterator<T> implements Iterator<T> {
+  index = 0;
   private skip = true;
 
   constructor(
     private iterator: Iterator<T>,
-    private predicate: (entry: T) => boolean
+    private predicate: PredicateFunction<T>,
   ) {}
-
-  [Symbol.iterator](): IterableIterator<T> {
-    return this;
-  }
 
   next(): IteratorResult<T> {
     for (
-      let item = this.iterator.next();
-      !item.done;
-      item = this.iterator.next()
+      let { done, value } = this.iterator.next();
+      !done;
+      { done, value } = this.iterator.next()
     ) {
-      if (this.skip && (this.skip = this.predicate(item.value))) continue;
-      return {done: false, value: item.value};
+      if (this.skip && (this.skip = this.predicate(value, this.index++)))
+        continue;
+      return valueResult(value);
     }
-    return {done: true, value: undefined as unknown};
+    return doneResult();
   }
 }
 
 /** Returns an Iterable skipping entries of the source Iterable while the parameter function returns true. */
 export function skipWhile<T>(
-  predicate: (entry: T) => boolean
+  predicate: PredicateFunction<T>,
 ): OperationFunction<T, T> {
-  return entries =>
-    new SkipWhileIterator(entries[Symbol.iterator](), predicate);
+  return fromIteratorMapper(
+    (iterator) => new SkipWhileIterator(iterator, predicate),
+  );
 }

@@ -1,38 +1,37 @@
-import {OperationFunction} from '../../types';
+import { OperationFunction } from "../../types";
+import { doneResult, fromIteratorMapper, valueResult } from "../../utils";
 
-export class BufferIterator<T> implements IterableIterator<T[]> {
+class BufferIterator<T> implements Iterator<T[]> {
   private bufferArray: T[] = [];
 
-  constructor(private iterator: Iterator<T>, private size: number) {}
-
-  [Symbol.iterator](): IterableIterator<T[]> {
-    return this;
-  }
+  constructor(
+    private iterator: Iterator<T>,
+    private size: number,
+  ) {}
 
   next(): IteratorResult<T[]> {
     for (
-      let item = this.iterator.next();
-      !item.done;
-      item = this.iterator.next()
+      let { value, done } = this.iterator.next();
+      !done;
+      { value, done } = this.iterator.next()
     ) {
-      this.bufferArray.push(item.value);
+      this.bufferArray.push(value);
       if (this.bufferArray.length === this.size) {
-        const result = {done: item.done, value: this.bufferArray};
+        const result = valueResult(this.bufferArray);
         this.bufferArray = [];
         return result;
       }
     }
     if (this.bufferArray.length) {
-      const result = {done: false, value: this.bufferArray};
+      const result = valueResult(this.bufferArray);
       this.bufferArray = [];
       return result;
-    } else {
-      return {done: true, value: undefined as unknown};
     }
+    return doneResult();
   }
 }
 
 /** Returns an Iterable that yields array of entries of the source Iterable with the given length. */
 export function buffer<T>(size: number): OperationFunction<T, T[]> {
-  return entries => new BufferIterator(entries[Symbol.iterator](), size);
+  return fromIteratorMapper((iterator) => new BufferIterator(iterator, size));
 }

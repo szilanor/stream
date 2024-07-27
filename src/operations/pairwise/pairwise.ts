@@ -1,35 +1,29 @@
-import {OperationFunction} from '../../types';
+import { OperationFunction } from "../../types";
+import { doneResult, fromIteratorMapper, valueResult } from "../../utils";
 
-export class PairwiseIterator<T> implements IterableIterator<[T, T]> {
+class PairwiseIterator<T> implements Iterator<[T, T]> {
   private prev: T | undefined;
 
   constructor(private iterator: Iterator<T>) {}
 
-  [Symbol.iterator](): IterableIterator<[T, T]> {
-    return this;
-  }
-
   next(): IteratorResult<[T, T]> {
     for (
-      let item = this.iterator.next();
-      !item.done;
-      item = this.iterator.next()
+      let { done, value } = this.iterator.next();
+      !done;
+      { done, value } = this.iterator.next()
     ) {
       if (this.prev) {
-        const result: IteratorResult<[T, T]> = {
-          done: false,
-          value: [this.prev, item.value],
-        };
-        this.prev = item.value;
+        const result: IteratorResult<[T, T]> = valueResult([this.prev, value]);
+        this.prev = value;
         return result;
       }
-      this.prev = item.value;
+      this.prev = value;
     }
-    return {done: true, value: undefined as unknown};
+    return doneResult();
   }
 }
 
 /** Returns an Iterable that yields the current and the previous entry of the source Iterable. */
 export function pairwise<T>(): OperationFunction<T, [T, T]> {
-  return entries => new PairwiseIterator(entries[Symbol.iterator]());
+  return fromIteratorMapper((iterator) => new PairwiseIterator(iterator));
 }

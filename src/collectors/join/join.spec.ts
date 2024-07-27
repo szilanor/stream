@@ -1,22 +1,26 @@
-import {Stream} from '../../stream';
-import {join} from './join';
-import {empty} from '../../creators';
+import { join } from "./join";
+import { runSyncAndAsyncCollectorTestCases } from "../../utils/test-utils";
+import { joinAsync } from "./joinAsync";
 
-describe('Processor function: join()', () => {
-  test('should return an empty string for empty Stream', () => {
-    const res = empty().collect(join());
-    expect(res).toBe('');
-  });
-
-  test('should join the entries with the default separator', () => {
-    const entries = [1, 2, 3, 4];
-    const res = new Stream(entries).collect(join());
-    expect(res).toBe('1,2,3,4');
-  });
-
-  test('should join the entries with the passed separator', () => {
-    const entries = [1, 2, 3, 4];
-    const res = new Stream(entries).collect(join(':'));
-    expect(res).toBe('1:2:3:4');
-  });
+describe("join() and joinAsync()", () => {
+  runSyncAndAsyncCollectorTestCases(join(), joinAsync(), [
+    {
+      input: [],
+      result: "",
+    },
+    {
+      input: [1, 2, 3, 4],
+      result: "1,2,3,4",
+    },
+  ]);
+  runSyncAndAsyncCollectorTestCases(join(":"), joinAsync(":"), [
+    {
+      input: [],
+      result: "",
+    },
+    {
+      input: [1, 2, 3, 4],
+      result: "1:2:3:4",
+    },
+  ]);
 });

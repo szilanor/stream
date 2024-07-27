@@ -1,12 +1,20 @@
-import {Stream} from '../../stream';
-import {toArray} from '../../collectors';
-import {notNull} from './notNull';
+import { notNull } from "./notNull";
+import { runSyncAndAsyncOperationTestCases } from "../../utils/test-utils";
+import { notNullAsync } from "./notNullAsync";
 
-describe('Operation function: notNull()', () => {
-  test('should filter null or undefined entries', () => {
-    const res = new Stream([1, 2, 3, null, undefined])
-      .pipe(notNull())
-      .collect(toArray());
-    expect(res).toStrictEqual([1, 2, 3]);
-  });
+describe("notNull() and notNullAsync()", () => {
+  runSyncAndAsyncOperationTestCases(notNull(), notNullAsync(), [
+    {
+      input: [],
+      result: [],
+    },
+    {
+      input: [1, 2, 3],
+      result: [1, 2, 3],
+    },
+    {
+      input: [1, 2, 3, null, undefined],
+      result: [1, 2, 3],
+    },
+  ]);
 });

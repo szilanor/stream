@@ -1,20 +1,30 @@
-import {Stream} from '../../stream';
-import {elementAt} from './elementAt';
-import {empty} from '../../creators';
+import { elementAt } from "./elementAt";
+import { runSyncAndAsyncCollectorTestCases } from "../../utils/test-utils";
+import { elementAtAsync } from "./elementAtAsync";
 
-describe('Processor function: elementAt()', () => {
-  test('should return undefined for empty Stream', () => {
-    const res = empty().collect(elementAt(0));
-    expect(res).toBe(undefined);
-  });
-
-  test('should return the first element', () => {
-    const res = new Stream([1]).collect(elementAt(0));
-    expect(res).toBe(1);
-  });
-
-  test('should return undefined if the index is greater then the length of the iterable', () => {
-    const res = new Stream([1]).collect(elementAt(1));
-    expect(res).toBe(undefined);
-  });
+describe("elementAt() and elementAtAsync()", () => {
+  runSyncAndAsyncCollectorTestCases(elementAt(0), elementAtAsync(0), [
+    {
+      input: [],
+      result: undefined,
+    },
+    {
+      input: [1],
+      result: 1,
+    },
+    {
+      input: new Set([1]),
+      result: 1,
+    },
+  ]);
+  runSyncAndAsyncCollectorTestCases(elementAt(1), elementAtAsync(1), [
+    {
+      input: [],
+      result: undefined,
+    },
+    {
+      input: [1],
+      result: undefined,
+    },
+  ]);
 });

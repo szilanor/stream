@@ -1,17 +1,16 @@
-import {OperationFunction} from '../../types';
-import {OfTypeIterator} from '../ofType/ofType';
-
-export function isNotNullOrEmpty<T extends {length: number}>(
-  value: T | null | undefined
-): value is NonNullable<T> {
-  return !!value && value.length > 0;
-}
+import { OperationFunction } from "../../types";
+import { fromIteratorMapper, isNotNullOrEmpty } from "../../utils";
+import { FilterIterator } from "../filter/filter";
 
 /** Returns an Iterable that yields only the non-null / non-undefined / non-empty entries of the source Iterable. */
-export function notNullOrEmpty<T extends {length: number}>(): OperationFunction<
-  T | undefined | null,
-  NonNullable<T>
-> {
-  return entries =>
-    new OfTypeIterator(entries[Symbol.iterator](), isNotNullOrEmpty);
+export function notNullOrEmpty<
+  T extends { length: number },
+>(): OperationFunction<T | null | undefined, NonNullable<T>> {
+  return fromIteratorMapper(
+    (iterator) =>
+      new FilterIterator<T | null | undefined, NonNullable<T>>(
+        iterator,
+        isNotNullOrEmpty,
+      ),
+  );
 }

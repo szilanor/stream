@@ -1,25 +1,25 @@
-import {OperationFunction} from '../../types';
+import { OperationFunction } from "../../types";
+import { fromIteratorMapper, PredicateFunction } from "../../utils";
 
-export class TakeWhileIterator<T> implements IterableIterator<T> {
+class TakeWhileIterator<T> implements Iterator<T> {
+  index = 0;
+
   constructor(
     private iterator: Iterator<T>,
-    private predicate: (entry: T) => boolean
+    private predicate: PredicateFunction<T>,
   ) {}
 
-  [Symbol.iterator](): IterableIterator<T> {
-    return this;
-  }
-
   next(): IteratorResult<T> {
-    const item = this.iterator.next();
-    return {done: item.done || !this.predicate(item.value), value: item.value};
+    const { done, value } = this.iterator.next();
+    return { done: done || !this.predicate(value, this.index++), value };
   }
 }
 
 /** Returns an Iterable taking entries of the source Iterable while the parameter function returns true. */
 export function takeWhile<T>(
-  predicate: (entry: T) => boolean
+  predicate: PredicateFunction<T>,
 ): OperationFunction<T, T> {
-  return entries =>
-    new TakeWhileIterator(entries[Symbol.iterator](), predicate);
+  return fromIteratorMapper(
+    (iterator) => new TakeWhileIterator(iterator, predicate),
+  );
 }

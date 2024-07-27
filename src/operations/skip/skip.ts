@@ -1,29 +1,29 @@
-import {OperationFunction} from '../../types';
+import { OperationFunction } from "../../types";
+import { doneResult, fromIteratorMapper, valueResult } from "../../utils";
 
-export class SkipIterator<T> implements IterableIterator<T> {
-  private index = 0;
+class SkipIterator<T> implements Iterator<T> {
+  index = 0;
 
-  constructor(private iterator: Iterator<T>, private count: number) {}
-
-  [Symbol.iterator](): IterableIterator<T> {
-    return this;
-  }
+  constructor(
+    private iterator: Iterator<T>,
+    private count: number,
+  ) {}
 
   next(): IteratorResult<T> {
     for (
-      let item = this.iterator.next();
-      !item.done;
-      item = this.iterator.next()
+      let { done, value } = this.iterator.next();
+      !done;
+      { done, value } = this.iterator.next()
     ) {
       if (this.index++ >= this.count) {
-        return {done: false, value: item.value};
+        return valueResult(value);
       }
     }
-    return {done: true, value: undefined as unknown};
+    return doneResult();
   }
 }
 
 /** Returns an Iterable skipping the given amount of entries of the source Iterable. */
 export function skip<T>(count: number): OperationFunction<T, T> {
-  return entries => new SkipIterator(entries[Symbol.iterator](), count);
+  return fromIteratorMapper((iterator) => new SkipIterator(iterator, count));
 }

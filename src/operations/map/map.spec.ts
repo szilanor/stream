@@ -1,12 +1,20 @@
-import {Stream} from '../../stream';
-import {toArray} from '../../collectors';
-import {map} from './map';
+import { map } from "./map";
+import { runSyncAndAsyncOperationTestCases } from "../../utils/test-utils";
+import { mapAsync } from "./mapAsync";
 
-describe('Operation function: map()', () => {
-  test('should map entries with the callback function', () => {
-    const res = new Stream([1, 2, 3])
-      .pipe(map(entry => entry + 1))
-      .collect(toArray());
-    expect(res).toStrictEqual([2, 3, 4]);
-  });
+describe("map() and mapAsync()", () => {
+  runSyncAndAsyncOperationTestCases(
+    map((entry) => entry + 1),
+    mapAsync((entry) => entry + 1),
+    [
+      {
+        input: [],
+        result: [],
+      },
+      {
+        input: [1, 2, 3],
+        result: [2, 3, 4],
+      },
+    ],
+  );
 });

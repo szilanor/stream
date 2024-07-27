@@ -1,6 +1,6 @@
-import {CollectorFunction} from '../../types';
+import { CollectorFunction } from "../../types";
 
 /** Creates a Set from an Iterable */
 export function toSet<T>(): CollectorFunction<T, Set<T>> {
-  return stream => new Set<T>(stream);
+  return (source) => new Set<T>(source);
 }

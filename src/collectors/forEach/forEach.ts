@@ -1,12 +1,14 @@
-import {CollectorFunction} from '../../types';
+import { CollectorFunction } from "../../types";
+import { CallbackFunction } from "../../utils";
 
 /** Call a callback function on every entry. */
 export function forEach<T>(
-  forEachFunction: (item: T) => void
+  callback: CallbackFunction<T>,
 ): CollectorFunction<T, void> {
-  return stream => {
-    for (const entry of stream) {
-      forEachFunction(entry);
+  return (source) => {
+    let index = 0;
+    for (const entry of source) {
+      callback(entry, index++);
     }
   };
 }

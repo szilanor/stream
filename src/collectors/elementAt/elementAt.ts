@@ -1,12 +1,12 @@
-import {CollectorFunction} from '../../types';
+import { CollectorFunction } from "../../types";
 
 /** Returns the nth entry from the Iterable. */
 export function elementAt<T>(
-  index: number
+  index: number,
 ): CollectorFunction<T, T | undefined> {
-  return stream => {
+  return (source) => {
     let i = 0;
-    for (const entry of stream) {
+    for (const entry of source) {
       if (i === index) {
         return entry;
       }

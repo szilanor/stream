@@ -1,12 +1,20 @@
-import {Stream} from '../../stream';
-import {toArray} from '../../collectors';
-import {notNullOrWhitespace} from './notNullOrWhitespace';
+import { runSyncAndAsyncOperationTestCases } from "../../utils/test-utils";
+import { notNullOrWhitespace } from "./notNullOrWhitespace";
+import { notNullOrWhitespaceAsync } from "./notNullOrWhitespaceAsync";
 
-describe('Operation function: notNullOrWhitespace()', () => {
-  test('should filter null or undefined or whitespace entries', () => {
-    const res = new Stream(['1', '   ', '2', undefined])
-      .pipe(notNullOrWhitespace())
-      .collect(toArray());
-    expect(res).toStrictEqual(['1', '2']);
-  });
+describe("notNullOrWhitespace() and notNullOrWhitespaceAsync()", () => {
+  runSyncAndAsyncOperationTestCases(
+    notNullOrWhitespace(),
+    notNullOrWhitespaceAsync(),
+    [
+      {
+        input: [],
+        result: [],
+      },
+      {
+        input: ["1", "   ", "2", undefined],
+        result: ["1", "2"],
+      },
+    ],
+  );
 });
