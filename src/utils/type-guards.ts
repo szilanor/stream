@@ -5,6 +5,7 @@ export function isNotNull<T>(
   return value !== null && value !== undefined;
 }
 
+// eslint-disable-next-line @typescript-eslint/ban-types
 export function isFunction(x: unknown): x is Function {
   return typeof x === "function";
 }
