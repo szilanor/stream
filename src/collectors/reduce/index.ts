@@ -1,2 +1,2 @@
-export * from './reduce';
-export * from './reduceAsync';
+export * from "./reduce";
+export * from "./reduceAsync";

@@ -1,2 +1,2 @@
-export * from './sequenceEquals';
-export * from './sequenceEqualsAsync';
+export * from "./sequenceEquals";
+export * from "./sequenceEqualsAsync";

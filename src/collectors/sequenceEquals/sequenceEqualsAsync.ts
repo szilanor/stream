@@ -1,11 +1,11 @@
-import {AsyncCollectorFunction} from '../../types';
-import {EqualsFunction} from '../../utils';
+import { AsyncCollectorFunction } from "../../types";
+import { EqualsFunction } from "../../utils";
 
 export function sequenceEqualsAsync<T>(
   other: Iterable<T>,
-  equalsFunction: EqualsFunction<T> = (a, b) => a === b
+  equalsFunction: EqualsFunction<T> = (a, b) => a === b,
 ): AsyncCollectorFunction<T, boolean> {
-  return async source => {
+  return async (source) => {
     const sourceIterator = source[Symbol.asyncIterator]();
     const otherIterator = other[Symbol.iterator]();
 

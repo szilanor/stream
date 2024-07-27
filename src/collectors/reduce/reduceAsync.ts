@@ -1,16 +1,16 @@
-import {AsyncCollectorFunction} from '../../types';
+import { AsyncCollectorFunction } from "../../types";
 import {
   AsyncReduceFunction,
   callValueOrFactory,
   ValueOrFactory,
-} from '../../utils';
+} from "../../utils";
 
 /** Executes a reducer function on each entry of the Iterable, resulting in a single output value. */
 export function reduceAsync<T, O>(
   reducerFunction: AsyncReduceFunction<T, O>,
-  initialValue: ValueOrFactory<O>
+  initialValue: ValueOrFactory<O>,
 ): AsyncCollectorFunction<T, O> {
-  return async stream => {
+  return async (stream) => {
     let prev = callValueOrFactory(initialValue);
     let index = 0;
     for await (const entry of stream) {

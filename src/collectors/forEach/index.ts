@@ -1,2 +1,2 @@
-export * from './forEach';
-export * from './forEachAsync';
+export * from "./forEach";
+export * from "./forEachAsync";

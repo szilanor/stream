@@ -1,1 +1,2 @@
-export * from './endWith';
+export * from "./endWith";
+export * from "./endWithAsync";

@@ -1,2 +1,2 @@
-export * from './lastOrDefault';
-export * from './lastOrDefaultAsync';
+export * from "./lastOrDefault";
+export * from "./lastOrDefaultAsync";

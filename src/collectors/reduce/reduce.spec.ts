@@ -1,8 +1,8 @@
-import {reduce} from './reduce';
-import {runSyncAndAsyncCollectorTestCases} from '../../utils/test-utils';
-import {reduceAsync} from './reduceAsync';
+import { reduce } from "./reduce";
+import { runSyncAndAsyncCollectorTestCases } from "../../utils/test-utils";
+import { reduceAsync } from "./reduceAsync";
 
-describe('reduce() and reduceAsync()', () => {
+describe("reduce() and reduceAsync()", () => {
   const testCases = [
     {
       input: [],
@@ -17,18 +17,18 @@ describe('reduce() and reduceAsync()', () => {
   runSyncAndAsyncCollectorTestCases(
     reduce((a, b) => a + b, 0),
     reduceAsync((a, b) => a + b, 0),
-    testCases
+    testCases,
   );
 
   runSyncAndAsyncCollectorTestCases(
     reduce(
       (a, b) => a + b,
-      () => 0
+      () => 0,
     ),
     reduceAsync(
       (a, b) => a + b,
-      () => 0
+      () => 0,
     ),
-    testCases
+    testCases,
   );
 });

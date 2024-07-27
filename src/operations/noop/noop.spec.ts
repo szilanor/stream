@@ -1,8 +1,8 @@
-import {noop} from './noop';
-import {runSyncAndAsyncOperationTestCases} from '../../utils/test-utils';
-import {noopAsync} from './noopAsync';
+import { noop } from "./noop";
+import { runSyncAndAsyncOperationTestCases } from "../../utils/test-utils";
+import { noopAsync } from "./noopAsync";
 
-describe('noop() and noopAsync()', () => {
+describe("noop() and noopAsync()", () => {
   runSyncAndAsyncOperationTestCases(noop(), noopAsync(), [
     {
       input: [],

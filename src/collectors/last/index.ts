@@ -1,2 +1,2 @@
-export * from './last';
-export * from './lastAsync';
+export * from "./last";
+export * from "./lastAsync";

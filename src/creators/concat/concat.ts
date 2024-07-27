@@ -1,5 +1,5 @@
-import {Stream} from '../../stream';
-import {doneResult, fromIteratorFactory, valueResult} from '../../utils';
+import { Stream } from "../../stream";
+import { doneResult, fromIteratorFactory, valueResult } from "../../utils";
 
 class ConcatIterator<T> implements Iterator<T> {
   private index = 0;
@@ -11,7 +11,7 @@ class ConcatIterator<T> implements Iterator<T> {
     while (this.index < this.iterables.length) {
       this.iterator =
         this.iterator || this.iterables[this.index][Symbol.iterator]();
-      const {value, done} = this.iterator.next();
+      const { value, done } = this.iterator.next();
       if (done) {
         this.index++;
         if (this.index < this.iterables.length) {
@@ -31,6 +31,6 @@ class ConcatIterator<T> implements Iterator<T> {
  */
 export function concat<T>(...iterables: Array<Iterable<T>>): Stream<T> {
   return new Stream<T>(
-    fromIteratorFactory(() => new ConcatIterator(iterables))
+    fromIteratorFactory(() => new ConcatIterator(iterables)),
   );
 }

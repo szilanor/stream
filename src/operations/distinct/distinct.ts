@@ -1,5 +1,5 @@
-import {OperationFunction} from '../../types';
-import {doneResult, fromIteratorMapper, valueResult} from '../../utils';
+import { OperationFunction } from "../../types";
+import { doneResult, fromIteratorMapper, valueResult } from "../../utils";
 
 class DistinctIterator<T> implements Iterator<T> {
   private items: Set<T> = new Set<T>();
@@ -8,9 +8,9 @@ class DistinctIterator<T> implements Iterator<T> {
 
   next(): IteratorResult<T> {
     for (
-      let {value, done} = this.iterator.next();
+      let { value, done } = this.iterator.next();
       !done;
-      {value, done} = this.iterator.next()
+      { value, done } = this.iterator.next()
     ) {
       if (!this.items.has(value)) {
         this.items.add(value);
@@ -24,5 +24,5 @@ class DistinctIterator<T> implements Iterator<T> {
 
 /** Returns an Iterable that yields only entries of the source Iterable without duplicates. */
 export function distinct<T>(): OperationFunction<T, T> {
-  return fromIteratorMapper(iterator => new DistinctIterator(iterator));
+  return fromIteratorMapper((iterator) => new DistinctIterator(iterator));
 }

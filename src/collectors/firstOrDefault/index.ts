@@ -1,2 +1,2 @@
-export * from './firstOrDefault';
-export * from './firstOrDefaultAsync';
+export * from "./firstOrDefault";
+export * from "./firstOrDefaultAsync";

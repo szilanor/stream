@@ -1,1 +1,1 @@
-export * from './of';
+export * from "./of";

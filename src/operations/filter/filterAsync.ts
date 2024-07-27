@@ -1,11 +1,11 @@
-import {AsyncOperationFunction} from '../../types';
+import { AsyncOperationFunction } from "../../types";
 import {
   doneResult,
   fromAsyncIteratorMapper,
   PredicateFunction,
   TypeGuardFunction,
   valueResult,
-} from '../../utils';
+} from "../../utils";
 
 export class FilterAsyncIterator<T, TOfType extends T = T>
   implements AsyncIterator<TOfType>
@@ -14,14 +14,14 @@ export class FilterAsyncIterator<T, TOfType extends T = T>
 
   constructor(
     private iterator: AsyncIterator<T>,
-    private predicate: PredicateFunction<T> | TypeGuardFunction<T, TOfType>
+    private predicate: PredicateFunction<T> | TypeGuardFunction<T, TOfType>,
   ) {}
 
   async next(): Promise<IteratorResult<TOfType>> {
     for (
-      let {done, value} = await this.iterator.next();
+      let { done, value } = await this.iterator.next();
       !done;
-      {done, value} = await this.iterator.next()
+      { done, value } = await this.iterator.next()
     ) {
       if (this.predicate(value, this.index++)) {
         return valueResult(value);
@@ -33,9 +33,9 @@ export class FilterAsyncIterator<T, TOfType extends T = T>
 
 /** Returns an Iterable that yields only entries of the source Iterable that satisfy the function. */
 export function filterAsync<T>(
-  predicate: PredicateFunction<T>
+  predicate: PredicateFunction<T>,
 ): AsyncOperationFunction<T, T> {
   return fromAsyncIteratorMapper(
-    iterator => new FilterAsyncIterator(iterator, predicate)
+    (iterator) => new FilterAsyncIterator(iterator, predicate),
   );
 }

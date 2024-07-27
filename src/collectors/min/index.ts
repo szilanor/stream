@@ -1,2 +1,2 @@
-export * from './min';
-export * from './minAsync';
+export * from "./min";
+export * from "./minAsync";

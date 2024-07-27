@@ -1,1 +1,1 @@
-export * from './arrayFilter';
+export * from "./arrayFilter";

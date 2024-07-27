@@ -1,8 +1,8 @@
-import {min} from './min';
-import {runSyncAndAsyncCollectorTestCases} from '../../utils/test-utils';
-import {minAsync} from './minAsync';
+import { min } from "./min";
+import { runSyncAndAsyncCollectorTestCases } from "../../utils/test-utils";
+import { minAsync } from "./minAsync";
 
-describe('min and minAsync', () => {
+describe("min and minAsync", () => {
   runSyncAndAsyncCollectorTestCases(min, minAsync, [
     {
       input: [],

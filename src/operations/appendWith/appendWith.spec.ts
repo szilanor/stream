@@ -1,8 +1,8 @@
-import {appendWith} from './appendWith';
-import {runSyncAndAsyncOperationTestCases} from '../../utils/test-utils';
-import {appendWithAsync} from './appendWithAsync';
+import { appendWith } from "./appendWith";
+import { runSyncAndAsyncOperationTestCases } from "../../utils/test-utils";
+import { appendWithAsync } from "./appendWithAsync";
 
-describe('appendWith() and appendWithAsync()', () => {
+describe("appendWith() and appendWithAsync()", () => {
   runSyncAndAsyncOperationTestCases(
     appendWith([4, 5], [6]),
     appendWithAsync([4, 5], [6]),
@@ -15,6 +15,6 @@ describe('appendWith() and appendWithAsync()', () => {
         input: [1, 2, 3],
         result: [4, 5, 6, 1, 2, 3],
       },
-    ]
+    ],
   );
 });

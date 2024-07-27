@@ -1,11 +1,11 @@
-import {groupByRecord} from './groupByRecord';
-import {runSyncAndAsyncCollectorTestCases} from '../../utils/test-utils';
-import {groupByRecordAsync} from './groupByRecordAsync';
+import { groupByRecord } from "./groupByRecord";
+import { runSyncAndAsyncCollectorTestCases } from "../../utils/test-utils";
+import { groupByRecordAsync } from "./groupByRecordAsync";
 
-describe('groupByRecord() and groupByRecordAsync()', () => {
+describe("groupByRecord() and groupByRecordAsync()", () => {
   runSyncAndAsyncCollectorTestCases(
-    groupByRecord(entry => (entry % 2 === 0 ? 'even' : 'odd')),
-    groupByRecordAsync(entry => (entry % 2 === 0 ? 'even' : 'odd')),
+    groupByRecord((entry) => (entry % 2 === 0 ? "even" : "odd")),
+    groupByRecordAsync((entry) => (entry % 2 === 0 ? "even" : "odd")),
     [
       {
         input: [],
@@ -18,6 +18,6 @@ describe('groupByRecord() and groupByRecordAsync()', () => {
           even: [2, 4],
         },
       },
-    ]
+    ],
   );
 });

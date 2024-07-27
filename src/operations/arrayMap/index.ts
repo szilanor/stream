@@ -1,1 +1,1 @@
-export * from './arrayMap';
+export * from "./arrayMap";

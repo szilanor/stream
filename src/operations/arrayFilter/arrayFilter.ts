@@ -1,8 +1,8 @@
-import {OperationFunction} from '../../types';
+import { OperationFunction } from "../../types";
 
 function* arrayFilterGenerator<T>(
   source: Iterable<T[]>,
-  predicate: (entry: T, index: number) => boolean
+  predicate: (entry: T, index: number) => boolean,
 ) {
   for (const entry of source) {
     yield entry.filter(predicate);
@@ -11,7 +11,7 @@ function* arrayFilterGenerator<T>(
 
 /** Returns an Iterable that yields only array entries of the source Iterable that satisfy the function. */
 export function arrayFilter<T>(
-  predicate: (entry: T, index: number) => boolean
+  predicate: (entry: T, index: number) => boolean,
 ): OperationFunction<T[], T[]> {
-  return source => arrayFilterGenerator(source, predicate);
+  return (source) => arrayFilterGenerator(source, predicate);
 }

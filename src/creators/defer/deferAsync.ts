@@ -1,4 +1,4 @@
-import {AsyncStream} from '../../async-stream';
+import { AsyncStream } from "../../async-stream";
 
 class DeferAsyncIterable<T> implements AsyncIterable<T> {
   private _asyncIterable?: AsyncIterable<T>;

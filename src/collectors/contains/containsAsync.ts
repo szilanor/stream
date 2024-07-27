@@ -1,12 +1,12 @@
-import {AsyncCollectorFunction} from '../../types';
-import {EqualsFunction} from '../../utils';
+import { AsyncCollectorFunction } from "../../types";
+import { EqualsFunction } from "../../utils";
 
 /** Returns if at least one of the entries equals with the given 'value'. */
 export function containsAsync<T>(
   value: T,
-  equalsFunction: EqualsFunction<T> = (a, b) => a === b
+  equalsFunction: EqualsFunction<T> = (a, b) => a === b,
 ): AsyncCollectorFunction<T, boolean> {
-  return async source => {
+  return async (source) => {
     for await (const entry of source) {
       if (equalsFunction(entry, value)) {
         return true;

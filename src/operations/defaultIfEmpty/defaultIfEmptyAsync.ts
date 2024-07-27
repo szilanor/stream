@@ -1,17 +1,17 @@
-import {AsyncOperationFunction} from '../../types';
+import { AsyncOperationFunction } from "../../types";
 import {
   callValueOrFactory,
   fromAsyncIteratorMapper,
   ValueOrFactory,
   valueResult,
-} from '../../utils';
+} from "../../utils";
 
 class DefaultIfEmptyAsyncIterator<T> implements AsyncIterator<T> {
   returnedValue = false;
 
   constructor(
     private iterator: AsyncIterator<T>,
-    private defaultValue: ValueOrFactory<T>
+    private defaultValue: ValueOrFactory<T>,
   ) {}
 
   async next(): Promise<IteratorResult<T>> {
@@ -28,9 +28,9 @@ class DefaultIfEmptyAsyncIterator<T> implements AsyncIterator<T> {
 
 /** Returns an Iterable with the value parameter if the source Iterable is empty. */
 export function defaultIfEmptyAsync<T>(
-  defaultValue: ValueOrFactory<T>
+  defaultValue: ValueOrFactory<T>,
 ): AsyncOperationFunction<T, T> {
   return fromAsyncIteratorMapper(
-    iterator => new DefaultIfEmptyAsyncIterator(iterator, defaultValue)
+    (iterator) => new DefaultIfEmptyAsyncIterator(iterator, defaultValue),
   );
 }

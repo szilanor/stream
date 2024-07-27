@@ -1,11 +1,11 @@
-import {MaybeAsyncPredicateFunction} from '../../utils';
-import {AsyncCollectorFunction} from '../../types';
+import { MaybeAsyncPredicateFunction } from "../../utils";
+import { AsyncCollectorFunction } from "../../types";
 
 /** Returns the last entry from the Iterable that satisfy then 'predicate' function. */
 export function lastAsync<T>(
-  predicate: MaybeAsyncPredicateFunction<T> = () => true
+  predicate: MaybeAsyncPredicateFunction<T> = () => true,
 ): AsyncCollectorFunction<T, T | undefined> {
-  return async source => {
+  return async (source) => {
     let last = undefined;
     let index = 0;
     for await (const entry of source) {

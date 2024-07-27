@@ -1,2 +1,2 @@
-export * from './takeWhile';
-export * from './takeWhileAsync';
+export * from "./takeWhile";
+export * from "./takeWhileAsync";

@@ -1,8 +1,8 @@
-import {distinctBy} from './distinctBy';
-import {runSyncAndAsyncOperationTestCases} from '../../utils/test-utils';
-import {distinctByAsync} from './distinctByAsync';
+import { distinctBy } from "./distinctBy";
+import { runSyncAndAsyncOperationTestCases } from "../../utils/test-utils";
+import { distinctByAsync } from "./distinctByAsync";
 
-describe('distinctBy() and distinctByAsync()', () => {
+describe("distinctBy() and distinctByAsync()", () => {
   runSyncAndAsyncOperationTestCases(distinctBy(), distinctByAsync(), [
     {
       input: [],
@@ -15,8 +15,8 @@ describe('distinctBy() and distinctByAsync()', () => {
   ]);
   runSyncAndAsyncOperationTestCases(distinctBy(), distinctByAsync(), [
     {
-      input: [{a: 1}, {a: 1}, {a: 2}, {a: 2}, {a: 3}],
-      result: [{a: 1}, {a: 1}, {a: 2}, {a: 2}, {a: 3}],
+      input: [{ a: 1 }, { a: 1 }, { a: 2 }, { a: 2 }, { a: 3 }],
+      result: [{ a: 1 }, { a: 1 }, { a: 2 }, { a: 2 }, { a: 3 }],
     },
   ]);
   runSyncAndAsyncOperationTestCases(
@@ -28,9 +28,9 @@ describe('distinctBy() and distinctByAsync()', () => {
         result: [],
       },
       {
-        input: [{a: 1}, {a: 1}, {a: 2}, {a: 2}, {a: 3}],
-        result: [{a: 1}, {a: 2}, {a: 3}],
+        input: [{ a: 1 }, { a: 1 }, { a: 2 }, { a: 2 }, { a: 3 }],
+        result: [{ a: 1 }, { a: 2 }, { a: 3 }],
       },
-    ]
+    ],
   );
 });

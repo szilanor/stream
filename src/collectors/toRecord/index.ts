@@ -1,2 +1,2 @@
-export * from './toRecord';
-export * from './toRecordAsync';
+export * from "./toRecord";
+export * from "./toRecordAsync";

@@ -1,10 +1,10 @@
-import {OperationFunction} from '../../types';
+import { OperationFunction } from "../../types";
 import {
   doneResult,
   EqualsFunction,
   fromIteratorMapper,
   valueResult,
-} from '../../utils';
+} from "../../utils";
 
 class DistinctUntilKeyChangedIterator<T, K extends keyof T>
   implements Iterator<T>
@@ -14,14 +14,14 @@ class DistinctUntilKeyChangedIterator<T, K extends keyof T>
   constructor(
     private iterator: Iterator<T>,
     private key: K,
-    private equalsFunction: EqualsFunction<T[K]> = (a, b) => a === b
+    private equalsFunction: EqualsFunction<T[K]> = (a, b) => a === b,
   ) {}
 
   next(): IteratorResult<T> {
     for (
-      let {value, done} = this.iterator.next();
+      let { value, done } = this.iterator.next();
       !done;
-      {value, done} = this.iterator.next()
+      { value, done } = this.iterator.next()
     ) {
       const keyValue = value[this.key];
       if (!this.previous || !this.equalsFunction(keyValue, this.previous)) {
@@ -36,10 +36,10 @@ class DistinctUntilKeyChangedIterator<T, K extends keyof T>
 
 export function distinctUntilKeyChanged<T, K extends keyof T>(
   key: K,
-  equalsFunction?: EqualsFunction<T[K]>
+  equalsFunction?: EqualsFunction<T[K]>,
 ): OperationFunction<T, T> {
   return fromIteratorMapper(
-    iterator =>
-      new DistinctUntilKeyChangedIterator(iterator, key, equalsFunction)
+    (iterator) =>
+      new DistinctUntilKeyChangedIterator(iterator, key, equalsFunction),
   );
 }

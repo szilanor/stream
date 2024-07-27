@@ -1,2 +1,2 @@
-export * from './firstIndex';
-export * from './firstIndexAsync';
+export * from "./firstIndex";
+export * from "./firstIndexAsync";

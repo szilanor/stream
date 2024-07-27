@@ -1,2 +1,2 @@
-export * from './zip';
-export * from './zipAsync';
+export * from "./zip";
+export * from "./zipAsync";

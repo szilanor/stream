@@ -1,2 +1,2 @@
-export * from './pairwise';
-export * from './pairwiseAsync';
+export * from "./pairwise";
+export * from "./pairwiseAsync";

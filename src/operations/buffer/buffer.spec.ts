@@ -1,8 +1,8 @@
-import {buffer} from './buffer';
-import {runSyncAndAsyncOperationTestCases} from '../../utils/test-utils';
-import {bufferAsync} from './bufferAsync';
+import { buffer } from "./buffer";
+import { runSyncAndAsyncOperationTestCases } from "../../utils/test-utils";
+import { bufferAsync } from "./bufferAsync";
 
-describe('buffer() and bufferAsync()', () => {
+describe("buffer() and bufferAsync()", () => {
   runSyncAndAsyncOperationTestCases(buffer(2), bufferAsync(2), [
     {
       input: [],

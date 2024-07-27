@@ -1,2 +1,2 @@
-export * from './toMap';
-export * from './toMapAsync';
+export * from "./toMap";
+export * from "./toMapAsync";

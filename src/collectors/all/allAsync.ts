@@ -1,11 +1,11 @@
-import {AsyncCollectorFunction} from '../../types';
-import {MaybeAsyncPredicateFunction} from '../../utils';
+import { AsyncCollectorFunction } from "../../types";
+import { MaybeAsyncPredicateFunction } from "../../utils";
 
 /** Returns true if all entries satisfy the 'predicate' function. */
 export function allAsync<T>(
-  predicate: MaybeAsyncPredicateFunction<T>
+  predicate: MaybeAsyncPredicateFunction<T>,
 ): AsyncCollectorFunction<T, boolean> {
-  return async source => {
+  return async (source) => {
     let index = 0;
     for await (const entry of source) {
       if (!(await predicate(entry, index++))) {

@@ -1,9 +1,9 @@
-import {AsyncOperationFunction} from '../../types';
-import {concatAsync} from '../../creators';
+import { AsyncOperationFunction } from "../../types";
+import { concatAsync } from "../../creators";
 
 /** Returns an Iterable started with the value parameter then the entries of the source Iterable. */
 export function startWithAsync<T>(
   ...values: T[]
 ): AsyncOperationFunction<T, T> {
-  return iterable => concatAsync(values, iterable);
+  return (iterable) => concatAsync(values, iterable);
 }

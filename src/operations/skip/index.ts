@@ -1,2 +1,2 @@
-export * from './skip';
-export * from './skipAsync';
+export * from "./skip";
+export * from "./skipAsync";

@@ -1,9 +1,9 @@
-import {sequenceEquals} from './sequenceEquals';
+import { sequenceEquals } from "./sequenceEquals";
 
-import {runSyncAndAsyncCollectorTestCases} from '../../utils/test-utils';
-import {sequenceEqualsAsync} from './sequenceEqualsAsync';
+import { runSyncAndAsyncCollectorTestCases } from "../../utils/test-utils";
+import { sequenceEqualsAsync } from "./sequenceEqualsAsync";
 
-describe('sequenceEquals() and sequenceEqualsAsync()', () => {
+describe("sequenceEquals() and sequenceEqualsAsync()", () => {
   runSyncAndAsyncCollectorTestCases(
     sequenceEquals<number>([]),
     sequenceEqualsAsync<number>([]),
@@ -16,7 +16,7 @@ describe('sequenceEquals() and sequenceEqualsAsync()', () => {
         input: [1, 2, 3],
         result: true,
       },
-    ]
+    ],
   );
   runSyncAndAsyncCollectorTestCases(
     sequenceEquals([1, 2, 3]),
@@ -34,7 +34,7 @@ describe('sequenceEquals() and sequenceEqualsAsync()', () => {
         input: [1, 2, 5, 3],
         result: false,
       },
-    ]
+    ],
   );
   runSyncAndAsyncCollectorTestCases(
     sequenceEquals(new Set([1, 2, 3])),
@@ -52,10 +52,18 @@ describe('sequenceEquals() and sequenceEqualsAsync()', () => {
         input: [1, 2, 5, 3],
         result: false,
       },
-    ]
+    ],
   );
 
-  const input = [{a: 1}, {a: 1}, {a: 2}, {a: 2}, {a: 2}, {a: 3}, {a: 1}];
+  const input = [
+    { a: 1 },
+    { a: 1 },
+    { a: 2 },
+    { a: 2 },
+    { a: 2 },
+    { a: 3 },
+    { a: 1 },
+  ];
   runSyncAndAsyncCollectorTestCases(
     sequenceEquals(input),
     sequenceEqualsAsync(input),
@@ -69,10 +77,18 @@ describe('sequenceEquals() and sequenceEqualsAsync()', () => {
         result: true,
       },
       {
-        input: [{a: 1}, {a: 1}, {a: 2}, {a: 2}, {a: 2}, {a: 3}, {a: 1}],
+        input: [
+          { a: 1 },
+          { a: 1 },
+          { a: 2 },
+          { a: 2 },
+          { a: 2 },
+          { a: 3 },
+          { a: 1 },
+        ],
         result: false,
       },
-    ]
+    ],
   );
   runSyncAndAsyncCollectorTestCases(
     sequenceEquals(input, (a, b) => a.a === b.a),
@@ -87,9 +103,17 @@ describe('sequenceEquals() and sequenceEqualsAsync()', () => {
         result: true,
       },
       {
-        input: [{a: 1}, {a: 1}, {a: 2}, {a: 2}, {a: 2}, {a: 3}, {a: 1}],
+        input: [
+          { a: 1 },
+          { a: 1 },
+          { a: 2 },
+          { a: 2 },
+          { a: 2 },
+          { a: 3 },
+          { a: 1 },
+        ],
         result: true,
       },
-    ]
+    ],
   );
 });

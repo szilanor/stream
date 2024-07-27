@@ -1,12 +1,12 @@
-import {filter} from './filter';
-import {runSyncAndAsyncOperationTestCases} from '../../utils/test-utils';
-import {filterAsync} from './filterAsync';
-import {isNotNullOrEmpty} from '../../utils';
+import { filter } from "./filter";
+import { runSyncAndAsyncOperationTestCases } from "../../utils/test-utils";
+import { filterAsync } from "./filterAsync";
+import { isNotNullOrEmpty } from "../../utils";
 
-describe('filter() and filterAsync()', () => {
+describe("filter() and filterAsync()", () => {
   runSyncAndAsyncOperationTestCases(
-    filter(entry => entry % 2 === 0),
-    filterAsync(entry => entry % 2 === 0),
+    filter((entry) => entry % 2 === 0),
+    filterAsync((entry) => entry % 2 === 0),
     [
       {
         input: [],
@@ -16,7 +16,7 @@ describe('filter() and filterAsync()', () => {
         input: [1, 2, 3],
         result: [2],
       },
-    ]
+    ],
   );
   runSyncAndAsyncOperationTestCases(
     filter(isNotNullOrEmpty),
@@ -27,9 +27,9 @@ describe('filter() and filterAsync()', () => {
         result: [],
       },
       {
-        input: ['1', null, '', undefined, []],
-        result: ['1'],
+        input: ["1", null, "", undefined, []],
+        result: ["1"],
       },
-    ]
+    ],
   );
 });

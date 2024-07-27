@@ -1,17 +1,17 @@
-import {OperationFunction} from '../../types';
+import { OperationFunction } from "../../types";
 import {
   callValueOrFactory,
   fromIteratorMapper,
   ValueOrFactory,
   valueResult,
-} from '../../utils';
+} from "../../utils";
 
 class DefaultIfEmptyIterator<T> implements Iterator<T> {
   returnedValue = false;
 
   constructor(
     private iterator: Iterator<T>,
-    private defaultValue: ValueOrFactory<T>
+    private defaultValue: ValueOrFactory<T>,
   ) {}
 
   next(): IteratorResult<T> {
@@ -28,9 +28,9 @@ class DefaultIfEmptyIterator<T> implements Iterator<T> {
 
 /** Returns an Iterable with the value parameter if the source Iterable is empty. */
 export function defaultIfEmpty<T>(
-  defaultValue: ValueOrFactory<T>
+  defaultValue: ValueOrFactory<T>,
 ): OperationFunction<T, T> {
   return fromIteratorMapper(
-    iterator => new DefaultIfEmptyIterator(iterator, defaultValue)
+    (iterator) => new DefaultIfEmptyIterator(iterator, defaultValue),
   );
 }

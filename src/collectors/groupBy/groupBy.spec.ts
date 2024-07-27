@@ -1,11 +1,11 @@
-import {groupBy} from './groupBy';
-import {runSyncAndAsyncCollectorTestCases} from '../../utils/test-utils';
-import {groupByAsync} from './groupByAsync';
+import { groupBy } from "./groupBy";
+import { runSyncAndAsyncCollectorTestCases } from "../../utils/test-utils";
+import { groupByAsync } from "./groupByAsync";
 
-describe('groupBy() and groupByAsync()', () => {
+describe("groupBy() and groupByAsync()", () => {
   runSyncAndAsyncCollectorTestCases(
-    groupBy(entry => (entry % 2 === 0 ? 'even' : 'odd')),
-    groupByAsync(entry => (entry % 2 === 0 ? 'even' : 'odd')),
+    groupBy((entry) => (entry % 2 === 0 ? "even" : "odd")),
+    groupByAsync((entry) => (entry % 2 === 0 ? "even" : "odd")),
     [
       {
         input: [],
@@ -14,10 +14,10 @@ describe('groupBy() and groupByAsync()', () => {
       {
         input: [1, 2, 3, 4],
         result: new Map<string, number[]>([
-          ['odd', [1, 3]],
-          ['even', [2, 4]],
+          ["odd", [1, 3]],
+          ["even", [2, 4]],
         ]),
       },
-    ]
+    ],
   );
 });

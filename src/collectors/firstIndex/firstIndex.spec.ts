@@ -1,8 +1,8 @@
-import {firstIndex} from './firstIndex';
-import {runSyncAndAsyncCollectorTestCases} from '../../utils/test-utils';
-import {firstIndexAsync} from './firstIndexAsync';
+import { firstIndex } from "./firstIndex";
+import { runSyncAndAsyncCollectorTestCases } from "../../utils/test-utils";
+import { firstIndexAsync } from "./firstIndexAsync";
 
-describe('firstIndex() and firstIndexAsync()', () => {
+describe("firstIndex() and firstIndexAsync()", () => {
   runSyncAndAsyncCollectorTestCases(firstIndex(), firstIndexAsync(), [
     {
       input: [],
@@ -14,8 +14,8 @@ describe('firstIndex() and firstIndexAsync()', () => {
     },
   ]);
   runSyncAndAsyncCollectorTestCases(
-    firstIndex(entry => entry % 2 === 0),
-    firstIndexAsync(entry => entry % 2 === 0),
+    firstIndex((entry) => entry % 2 === 0),
+    firstIndexAsync((entry) => entry % 2 === 0),
     [
       {
         input: [1, 2, 3, 4],
@@ -25,6 +25,6 @@ describe('firstIndex() and firstIndexAsync()', () => {
         input: [1, 3],
         result: -1,
       },
-    ]
+    ],
   );
 });

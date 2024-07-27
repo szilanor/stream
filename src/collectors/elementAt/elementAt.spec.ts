@@ -1,8 +1,8 @@
-import {elementAt} from './elementAt';
-import {runSyncAndAsyncCollectorTestCases} from '../../utils/test-utils';
-import {elementAtAsync} from './elementAtAsync';
+import { elementAt } from "./elementAt";
+import { runSyncAndAsyncCollectorTestCases } from "../../utils/test-utils";
+import { elementAtAsync } from "./elementAtAsync";
 
-describe('elementAt() and elementAtAsync()', () => {
+describe("elementAt() and elementAtAsync()", () => {
   runSyncAndAsyncCollectorTestCases(elementAt(0), elementAtAsync(0), [
     {
       input: [],
