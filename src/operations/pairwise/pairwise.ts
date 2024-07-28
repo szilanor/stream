@@ -23,7 +23,17 @@ class PairwiseIterator<T> implements Iterator<[T, T]> {
   }
 }
 
-/** Returns an Iterable that yields the current and the previous entry of the source Iterable. */
+/**
+ * Returns a Stream that yields pairs of consecutive elements from the source.
+ * @typeParam T Type of items in the source.
+ * @returns Operation that yields pairs of consecutive elements from the source.
+ * 
+ * @example
+ * ```typescript
+ * const result = pairwise<number>()([1, 2, 3, 4]);
+ * console.log([...result]); // [[1, 2], [2, 3], [3, 4]]
+ * ```
+ */
 export function pairwise<T>(): OperationFunction<T, [T, T]> {
   return fromIteratorMapper((iterator) => new PairwiseIterator(iterator));
 }

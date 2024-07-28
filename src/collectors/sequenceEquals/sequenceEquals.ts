@@ -1,6 +1,19 @@
 import { CollectorFunction } from "../../types";
 import { EqualsFunction } from "../../utils";
 
+/**
+ * Determines whether two sequences are equal by comparing the elements pairwise.
+ * @param other Iterable to compare to the source.
+ * @param equalsFunction Function to determine if two elements are equal.
+ * @typeParam T Type of items in the source.
+ * @returns Collector that returns true if the two sequences are equal, false otherwise.
+ * 
+ * @example
+ * ```typescript
+ * const result = sequenceEquals([1, 2, 3])([1, 2, 3]);
+ * console.log(result); // true
+ * ```
+ */
 export function sequenceEquals<T>(
   other: Iterable<T>,
   equalsFunction: EqualsFunction<T> = (a, b) => a === b,

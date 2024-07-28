@@ -31,7 +31,18 @@ export class FilterIterator<T, TOfType extends T = T>
   }
 }
 
-/** Returns an Iterable that yields only entries of the source Iterable that satisfy the function. */
+/**
+ * Returns a Stream that yields elements from the source that satisfy the predicate.
+ * @param predicate Predicate to filter elements.
+ * @typeParam T Type of items in the source.
+ * @returns Operation that yields elements from the source that satisfy the predicate.
+ * 
+ * @example
+ * ```typescript
+ * const result = filter((x) => x % 2 === 0)([1, 2, 3, 4, 5]);
+ * console.log([...result]); // [2, 4]
+ * ```
+ */
 export function filter<T, TOfType extends T = T>(
   predicate: PredicateFunction<T> | TypeGuardFunction<T, TOfType>,
 ): OperationFunction<T, T> {

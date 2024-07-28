@@ -15,7 +15,19 @@ class MapIterator<T, O> implements Iterator<O> {
   }
 }
 
-/** Returns an Iterable that yields entries of the source Iterable transformed using the function */
+/**
+ * Returns a Stream that yields elements from the source transformed by the mapper.
+ * @param mapper Function to transform elements.
+ * @typeParam T Type of items in the source.
+ * @typeParam O Type of items in the result.
+ * @returns Operation that yields elements from the source transformed by the mapper.
+ * 
+ * @example
+ * ```typescript
+ * const result = map((x) => x * 2)([1, 2, 3]);
+ * console.log([...result]); // [2, 4, 6]
+ * ```
+ */
 export function map<T, O>(
   mapper: (value: T, index: number) => O,
 ): OperationFunction<T, O> {

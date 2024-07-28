@@ -31,7 +31,18 @@ class BufferIterator<T> implements Iterator<T[]> {
   }
 }
 
-/** Returns an Iterable that yields array of entries of the source Iterable with the given length. */
+/**
+ * Buffers the source elements into arrays of 'size' elements.
+ * @param size The number of elements in each buffer.
+ * @typeParam T Type of the elements.
+ * @returns Operation that buffers the source elements.
+ * 
+ * @example
+ * ```typescript
+ * const result = buffer(3)([1, 2, 3, 4, 5, 6]);
+ * console.log([...result]); // [[1, 2, 3], [4, 5, 6]]
+ * ```
+ */
 export function buffer<T>(size: number): OperationFunction<T, T[]> {
   return fromIteratorMapper((iterator) => new BufferIterator(iterator, size));
 }

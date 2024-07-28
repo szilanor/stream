@@ -34,7 +34,18 @@ class DistinctByIterator<T> implements Iterator<T> {
   }
 }
 
-/** Returns an Iterable that yields only entries of the source Iterable without duplicates. */
+/**
+ * Returns a Stream that yields distinct elements from the source based on the equals function.
+ * @param equalsFunction Function to compare elements.
+ * @typeParam T Type of items in the source.
+ * @returns Operation that yields distinct elements from the source.
+ * 
+ * @example
+ * ```typescript
+ * const result = distinctBy<number>((a, b) => a % 2 === b % 2)([1, 2, 1, 3, 2, 4]);
+ * console.log([...result]); // [1, 2]
+ * ```
+ */
 export function distinctBy<T>(
   equalsFunction: EqualsFunction<T> = (a, b) => a === b,
 ): OperationFunction<T, T> {

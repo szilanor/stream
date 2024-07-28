@@ -30,7 +30,18 @@ class DistinctUntilChangedIterator<T> implements Iterator<T> {
   }
 }
 
-/** Returns an Iterable that yields only entries of the source Iterable without duplicates. */
+/**
+ * Returns a Stream that yields elements from the source that are distinct from the previous element.
+ * @param equalsFunction Function to compare elements.
+ * @typeParam T Type of items in the source.
+ * @returns Operation that yields elements from the source that are distinct from the previous element.
+ * 
+ * @example
+ * ```typescript
+ * const result = distinctUntilChanged<number>()([1, 1, 2, 2, 3, 3]);
+ * console.log([...result]); // [1, 2, 3]
+ * ```
+ */
 export function distinctUntilChanged<T>(
   equalsFunction?: EqualsFunction<T>,
 ): OperationFunction<T, T> {

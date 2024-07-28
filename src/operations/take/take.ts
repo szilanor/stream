@@ -18,7 +18,18 @@ class TakeIterator<T> implements Iterator<T> {
   }
 }
 
-/** Returns an Iterable taking the given amount of entries of the source Iterable. */
+/**
+ * Takes the first `count` elements from the source.
+ * @param count Number of elements to take.
+ * @typeParam T Type of items in the source.
+ * @returns Operation that takes the first `count` elements from the source.
+ * 
+ * @example
+ * ```typescript
+ * const result = take<number>(2)([1, 2, 3, 4]);
+ * console.log([...result]); // [1, 2]
+ * ```
+ */
 export function take<T>(count: number): OperationFunction<T, T> {
   return fromIteratorMapper((iterator) => new TakeIterator(iterator, count));
 }

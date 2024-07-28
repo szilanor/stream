@@ -15,7 +15,18 @@ class TakeWhileIterator<T> implements Iterator<T> {
   }
 }
 
-/** Returns an Iterable taking entries of the source Iterable while the parameter function returns true. */
+/**
+ * Takes elements from the source while the predicate returns `true`.
+ * @param predicate Predicate function to determine if an element should be taken.
+ * @typeParam T Type of items in the source.
+ * @returns Operation that takes elements from the source while the predicate returns `true`.
+ * 
+ * @example
+ * ```typescript
+ * const result = takeWhile<number>((x) => x < 3)([1, 2, 3, 4]);
+ * console.log([...result]); // [1, 2]
+ * ```
+ */
 export function takeWhile<T>(
   predicate: PredicateFunction<T>,
 ): OperationFunction<T, T> {

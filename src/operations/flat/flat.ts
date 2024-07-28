@@ -27,7 +27,17 @@ class FlatIterator<T> implements Iterator<T> {
   }
 }
 
-/** Returns an Iterable that yields the inner entries of array entries of the source Iterable. */
+/**
+ * Returns a Stream that yields elements from the source that are Iterable and flattens them.
+ * @typeParam T Type of items in the source.
+ * @returns Operation that yields elements from the source that are Iterable and flattens them.
+ * 
+ * @example
+ * ```typescript
+ * const result = flat<number>()([[1, 2], [3, 4]]);
+ * console.log([...result]); // [1, 2, 3, 4]
+ * ```
+ */
 export function flat<T>(): OperationFunction<Iterable<T>, T> {
   return fromIteratorMapper((iterator) => new FlatIterator(iterator));
 }

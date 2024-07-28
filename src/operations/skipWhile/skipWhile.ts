@@ -29,7 +29,18 @@ class SkipWhileIterator<T> implements Iterator<T> {
   }
 }
 
-/** Returns an Iterable skipping entries of the source Iterable while the parameter function returns true. */
+/**
+ * Skips elements from the source while the predicate returns `true`.
+ * @param predicate Predicate function to determine if an element should be skipped.
+ * @typeParam T Type of items in the source.
+ * @returns Operation that skips elements from the source while the predicate returns `true`.
+ * 
+ * @example
+ * ```typescript
+ * const result = skipWhile<number>((x) => x < 3)([1, 2, 3, 4]);
+ * console.log([...result]); // [3, 4]
+ * ```
+ */
 export function skipWhile<T>(
   predicate: PredicateFunction<T>,
 ): OperationFunction<T, T> {

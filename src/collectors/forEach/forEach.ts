@@ -1,7 +1,20 @@
 import { CollectorFunction } from "../../types";
 import { CallbackFunction } from "../../utils";
 
-/** Call a callback function on every entry. */
+/**
+ * Executes a callback for each element in the source.
+ * @param callback Callback function to execute for each element.
+ * @typeParam T Type of items in the source.
+ * @returns Collector that executes a callback for each element in the source.
+ * 
+ * @example
+ * ```typescript
+ * forEach<number>((x) => console.log(x))([1, 2, 3]);
+ * // 1
+ * // 2
+ * // 3
+ * ```
+ */
 export function forEach<T>(
   callback: CallbackFunction<T>,
 ): CollectorFunction<T, void> {

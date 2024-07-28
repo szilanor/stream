@@ -18,8 +18,18 @@ class RangeIterator implements Iterator<number> {
 }
 
 /**
- * Returns a Stream that yields a range of values.
- */
+  * Returns a Stream that yields numbers starting from 'start' up to 'start + count - 1'.
+  * @param start The first number in the range.
+  * @param count The number of elements in the range.
+  * @param by The step between elements.
+  * @returns A Stream that yields numbers in the range.
+  * 
+  * @example
+  * ```typescript
+  * const result = range(1, 5, 2);
+  * console.log([...result]); // [1, 3, 5]
+  * ```
+  */
 export function range(start: number, count: number, by = 1): Stream<number> {
   return new Stream<number>(
     fromIteratorFactory(() => new RangeIterator(start, count, by)),

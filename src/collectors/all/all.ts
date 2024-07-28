@@ -1,7 +1,18 @@
 import { CollectorFunction } from "../../types";
 import { PredicateFunction } from "../../utils";
 
-/** Returns true if all entries satisfy the 'predicate' function. */
+/**
+ * Checks if all elements in the source satisfy the predicate.
+ * @param predicate Predicate function to determine if an element satisfies a condition.
+ * @typeParam T Type of items in the source.
+ * @returns Collector that checks if all elements in the source satisfy the predicate.
+ * 
+ * @example
+ * ```typescript
+ * const result = all<number>((x) => x > 0)([1, 2, 3]);
+ * console.log(result); // true
+ * ```
+ */
 export function all<T>(
   predicate: PredicateFunction<T>,
 ): CollectorFunction<T, boolean> {

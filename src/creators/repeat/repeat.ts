@@ -1,8 +1,10 @@
 import { Stream } from "../../stream";
 import {
+  callValueOrFactory,
   doneResult,
   fromIteratorFactory,
   isFunction,
+  ValueOrFactory,
   valueResult,
 } from "../../utils";
 
@@ -10,24 +12,33 @@ class RepeatIterator<T> implements Iterator<T> {
   private index = 0;
 
   constructor(
-    private value: T | (() => T),
+    private value: ValueOrFactory<T>,
     private times: number,
   ) {}
 
   next(): IteratorResult<T> {
     this.index++;
     return this.index <= this.times
-      ? valueResult(isFunction(this.value) ? this.value() : this.value)
+      ? valueResult(callValueOrFactory(this.value))
       : doneResult();
   }
 }
 
 /**
- * Returns a Stream that yields the value a specified number
- * of times, or indefinitely if the 'times' parameter is omitted.
+ * Returns a Stream that yields the same value 'times' number of times.
+ * @param value Value to repeat.
+ * @param times Number of times to repeat the value.
+ * @typeParam T Type of the value.
+ * @returns A Stream that yields the value 'times' number of times.
+ * 
+ * @example
+ * ```typescript
+ * const result = repeat('A', 3);
+ * console.log([...result]); // ['A', 'A', 'A']
+ * ```
  */
 export function repeat<T>(
-  value: T | (() => T),
+  value: ValueOrFactory<T>,
   times: number = Number.POSITIVE_INFINITY,
 ): Stream<T> {
   return new Stream<T>(

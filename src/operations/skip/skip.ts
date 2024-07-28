@@ -23,7 +23,18 @@ class SkipIterator<T> implements Iterator<T> {
   }
 }
 
-/** Returns an Iterable skipping the given amount of entries of the source Iterable. */
+/**
+ * Skips the first `count` elements from the source.
+ * @param count Number of elements to skip.
+ * @typeParam T Type of items in the source.
+ * @returns Operation that skips the first `count` elements from the source.
+ * 
+ * @example
+ * ```typescript
+ * const result = skip<number>(2)([1, 2, 3, 4]);
+ * console.log([...result]); // [3, 4]
+ * ```
+ */
 export function skip<T>(count: number): OperationFunction<T, T> {
   return fromIteratorMapper((iterator) => new SkipIterator(iterator, count));
 }

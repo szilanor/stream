@@ -34,6 +34,18 @@ class DistinctUntilKeyChangedIterator<T, K extends keyof T>
   }
 }
 
+/**
+ * Returns a Stream that yields elements from the source that are distinct from the previous element based on the key.
+ * @param key Key to compare elements.
+ * @param equalsFunction Function to compare elements.
+ * @typeParam T Type of items in the source.
+ * 
+ * @example
+ * ```typescript
+ * const result = distinctUntilKeyChanged('a')([{ a: 1 }, { a: 1 }, { a: 2 }, { a: 2 }, { a: 3 }, { a: 3 }]);
+ * console.log([...result]); // [{ a: 1 }, { a: 2 }, { a: 3 }]
+ * ```
+ */
 export function distinctUntilKeyChanged<T, K extends keyof T>(
   key: K,
   equalsFunction?: EqualsFunction<T[K]>,

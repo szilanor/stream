@@ -21,12 +21,12 @@ export function fromAsyncIteratorFactory<T>(
   };
 }
 
-export function getIterator<T>(iterable: Iterable<T>): Iterator<T>;
-export function getIterator<T>(iterable: AsyncIterable<T>): AsyncIterator<T>;
-export function getIterator<T>(
+export function iter<T>(iterable: Iterable<T>): Iterator<T>;
+export function iter<T>(iterable: AsyncIterable<T>): AsyncIterator<T>;
+export function iter<T>(
   iterable: Iterable<T> | AsyncIterable<T>,
 ): Iterator<T> | AsyncIterator<T>;
-export function getIterator<T>(
+export function iter<T>(
   iterable: Iterable<T> | AsyncIterable<T>,
 ): Iterator<T> | AsyncIterator<T> {
   return isIterable(iterable)
