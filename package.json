@@ -1,6 +1,6 @@
 {
   "name": "@szilanor/stream",
-  "version": "3.0.1",
+  "version": "3.0.2",
   "description": "Typesafe API for processing iterable data in TypeScript and JavaScript",
   "type": "module",
   "types": "./dist/index.d.cts",
@@ -18,7 +18,9 @@
       }
     }
   },
-  "files": ["dist"],
+  "files": [
+    "dist"
+  ],
   "scripts": {
     "build": "tsup",
     "docs": "npx typedoc src/index.ts",
