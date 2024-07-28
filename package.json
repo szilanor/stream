@@ -18,6 +18,7 @@
       }
     }
   },
+  "files": ["dist"],
   "scripts": {
     "build": "tsup",
     "docs": "npx typedoc src/index.ts",
@@ -42,7 +43,7 @@
     "typedoc": "^0.26.5",
     "typescript": "^5.5.4"
   },
-  "license": "Apache-2.0",
+  "license": "MIT",
   "keywords": [
     "stream",
     "iterable",
