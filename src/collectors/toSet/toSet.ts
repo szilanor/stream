@@ -4,7 +4,7 @@ import { CollectorFunction } from "../../types";
  * Returns the source as a set.
  * @typeParam T Type of items in the source.
  * @returns Collector that returns the source as a set.
- * 
+ *
  * @example
  * ```typescript
  * const result = toSet<number>()([1, 2, 3]);

@@ -6,7 +6,7 @@ import { FilterIterator } from "../filter/filter";
  * Returns a Stream that yields elements that are not `null`, `undefined`, or empty.
  * @typeParam T Type of items in the source.
  * @returns Operation that yields elements that are not `null`, `undefined`, or empty.
- * 
+ *
  * @example
  * ```typescript
  * const result = notNullOrEmpty<string>()(["", "a", null, "b", undefined, "c"]);

@@ -9,7 +9,7 @@ import { reduce } from "../reduce";
  * @typeParam TKey Type of the key.
  * @typeParam TValue Type of the value.
  * @returns Collector that converts the source to a record.
- * 
+ *
  * @example
  * ```typescript
  * const result = toRecord<number, string, number>((x) => x.toString(), (x) => x * 2)([1, 2, 3]);

@@ -36,7 +36,7 @@ export class FilterIterator<T, TOfType extends T = T>
  * @param predicate Predicate to filter elements.
  * @typeParam T Type of items in the source.
  * @returns Operation that yields elements from the source that satisfy the predicate.
- * 
+ *
  * @example
  * ```typescript
  * const result = filter((x) => x % 2 === 0)([1, 2, 3, 4, 5]);

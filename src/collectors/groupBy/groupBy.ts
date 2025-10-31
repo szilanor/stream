@@ -7,7 +7,7 @@ import { reduce } from "../reduce";
  * @typeParam T Type of items in the source.
  * @typeParam TKey Type of the key.
  * @returns Collector that groups the source by a key selector.
- * 
+ *
  * @example
  * ```typescript
  * const result = groupBy<number, string>((x) => x % 2 === 0 ? "even" : "odd")([1, 2, 3, 4]);

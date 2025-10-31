@@ -22,12 +22,14 @@ export function runSyncAndAsyncOperationTestCases<T, O>(
   asyncOperation: AsyncOperationFunction<T, O>,
   testCases: OperationTestCase<T, O>[],
 ): void {
-
   test.each(testCases)(
     `Sync ($input) should return $result`,
     ({ input, result }) => {
-      expect(stream(input).pipe(operation).collect(toArray())).toStrictEqual(result)
-    });
+      expect(stream(input).pipe(operation).collect(toArray())).toStrictEqual(
+        result,
+      );
+    },
+  );
 
   test.each(testCases)(
     `Async ($input) should return $result`,
@@ -36,7 +38,8 @@ export function runSyncAndAsyncOperationTestCases<T, O>(
         .pipeAsync(asyncOperation)
         .collectAsync(toArrayAsync());
       expect(collected).toStrictEqual(result);
-    });
+    },
+  );
 }
 
 export function runSyncAndAsyncCollectorTestCases<T, O>(
@@ -44,17 +47,18 @@ export function runSyncAndAsyncCollectorTestCases<T, O>(
   asyncCollector: AsyncCollectorFunction<T, O>,
   testCases: CollectorTestCase<T, O>[],
 ): void {
-
   test.each(testCases)(
     `Sync ($input) should return $result`,
     ({ input, result }) => {
       expect(collector(input)).toStrictEqual(result);
-    });
+    },
+  );
 
   test.each(testCases)(
     `Async ($input) should return $result`,
     async ({ input, result }) => {
       const collected = await asyncCollector(stream(input));
       expect(collected).toStrictEqual(result);
-    });
+    },
+  );
 }

@@ -6,7 +6,7 @@ import { fromIteratorMapper } from "../../utils";
  * Returns a Stream that yields elements that are falsy.
  * @typeParam T Type of items in the source.
  * @returns Operation that yields elements that are falsy.
- * 
+ *
  * @example
  * ```typescript
  * const result = falsy<number>()([0, 1, 2, 3, 4]);

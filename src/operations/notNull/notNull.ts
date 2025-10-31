@@ -6,7 +6,7 @@ import { FilterIterator } from "../filter/filter";
  * Returns a Stream that yields elements that are not `null`.
  * @typeParam T Type of items in the source.
  * @returns Operation that yields elements that are not `null`.
- * 
+ *
  * @example
  * ```typescript
  * const result = notNull<number>()([1, null, 2, null, 3]);

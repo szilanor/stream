@@ -5,7 +5,7 @@ import { FilterIterator } from "../filter/filter";
 /**
  * Returns a Stream that yields elements that are not `null`, `undefined`, or whitespace.
  * @returns Operation that yields elements that are not `null`, `undefined`, or whitespace.
- * 
+ *
  * @example
  * ```typescript
  * const result = notNullOrWhitespace<string>()(["", "a", null, "b", undefined, "c", " "]);

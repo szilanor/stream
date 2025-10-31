@@ -3,7 +3,6 @@ import {
   callValueOrFactory,
   doneResult,
   fromIteratorFactory,
-  isFunction,
   ValueOrFactory,
   valueResult,
 } from "../../utils";
@@ -30,7 +29,7 @@ class RepeatIterator<T> implements Iterator<T> {
  * @param times Number of times to repeat the value.
  * @typeParam T Type of the value.
  * @returns A Stream that yields the value 'times' number of times.
- * 
+ *
  * @example
  * ```typescript
  * const result = repeat('A', 3);

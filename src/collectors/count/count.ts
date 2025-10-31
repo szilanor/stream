@@ -6,7 +6,7 @@ import { PredicateFunction } from "../../utils";
  * @param predicateFunction Predicate function to determine if an element should be counted.
  * @typeParam T Type of items in the source.
  * @returns Collector that counts the number of elements in the source.
- * 
+ *
  * @example
  * ```typescript
  * const result = count<number>()([1, 2, 3]);

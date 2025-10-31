@@ -12,7 +12,7 @@ import {
  * @param predicate Predicate function to determine if an element should be returned.
  * @typeParam T Type of items in the source.
  * @returns Collector that returns the last element in the source that satisfies the predicate or a default value if no such element is found.
- * 
+ *
  * @example
  * ```typescript
  * const result = lastOrDefault<number>(0, (x) => x > 1)([1, 2, 3]);

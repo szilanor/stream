@@ -6,7 +6,7 @@ import { PredicateFunction } from "../../utils";
  * @param predicate Predicate function to determine if an element should be returned.
  * @typeParam T Type of items in the source.
  * @returns Collector that returns the index of the first element in the source that satisfies the predicate.
- * 
+ *
  * @example
  * ```typescript
  * const result = firstIndex<number>((x) => x > 1)([1, 2, 3]);

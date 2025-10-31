@@ -5,7 +5,7 @@ import { Stream } from "../../stream";
  * @typeParam T Type of items in the Stream.
  * @param iterable Iterable to create the Stream from.
  * @returns Stream that yields the elements of the Iterable.
- * 
+ *
  * @example
  * ```typescript
  * const result = from('ABCD');

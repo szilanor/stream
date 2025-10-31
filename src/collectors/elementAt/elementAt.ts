@@ -5,7 +5,7 @@ import { CollectorFunction } from "../../types";
  * @param index Index of the element to get.
  * @typeParam T Type of items in the source.
  * @returns Collector that gets the element at the specified index.
- * 
+ *
  * @example
  * ```typescript
  * const result = elementAt<number>(1)([1, 2, 3]);

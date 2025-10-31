@@ -9,7 +9,7 @@ import { flat } from "../flat";
  * @typeParam T Type of items in the source.
  * @typeParam O Type of items in the resulting Iterable.
  * @returns Operation that maps each element to an Iterable and flattens the result.
- * 
+ *
  * @example
  * ```typescript
  * const result = flatMap<number, number>((value) => [value, value + 1])([1, 2, 3]);

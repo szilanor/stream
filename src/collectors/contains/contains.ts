@@ -7,7 +7,7 @@ import { EqualsFunction } from "../../utils";
  * @param equalsFunction Optional function to compare values.
  * @typeParam T Type of items in the source.
  * @returns Collector that checks if the source contains a specific value.
- * 
+ *
  * @example
  * ```typescript
  * const result = contains(2)([1, 2, 3]);

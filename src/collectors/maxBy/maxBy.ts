@@ -7,7 +7,7 @@ import { CompareFunction } from "../../utils";
  * @param comparer Comparer function to determine the maximum value.
  * @typeParam T Type of items in the source.
  * @returns Collector that returns the element in the source that has the maximum value according to the comparer.
- * 
+ *
  * @example
  * ```typescript
  * const result = maxBy<number>((a, b) => a - b)([1, 2, 3]);

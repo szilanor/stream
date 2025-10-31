@@ -6,7 +6,7 @@ import { concat } from "../../creators";
  * @param iterables Iterables to concatenate.
  * @typeParam T Type of items in the Iterables.
  * @returns Returns a new Iterable that yields the elements of the source Iterable followed by the elements of the given Iterables.
- * 
+ *
  * @example
  * ```typescript
  * const result = concatWith([4, 5, 6], [7, 8, 9])([1, 2, 3]);

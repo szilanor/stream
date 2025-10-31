@@ -1,5 +1,10 @@
 import { Stream } from "../../stream";
-import { callValueOrFactory, doneResult, ValueOrFactory, valueResult } from "../../utils";
+import {
+  callValueOrFactory,
+  doneResult,
+  ValueOrFactory,
+  valueResult,
+} from "../../utils";
 
 class ZipLongestIterator<A, B, F, O> implements Iterator<O> {
   constructor(
@@ -7,7 +12,7 @@ class ZipLongestIterator<A, B, F, O> implements Iterator<O> {
     private b: Iterator<B>,
     private fillValue: ValueOrFactory<F>,
     private zipFunction: (a: A | F, b: B | F) => O,
-  ) { }
+  ) {}
 
   next(): IteratorResult<O> {
     const { value: element1, done: done1 } = this.a.next();
@@ -16,9 +21,9 @@ class ZipLongestIterator<A, B, F, O> implements Iterator<O> {
       ? doneResult()
       : valueResult(
           this.zipFunction(
-            done1 ? callValueOrFactory(this.fillValue) : element1, 
-            done2 ? callValueOrFactory(this.fillValue) : element2
-          )
+            done1 ? callValueOrFactory(this.fillValue) : element1,
+            done2 ? callValueOrFactory(this.fillValue) : element2,
+          ),
         );
   }
 }
@@ -29,7 +34,7 @@ class ZipLongestIterable<A, B, F, O> implements Iterable<O> {
     private b: Iterable<B>,
     private fillValue: ValueOrFactory<F>,
     private zipFunction: (a: A | F, b: B | F) => O,
-  ) { }
+  ) {}
 
   [Symbol.iterator](): Iterator<O> {
     return new ZipLongestIterator(
@@ -44,13 +49,13 @@ class ZipLongestIterable<A, B, F, O> implements Iterable<O> {
 /**
  * Returns a Stream that merges elements from both iterables by taking one
  * element from each, passing them to the function, and yielding the result.
- * 
+ *
  * @param a The first iterable to merge.
  * @param b The second iterable to merge.
  * @param fillValue The value or factory to use when one iterable is done.
  * @param zipFunction The function that merges the elements.
  * @returns A Stream that merges elements from both iterables.
- * 
+ *
  * @example
  * ```typescript
  * const result = zipLongest('ABCD', 'xy', ' ', (a, b) => `${a}${b}`);

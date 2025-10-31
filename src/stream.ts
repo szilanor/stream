@@ -16,7 +16,7 @@ export class Stream<T> extends AsyncStream<T> implements Iterable<T> {
   }
 
   [Symbol.asyncIterator](): AsyncIterator<T> {
-    const syncIterator = this[Symbol.iterator]()
+    const syncIterator = this[Symbol.iterator]();
     return new SyncToAsyncIterator(syncIterator);
   }
 

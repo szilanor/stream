@@ -7,7 +7,7 @@ import { EqualsFunction } from "../../utils";
  * @param equalsFunction Function to determine if two elements are equal.
  * @typeParam T Type of items in the source.
  * @returns Collector that returns true if the two sequences are equal, false otherwise.
- * 
+ *
  * @example
  * ```typescript
  * const result = sequenceEquals([1, 2, 3])([1, 2, 3]);
