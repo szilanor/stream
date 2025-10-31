@@ -33,13 +33,15 @@ allOdd = input
     .map(x => x + 1)
     .every(x => x % 2 === 1);
 
+// Maps every items first, then checks the results
 // Result: 2, 3, 4 .... 10000 false
 
 // Stream API
-allOdd = from(input)
+allOdd = stream(input)
   .pipe(map(x => x + 1))
   .collect(every(x => x % 2 === 1));
 
+// Knows the answer after mapping the first item
 // Result: 2, false
 ```
 

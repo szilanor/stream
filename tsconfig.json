@@ -3,17 +3,34 @@
     "noEmit": true,
     "strict": true,
     "target": "es2015",
-    "lib": ["es6"],
+    "lib": [
+      "es6"
+    ],
     "module": "es2020",
     "moduleResolution": "bundler",
     "esModuleInterop": true,
     "skipLibCheck": true,
     "forceConsistentCasingInFileNames": true,
     "paths": {
-      "~": ["./src"],
-      "~/*": ["./src/*"]
-    }
+      "~": [
+        "./src"
+      ],
+      "~/*": [
+        "./src/*"
+      ]
+    },
+    "typeRoots": [
+      "node_modules"
+    ],
+    "types": [
+      "vitest/globals"
+    ],
   },
-  "include": ["src"],
-  "exclude": ["node_modules", "dist"]
+  "include": [
+    "src"
+  ],
+  "exclude": [
+    "node_modules",
+    "dist"
+  ]
 }
