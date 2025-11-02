@@ -5,7 +5,7 @@ import { reduce } from "../reduce";
  * Returns the sum of the source.
  * @typeParam T Type of items in the source.
  * @returns Collector that returns the sum of the source.
- * 
+ *
  * @example
  * ```typescript
  * const result = sum<number>()([1, 2, 3]);

@@ -1,20 +1,20 @@
-/* eslint-disable @typescript-eslint/no-explicit-any */
 export function isNotNull<T>(
   value: T | null | undefined,
 ): value is NonNullable<T> {
   return value !== null && value !== undefined;
 }
 
-// eslint-disable-next-line @typescript-eslint/ban-types
-export function isFunction(x: unknown): x is Function {
+export function isFunction(x: unknown): x is (...args: unknown[]) => unknown {
   return typeof x === "function";
 }
 
-export function isIterable<T>(
-  x: Iterable<T> | AsyncIterable<T>,
-): x is Iterable<T> {
+export function isIterable<T>(x: unknown): x is Iterable<T> {
   return (
-    x !== null && x !== undefined && isFunction((x as any)[Symbol.iterator])
+    x !== null &&
+    x !== undefined &&
+    typeof x === "object" &&
+    Symbol.iterator in x &&
+    isFunction(x[Symbol.iterator as keyof typeof x])
   );
 }
 

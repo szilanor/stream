@@ -9,7 +9,6 @@ export function sequenceEqualsAsync<T>(
     const sourceIterator = source[Symbol.asyncIterator]();
     const otherIterator = other[Symbol.iterator]();
 
-    // eslint-disable-next-line no-constant-condition
     while (true) {
       const sourceNext = await sourceIterator.next();
       const otherNext = otherIterator.next();

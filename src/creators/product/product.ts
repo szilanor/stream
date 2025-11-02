@@ -19,12 +19,12 @@ class ProductIteratorIterable<A, B, O> implements Iterable<O> {
 /**
  * Returns a Stream that merges elements from both iterables by taking one
  * element from each, passing them to the function, and yielding the result.
- * 
+ *
  * @param a The first iterable to merge.
  * @param b The second iterable to merge.
  * @param productFunction The function that merges the elements.
  * @returns A Stream that merges elements from both iterables.
- * 
+ *
  * @example
  * ```typescript
  * const result = product('ABCD', 'xy', (a, b) => `${a}${b}`);

@@ -21,7 +21,7 @@ class MapIterator<T, O> implements Iterator<O> {
  * @typeParam T Type of items in the source.
  * @typeParam O Type of items in the result.
  * @returns Operation that yields elements from the source transformed by the mapper.
- * 
+ *
  * @example
  * ```typescript
  * const result = map((x) => x * 2)([1, 2, 3]);

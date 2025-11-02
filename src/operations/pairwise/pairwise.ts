@@ -27,7 +27,7 @@ class PairwiseIterator<T> implements Iterator<[T, T]> {
  * Returns a Stream that yields pairs of consecutive elements from the source.
  * @typeParam T Type of items in the source.
  * @returns Operation that yields pairs of consecutive elements from the source.
- * 
+ *
  * @example
  * ```typescript
  * const result = pairwise<number>()([1, 2, 3, 4]);

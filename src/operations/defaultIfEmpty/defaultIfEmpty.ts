@@ -31,7 +31,7 @@ class DefaultIfEmptyIterator<T> implements Iterator<T> {
  * @param defaultValue Value to emit if the source is empty.
  * @typeParam T Type of items emitted by the source.
  * @returns Operation that emits a default value if the source is empty.
- * 
+ *
  * @example
  * ```typescript
  * const result = defaultIfEmpty('A')([]);

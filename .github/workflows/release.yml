@@ -5,10 +5,10 @@ on:
     inputs:
       version:
         type: choice
-        options: 
-        - major
-        - minor
-        - patch
+        options:
+          - major
+          - minor
+          - patch
 
 permissions:
   actions: write
@@ -25,16 +25,16 @@ jobs:
 
       - uses: actions/setup-node@v4
         with:
-          node-version: 20
+          node-version-file: ".nvmrc"
 
       - name: Install dependencies
-        run: | 
+        run: |
           npm ci --ignore-scripts
 
       - name: Build
         run: |
           npm run build
-        
+
       - name: Update version and docs
         run: |
           git reset --hard

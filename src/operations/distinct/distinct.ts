@@ -26,7 +26,7 @@ class DistinctIterator<T> implements Iterator<T> {
  * Returns a Stream that yields distinct elements from the source.
  * @typeParam T Type of items in the source.
  * @returns Operation that yields distinct elements from the source.
- * 
+ *
  * @example
  * ```typescript
  * const result = distinct()([1, 2, 1, 3, 2, 4]);

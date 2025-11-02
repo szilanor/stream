@@ -18,7 +18,7 @@ class DeferIterable<T> implements Iterable<T> {
  * @param factory Factory function that returns an Iterable.
  * @typeParam T Type of items in the Iterable.
  * @returns Stream that defers the creation of the Iterable.
- * 
+ *
  * @example
  * ```typescript
  * const result = defer(() => 'ABCD');

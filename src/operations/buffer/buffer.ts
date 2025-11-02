@@ -36,7 +36,7 @@ class BufferIterator<T> implements Iterator<T[]> {
  * @param size The number of elements in each buffer.
  * @typeParam T Type of the elements.
  * @returns Operation that buffers the source elements.
- * 
+ *
  * @example
  * ```typescript
  * const result = buffer(3)([1, 2, 3, 4, 5, 6]);

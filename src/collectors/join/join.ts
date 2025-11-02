@@ -6,7 +6,7 @@ import { reduce } from "../reduce";
  * @param separator Separator between elements.
  * @typeParam T Type of items in the source.
  * @returns Collector that joins the source into a string.
- * 
+ *
  * @example
  * ```typescript
  * const result = join<number>()([1, 2, 3]);

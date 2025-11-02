@@ -23,7 +23,7 @@ class TapIterator<T> implements Iterator<T> {
  * @param callback Callback function to invoke for each element.
  * @typeParam T Type of items in the source.
  * @returns Operation that invokes a callback for each element in the source.
- * 
+ *
  * @example
  * ```typescript
  * const result = tap<number>((x) => console.log(x))([1, 2, 3]);

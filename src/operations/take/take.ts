@@ -23,7 +23,7 @@ class TakeIterator<T> implements Iterator<T> {
  * @param count Number of elements to take.
  * @typeParam T Type of items in the source.
  * @returns Operation that takes the first `count` elements from the source.
- * 
+ *
  * @example
  * ```typescript
  * const result = take<number>(2)([1, 2, 3, 4]);

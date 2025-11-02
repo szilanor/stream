@@ -6,7 +6,7 @@ import { PredicateFunction } from "../../utils";
  * @param predicate Predicate function to determine if an element satisfies a condition.
  * @typeParam T Type of items in the source.
  * @returns Collector that checks if any element in the source satisfies the predicate.
- * 
+ *
  * @example
  * ```typescript
  * const result = any<number>((x) => x > 2)([1, 2, 3]);

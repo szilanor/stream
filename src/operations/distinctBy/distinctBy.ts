@@ -39,7 +39,7 @@ class DistinctByIterator<T> implements Iterator<T> {
  * @param equalsFunction Function to compare elements.
  * @typeParam T Type of items in the source.
  * @returns Operation that yields distinct elements from the source.
- * 
+ *
  * @example
  * ```typescript
  * const result = distinctBy<number>((a, b) => a % 2 === b % 2)([1, 2, 1, 3, 2, 4]);

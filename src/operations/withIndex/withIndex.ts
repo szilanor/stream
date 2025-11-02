@@ -5,7 +5,7 @@ import { map } from "../map";
  * Returns a Stream that yields elements from the source with their index.
  * @typeParam T Type of items in the source.
  * @returns Operation that yields elements from the source with their index.
- * 
+ *
  * @example
  * ```typescript
  * const result = withIndex<number>()([1, 2, 3]);

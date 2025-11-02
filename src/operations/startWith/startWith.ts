@@ -6,7 +6,7 @@ import { concat } from "../../creators";
  * @typeParam T Type of items in the source.
  * @param values Values to yield after the source.
  * @returns Operation that yields elements from the source followed by the provided values.
- * 
+ *
  * @example
  * ```typescript
  * const result = startWith(0, 1, 2)([3, 4, 5]);
