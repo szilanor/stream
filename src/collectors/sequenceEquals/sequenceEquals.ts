@@ -22,7 +22,6 @@ export function sequenceEquals<T>(
     const sourceIterator = source[Symbol.iterator]();
     const otherIterator = other[Symbol.iterator]();
 
-    // eslint-disable-next-line no-constant-condition
     while (true) {
       const sourceNext = sourceIterator.next();
       const otherNext = otherIterator.next();

@@ -4,7 +4,7 @@
     "strict": true,
     "target": "es2015",
     "lib": [
-      "es6"
+      "esnext"
     ],
     "module": "es2020",
     "moduleResolution": "bundler",

@@ -7,7 +7,6 @@ class FlatAsyncIterator<T> implements AsyncIterator<T> {
   constructor(private readonly iterator: AsyncIterator<Iterable<T>>) {}
 
   async next(): Promise<IteratorResult<T>> {
-    // eslint-disable-next-line no-constant-condition
     while (true) {
       if (this.current) {
         const { value, done } = this.current.next();
