@@ -2,17 +2,13 @@ name: Publish
 
 on:
   workflow_dispatch:
-    inputs:
-      version:
-        type: choice
-        options:
-          - major
-          - minor
-          - patch
+  push:
+    branches:
+      - main
 
 permissions:
-  actions: write
-  contents: write
+  id-token: write
+  contents: read
 
 jobs:
   build:
@@ -20,12 +16,16 @@ jobs:
     runs-on: ubuntu-latest
     steps:
       - uses: actions/checkout@v4
-        with:
-          token: ${{ secrets.GH_PERSONAL_ACCESS_TOKEN }}
 
       - uses: actions/setup-node@v4
         with:
-          node-version-file: ".nvmrc"
+          node-version-file: '.nvmrc'
+          registry-url: 'https://registry.npmjs.org'
+      
+      - name: Update npm
+        run: |
+          npm install -g npm@latest
+          
 
       - name: Install dependencies
         run: |
@@ -35,26 +35,10 @@ jobs:
         run: |
           npm run build
 
-      - name: Update version and docs
+      - name: Test
         run: |
-          git reset --hard
-          git config --local --list
-          git checkout main
-          git config user.name 'github-actions[bot]'
-          git config user.email 'github-actions[bot]@users.noreply.github.com'
-
-          npm version ${{ inputs.version }}
-          npm run docs
-
-          git add . || true
-          git commit -m "Update package version and docs" || true
-          git push "https://$GITHUB_ACTOR:$GITHUB_TOKEN@github.com/$GITHUB_REPOSITORY" -f
-        env:
-          GITHUB_TOKEN: ${{secrets.GITHUB_TOKEN}}
+          npm run test
 
       - name: Publish
         run: |
-          npm config set //registry.npmjs.org/:_authToken=$NODE_AUTH_TOKEN
-          npm publish --access public
-        env:
-          NODE_AUTH_TOKEN: ${{secrets.NODE_AUTH_TOKEN}}
+          npm publish

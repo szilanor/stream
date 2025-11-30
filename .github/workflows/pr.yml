@@ -1,4 +1,4 @@
-name: Lint and test
+name: PR checks
 
 on:
   pull_request:
@@ -8,7 +8,7 @@ permissions:
   contents: read
 
 jobs:
-  build:
+  pr-checks:
     runs-on: ubuntu-latest
     steps:
       - uses: actions/checkout@v4
@@ -21,10 +21,14 @@ jobs:
         run: |
           npm ci --ignore-scripts
 
-      - name: Lint code
+      - name: Build
+        run: |
+          npm run build
+
+      - name: Lint
         run: |
           npm run lint
 
-      - name: Run tests
+      - name: Test
         run: |
-          npm test
+          npm run test
