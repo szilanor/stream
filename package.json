@@ -1,6 +1,6 @@
 {
   "name": "@szilanor/stream",
-  "version": "3.1.0",
+  "version": "3.1.1",
   "description": "Typesafe API for processing iterable data in TypeScript and JavaScript",
   "type": "module",
   "types": "./dist/index.d.cts",
@@ -23,7 +23,7 @@
   ],
   "scripts": {
     "build": "tsup",
-    "docs": "npx typedoc src/index.ts",
+    "docs": "typedoc src/index.ts",
     "format": "prettier --write src/",
     "lint": "npm run lint:eslint && npm run lint:prettier",
     "lint:eslint": "eslint --report-unused-disable-directives src/",
