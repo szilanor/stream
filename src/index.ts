@@ -3,6 +3,5 @@ export * from "./operations";
 export * from "./collectors";
 export * from "./types";
 export * from "./stream";
-export * from "./async-stream";
-export * from "./utils/util-types";
-export * from "./utils/type-guards";
+export * from "./asyncStream";
+export * from "./utils/typeGuards";
