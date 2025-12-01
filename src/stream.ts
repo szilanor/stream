@@ -1,10 +1,10 @@
 /* eslint-disable @typescript-eslint/no-explicit-any */
-import { CollectorFunction, OperationFunction } from "./types";
-import { AsyncStream } from "./async-stream";
+import type { CollectorFunction, OperationFunction, StreamLike } from "./types";
+import { AsyncStream } from "./asyncStream";
 import { EmptyIterator, SyncToAsyncIterator } from "./utils";
 
 /** Wrapper class to extend the functionality of an Iterable */
-export class Stream<T> extends AsyncStream<T> implements Iterable<T> {
+export class Stream<T> extends AsyncStream<T> implements StreamLike<T> {
   constructor(private readonly iterable: Iterable<T> | null = null) {
     super(null);
   }
