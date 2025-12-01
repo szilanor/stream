@@ -1,10 +1,5 @@
 import { Stream } from "~/stream";
-import {
-  doneResult,
-  fromIteratorFactory,
-  iter,
-  valueResult,
-} from "~/utils";
+import { doneResult, fromIteratorFactory, iter, valueResult } from "~/utils";
 
 class ConcatIterator<T> implements Iterator<T> {
   private index = 0;

@@ -1,4 +1,8 @@
-import type { AsyncCollectorFunction, AsyncReduceFunction, ValueOrFactory } from "~/types";
+import type {
+  AsyncCollectorFunction,
+  AsyncReduceFunction,
+  ValueOrFactory,
+} from "~/types";
 import { callValueOrFactory } from "~/utils";
 
 /** Executes a reducer function on each entry of the Iterable, resulting in a single output value. */

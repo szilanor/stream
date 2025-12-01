@@ -12,6 +12,6 @@ import { Stream } from "~/stream";
  * console.log([...result]); // ["a", "b"]
  * ```
  */
-export function keys<T extends {}>(entry: T): Stream<keyof T> {
+export function keys<T extends object>(entry: T): Stream<keyof T> {
   return new Stream(Object.keys(entry) as Array<keyof T>);
 }

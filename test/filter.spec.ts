@@ -18,18 +18,14 @@ describe("filter() and filterAsync()", () => {
       },
     ],
   );
-  operationTest(
-    filter(isNotNullOrEmpty),
-    filterAsync(isNotNullOrEmpty),
-    [
-      {
-        input: [],
-        result: [],
-      },
-      {
-        input: ["1", null, "", undefined, []],
-        result: ["1"],
-      },
-    ],
-  );
+  operationTest(filter(isNotNullOrEmpty), filterAsync(isNotNullOrEmpty), [
+    {
+      input: [],
+      result: [],
+    },
+    {
+      input: ["1", null, "", undefined, []],
+      result: ["1"],
+    },
+  ]);
 });

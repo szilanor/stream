@@ -14,11 +14,7 @@ describe("lastOrDefault() and lastOrDefaultAsync()", () => {
     },
   ];
 
-  collectorTest(
-    lastOrDefault(5),
-    lastOrDefaultAsync(5),
-    defaultPredicateCases,
-  );
+  collectorTest(lastOrDefault(5), lastOrDefaultAsync(5), defaultPredicateCases);
 
   collectorTest(
     lastOrDefault(() => 5),

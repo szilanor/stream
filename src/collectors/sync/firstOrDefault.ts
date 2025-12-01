@@ -1,8 +1,10 @@
-import type { CollectorFunction, PredicateFunction, ValueOrFactory } from "~/types";
+import type {
+  CollectorFunction,
+  PredicateFunction,
+  ValueOrFactory,
+} from "~/types";
 import { first } from "./first";
-import {
-  callValueOrFactory,
-} from "~/utils";
+import { callValueOrFactory } from "~/utils";
 
 /**
  * Returns the first element in the source that satisfies the predicate or a default value.

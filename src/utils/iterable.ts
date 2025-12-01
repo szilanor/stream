@@ -1,5 +1,9 @@
 import { isFunction, isIterable } from "./typeGuards";
-import { ValueOrFactory, AsyncOperationFunction, OperationFunction } from "~/types";
+import {
+  ValueOrFactory,
+  AsyncOperationFunction,
+  OperationFunction,
+} from "~/types";
 
 export function fromIteratorFactory<T>(
   factory: () => Iterator<T>,

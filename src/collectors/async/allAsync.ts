@@ -1,4 +1,7 @@
-import type { AsyncCollectorFunction, MaybeAsyncPredicateFunction } from "~/types";
+import type {
+  AsyncCollectorFunction,
+  MaybeAsyncPredicateFunction,
+} from "~/types";
 
 /** Returns true if all entries satisfy the 'predicate' function. */
 export function allAsync<T>(

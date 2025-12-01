@@ -1,5 +1,9 @@
 /* eslint-disable @typescript-eslint/no-explicit-any */
-import type { AsyncCollectorFunction, AsyncOperationFunction, AsyncStreamLike } from "./types";
+import type {
+  AsyncCollectorFunction,
+  AsyncOperationFunction,
+  AsyncStreamLike,
+} from "./types";
 import { EmptyAsyncIterator } from "./utils";
 
 /** Wrapper class to extend the functionality of an Iterable */

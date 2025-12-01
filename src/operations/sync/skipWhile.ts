@@ -1,9 +1,5 @@
 import { OperationFunction, PredicateFunction } from "~/types";
-import {
-  doneResult,
-  fromIteratorMapper,
-  valueResult,
-} from "~/utils";
+import { doneResult, fromIteratorMapper, valueResult } from "~/utils";
 
 class SkipWhileIterator<T> implements Iterator<T> {
   index = 0;

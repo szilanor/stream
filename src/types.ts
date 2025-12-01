@@ -67,7 +67,4 @@ export type MaybeAsyncCallbackFunction<T> = (
 
 export type MapperFunction<T, O> = (item: T, index: number) => O;
 
-export type AsyncMapperFunction<T, O> = (
-  item: T,
-  index: number,
-) => Promise<O>;
+export type AsyncMapperFunction<T, O> = (item: T, index: number) => Promise<O>;

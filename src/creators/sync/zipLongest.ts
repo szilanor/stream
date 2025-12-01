@@ -1,9 +1,5 @@
 import { Stream } from "~/stream";
-import {
-  callValueOrFactory,
-  doneResult,
-  valueResult,
-} from "~/utils";
+import { callValueOrFactory, doneResult, valueResult } from "~/utils";
 import { ValueOrFactory } from "~/types";
 
 class ZipLongestIterator<A, B, F, O> implements Iterator<O> {

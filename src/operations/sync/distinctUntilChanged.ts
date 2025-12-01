@@ -1,9 +1,5 @@
 import { OperationFunction, EqualsFunction } from "~/types";
-import {
-  doneResult,
-  fromIteratorMapper,
-  valueResult,
-} from "~/utils";
+import { doneResult, fromIteratorMapper, valueResult } from "~/utils";
 
 class DistinctUntilChangedIterator<T> implements Iterator<T> {
   private previous?: T;

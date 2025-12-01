@@ -1,9 +1,5 @@
 import { OperationFunction, ValueOrFactory } from "~/types";
-import {
-  callValueOrFactory,
-  fromIteratorMapper,
-  valueResult,
-} from "~/utils";
+import { callValueOrFactory, fromIteratorMapper, valueResult } from "~/utils";
 
 class DefaultIfEmptyIterator<T> implements Iterator<T> {
   returnedValue = false;

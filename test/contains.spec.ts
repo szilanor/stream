@@ -7,24 +7,20 @@ const entries = [{ test: 1 }, { test: 2 }];
 const entriesWithReference = [testEntry, { test: 2 }];
 
 describe("contains() and containsAsync()", () => {
-  collectorTest(
-    contains(testEntry),
-    containsAsync(testEntry),
-    [
-      {
-        input: [],
-        result: false,
-      },
-      {
-        input: entries,
-        result: false,
-      },
-      {
-        input: entriesWithReference,
-        result: true,
-      },
-    ],
-  );
+  collectorTest(contains(testEntry), containsAsync(testEntry), [
+    {
+      input: [],
+      result: false,
+    },
+    {
+      input: entries,
+      result: false,
+    },
+    {
+      input: entriesWithReference,
+      result: true,
+    },
+  ]);
   collectorTest(
     contains(testEntry, (a, b) => a.test === b.test),
     containsAsync(testEntry, (a, b) => a.test === b.test),

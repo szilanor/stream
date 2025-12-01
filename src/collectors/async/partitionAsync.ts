@@ -1,4 +1,7 @@
-import type { AsyncCollectorFunction, MaybeAsyncPredicateFunction } from "~/types";
+import type {
+  AsyncCollectorFunction,
+  MaybeAsyncPredicateFunction,
+} from "~/types";
 import { reduceAsync } from "./reduceAsync";
 
 export function partitionAsync<T>(

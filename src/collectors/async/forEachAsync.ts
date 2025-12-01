@@ -1,4 +1,7 @@
-import type { AsyncCollectorFunction, MaybeAsyncCallbackFunction } from "~/types";
+import type {
+  AsyncCollectorFunction,
+  MaybeAsyncCallbackFunction,
+} from "~/types";
 
 /** Call a callback function on every entry. */
 export function forEachAsync<T>(

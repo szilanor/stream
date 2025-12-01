@@ -1,9 +1,5 @@
 import { OperationFunction, EqualsFunction } from "~/types";
-import {
-  doneResult,
-  fromIteratorMapper,
-  valueResult,
-} from "~/utils";
+import { doneResult, fromIteratorMapper, valueResult } from "~/utils";
 
 class DistinctByIterator<T> implements Iterator<T> {
   private items: Array<T> = new Array<T>();

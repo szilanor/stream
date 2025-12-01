@@ -1,4 +1,7 @@
-import type { AsyncCollectorFunction, MaybeAsyncPredicateFunction } from "~/types";
+import type {
+  AsyncCollectorFunction,
+  MaybeAsyncPredicateFunction,
+} from "~/types";
 
 /** Returns the index of the first entry from the Iterable that satisfy then 'predicate' function. */
 export function firstIndexAsync<T>(

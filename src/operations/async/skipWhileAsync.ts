@@ -1,8 +1,4 @@
-import {
-  doneResult,
-  fromAsyncIteratorMapper,
-  valueResult,
-} from "~/utils";
+import { doneResult, fromAsyncIteratorMapper, valueResult } from "~/utils";
 import { AsyncOperationFunction, PredicateFunction } from "~/types";
 
 class SkipWhileAsyncIterator<T> implements AsyncIterator<T> {

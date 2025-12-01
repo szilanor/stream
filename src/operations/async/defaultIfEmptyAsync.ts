@@ -1,5 +1,9 @@
 import { AsyncOperationFunction, ValueOrFactory } from "~/types";
-import { callValueOrFactory, fromAsyncIteratorMapper, valueResult } from "~/utils";
+import {
+  callValueOrFactory,
+  fromAsyncIteratorMapper,
+  valueResult,
+} from "~/utils";
 
 class DefaultIfEmptyAsyncIterator<T> implements AsyncIterator<T> {
   returnedValue = false;

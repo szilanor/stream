@@ -1,4 +1,8 @@
-import type { AsyncCollectorFunction, MaybeAsyncPredicateFunction, ValueOrFactory } from "~/types";
+import type {
+  AsyncCollectorFunction,
+  MaybeAsyncPredicateFunction,
+  ValueOrFactory,
+} from "~/types";
 import { callValueOrFactory } from "~/utils";
 import { firstAsync } from "./firstAsync";
 

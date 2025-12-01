@@ -14,11 +14,7 @@ describe("firstOrDefault() and firstOrDefaultAsync()", () => {
     },
   ];
 
-  collectorTest(
-    firstOrDefault(5),
-    firstOrDefaultAsync(5),
-    emptyTestCases,
-  );
+  collectorTest(firstOrDefault(5), firstOrDefaultAsync(5), emptyTestCases);
   collectorTest(
     firstOrDefault(() => 5),
     firstOrDefaultAsync(() => 5),

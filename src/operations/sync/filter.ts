@@ -1,9 +1,9 @@
-import { OperationFunction, PredicateFunction, TypeGuardFunction } from "~/types";
 import {
-  doneResult,
-  fromIteratorMapper,
-  valueResult,
-} from "~/utils";
+  OperationFunction,
+  PredicateFunction,
+  TypeGuardFunction,
+} from "~/types";
+import { doneResult, fromIteratorMapper, valueResult } from "~/utils";
 
 export class FilterIterator<T, TOfType extends T = T>
   implements Iterator<TOfType>

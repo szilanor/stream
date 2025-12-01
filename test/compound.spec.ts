@@ -6,7 +6,6 @@ import { map } from "~/operations/sync/map";
 import { filterAsync } from "~/operations/async/filterAsync";
 import { mapAsync } from "~/operations/async/mapAsync";
 
-
 describe("compound() and compoundAsync()", () => {
   operationTest(
     compound(

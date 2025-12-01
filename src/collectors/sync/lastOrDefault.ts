@@ -1,8 +1,10 @@
-import type { CollectorFunction, PredicateFunction, ValueOrFactory } from "~/types";
+import type {
+  CollectorFunction,
+  PredicateFunction,
+  ValueOrFactory,
+} from "~/types";
 import { last } from "./last";
-import {
-  callValueOrFactory,
-} from "~/utils";
+import { callValueOrFactory } from "~/utils";
 
 /**
  * Returns the last element in the source that satisfies the predicate or a default value if no such element is found.

@@ -1,4 +1,8 @@
-import type { CollectorFunction, ReduceFunction, ValueOrFactory } from "~/types";
+import type {
+  CollectorFunction,
+  ReduceFunction,
+  ValueOrFactory,
+} from "~/types";
 import { callValueOrFactory } from "~/utils";
 
 /**

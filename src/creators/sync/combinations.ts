@@ -1,6 +1,9 @@
 import { Stream } from "~/stream";
 
-function* combinationsGenerator<T>(iterable: Iterable<T>, r: number): Generator<T[]> {
+function* combinationsGenerator<T>(
+  iterable: Iterable<T>,
+  r: number,
+): Generator<T[]> {
   const pool = Array.from(iterable);
   const n = pool.length;
 
@@ -9,12 +12,12 @@ function* combinationsGenerator<T>(iterable: Iterable<T>, r: number): Generator<
   }
 
   const indices = Array.from({ length: r }, (_, i) => i);
-  
-  yield indices.map(i => pool[i]);
+
+  yield indices.map((i) => pool[i]);
 
   while (true) {
     let i = r - 1;
-    
+
     for (; i >= 0; i--) {
       if (indices[i] !== i + n - r) {
         break;
@@ -31,7 +34,7 @@ function* combinationsGenerator<T>(iterable: Iterable<T>, r: number): Generator<
       indices[j] = indices[j - 1] + 1;
     }
 
-    yield indices.map(k => pool[k]);
+    yield indices.map((k) => pool[k]);
   }
 }
 

@@ -14,11 +14,7 @@ describe("defaultIfEmpty() and defaultIfEmptyAsync()", () => {
     },
   ];
 
-  operationTest(
-    defaultIfEmpty(1),
-    defaultIfEmptyAsync(1),
-    testCases,
-  );
+  operationTest(defaultIfEmpty(1), defaultIfEmptyAsync(1), testCases);
 
   operationTest(
     defaultIfEmpty(() => 1),
