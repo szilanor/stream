@@ -6,18 +6,19 @@ Type-safe API for processing Iterable and AsyncIterable data (Arrays, Sets, Maps
 - [API Docs](https://szilanor.github.io/stream/)
 
 ## Classic JS vs Stream API solution
+
 ```typescript
 // Classic
 let result;
-result = [1, 2, 3].filter(x => x % 2 === 0).map(x => x * 2);
+result = [1, 2, 3].filter((x) => x % 2 === 0).map((x) => x * 2);
 
 // Stream API
 result = stream([1, 2, 3])
-    .pipe(
-        filter(x => x % 2 === 0),
-        map(x => x * 2)
-    )
-    .collect(toArray());
+  .pipe(
+    filter((x) => x % 2 === 0),
+    map((x) => x * 2),
+  )
+  .collect(toArray());
 ```
 
 ## Why Stream API?
@@ -49,9 +50,13 @@ allOdd = stream(input)
 
 ```typescript
 const result = await stream([1, 2, 3, 4])
-  .pipeAsync(mapAsync(async (id) => 
-      await fetch(`https://jsonplaceholder.typicode.com/users/${id}`)
-      .then(result => result.json()))
+  .pipeAsync(
+    mapAsync(
+      async (id) =>
+        await fetch(`https://jsonplaceholder.typicode.com/users/${id}`).then(
+          (result) => result.json(),
+        ),
+    ),
   )
   .collectAsync(toArrayAsync());
 ```
@@ -82,7 +87,7 @@ oddOrEvenWithoutDuplicates = stream(input)
 - You can create your own operators and collectors if you don't find what you need
 
 ```typescript
-import {CollectorFunction, OperationFunction} from '@szilanor/stream';
+import { CollectorFunction, OperationFunction } from "@szilanor/stream";
 
 const myAwesomeCollector: CollectorFunction<unknown, unknown> = {
   /* your own implementation */
@@ -95,4 +100,3 @@ const result = of(1, 2, 3)
   .pipe(myAwesomeOperation())
   .collect(myAwesomeCollector());
 ```
-
