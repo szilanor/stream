@@ -1,13 +1,12 @@
 import { minBy } from "./minBy";
 
 /**
- * Returns the minimum value in a sequence of numbers.
- * @param numbers Sequence of numbers to find the minimum value.
- * @returns Minimum value in the sequence.
+ * Returns a collector that returns the minimum value in a sequence of numbers.
+ * @returns Collector that returns the minimum value in a sequence of numbers.
  *
  * @example
  * ```typescript
- * const result = min([1, 2, 3]);
+ * const result = min<number>()([1, 2, 3]);
  * console.log(result); // 1
  * ```
  */

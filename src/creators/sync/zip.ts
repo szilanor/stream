@@ -36,10 +36,12 @@ class ZipIterable<A, B, O> implements Iterable<O> {
 /**
  * Returns a Stream that merges elements from both iterables by taking one
  * element from each, passing them to the function, and yielding the result.
- *
  * @param a The first iterable to merge.
  * @param b The second iterable to merge.
  * @param zipFunction The function that merges the elements.
+ * @typeParam A Type of items in the first iterable.
+ * @typeParam B Type of items in the second iterable.
+ * @typeParam O Type of items in the result.
  * @returns A Stream that merges elements from both iterables.
  *
  * @example

@@ -7,7 +7,7 @@ import { first } from "./first";
 import { callValueOrFactory } from "~/utils";
 
 /**
- * Returns the first element in the source that satisfies the predicate or a default value.
+ * Returns a collector that returns the first element in the source that satisfies the predicate or a default value.
  * @param defaultValue Default value or factory to use if no element satisfies the predicate.
  * @param predicate Predicate function to determine if an element should be returned.
  * @typeParam T Type of items in the source.

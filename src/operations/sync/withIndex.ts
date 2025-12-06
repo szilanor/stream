@@ -2,9 +2,9 @@ import { OperationFunction } from "~/types";
 import { map } from "./map";
 
 /**
- * Returns a Stream that yields elements from the source with their index.
+ * Returns an OperationFunction that yields elements from the source with their index.
  * @typeParam T Type of items in the source.
- * @returns Operation that yields elements from the source with their index.
+ * @returns An OperationFunction that yields elements from the source with their index.
  *
  * @example
  * ```typescript

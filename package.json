@@ -3,6 +3,7 @@
   "version": "3.1.1",
   "description": "Typesafe API for processing iterable data in TypeScript and JavaScript",
   "type": "module",
+  "sideEffects": false,
   "types": "./dist/index.d.cts",
   "main": "./dist/index.cjs",
   "exports": {
@@ -38,6 +39,7 @@
     "@types/node": "^24.9.2",
     "@typescript-eslint/eslint-plugin": "^8.46.2",
     "@typescript-eslint/parser": "^8.46.2",
+    "@vitest/coverage-v8": "^4.0.15",
     "eslint": "^9.39.0",
     "eslint-config-prettier": "^10.1.8",
     "eslint-plugin-prettier": "^5.5.4",

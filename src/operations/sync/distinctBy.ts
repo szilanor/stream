@@ -30,10 +30,10 @@ class DistinctByIterator<T> implements Iterator<T> {
 }
 
 /**
- * Returns a Stream that yields distinct elements from the source based on the equals function.
+ * Returns an OperationFunction that yields distinct elements from the source based on the equals function.
  * @param equalsFunction Function to compare elements.
  * @typeParam T Type of items in the source.
- * @returns Operation that yields distinct elements from the source.
+ * @returns An OperationFunction that yields distinct elements from the source based on the equals function.
  *
  * @example
  * ```typescript

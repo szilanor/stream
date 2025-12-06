@@ -1,7 +1,7 @@
 import type { CollectorFunction } from "~/types";
 
 /**
- * Returns the source as an array.
+ * Returns a collector that returns the source as an array.
  * @typeParam T Type of items in the source.
  * @returns Collector that returns the source as an array.
  *

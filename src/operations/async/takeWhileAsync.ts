@@ -15,7 +15,18 @@ class TakeWhileAsyncIterator<T> implements AsyncIterator<T> {
   }
 }
 
-/** Returns an Iterable taking entries of the source Iterable while the parameter function returns true. */
+/**
+ * Returns an AsyncOperationFunction that takes entries of the source Iterable while the parameter function returns true.
+ * @param predicate The function to use to filter the entries.
+ * @typeParam T The type of the elements in the source Iterable.
+ * @returns An AsyncOperationFunction that takes entries of the source Iterable while the parameter function returns true.
+ *
+ * @example
+ * ```typescript
+ * const result = takeWhileAsync<number>([1, 2, 3], (value) => value < 2);
+ * console.log(result); // [1]
+ * ```
+ */
 export function takeWhileAsync<T>(
   predicate: PredicateFunction<T>,
 ): AsyncOperationFunction<T, T> {

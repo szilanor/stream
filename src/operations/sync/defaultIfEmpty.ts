@@ -22,10 +22,10 @@ class DefaultIfEmptyIterator<T> implements Iterator<T> {
 }
 
 /**
- * Emits a default value if the source is empty.
+ * Returns an OperationFunction that emits a default value if the source is empty.
  * @param defaultValue Value to emit if the source is empty.
  * @typeParam T Type of items emitted by the source.
- * @returns Operation that emits a default value if the source is empty.
+ * @returns An OperationFunction that emits a default value if the source is empty.
  *
  * @example
  * ```typescript

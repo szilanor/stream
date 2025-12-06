@@ -4,11 +4,11 @@ import { map } from "./map";
 import { flat } from "./flat";
 
 /**
- * Maps each element to an Iterable and flattens the result.
+ * Returns an OperationFunction that maps each element to an Iterable and flattens the result.
  * @param mapper Mapping function.
  * @typeParam T Type of items in the source.
  * @typeParam O Type of items in the resulting Iterable.
- * @returns Operation that maps each element to an Iterable and flattens the result.
+ * @returns An OperationFunction that maps each element to an Iterable and flattens the result.
  *
  * @example
  * ```typescript

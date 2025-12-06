@@ -27,3 +27,4 @@ export { takeWhileAsync } from "./takeWhileAsync";
 export { tapAsync } from "./tapAsync";
 export { truthyAsync } from "./truthyAsync";
 export { withIndexAsync } from "./withIndexAsync";
+export { scanAsync } from "./scanAsync";

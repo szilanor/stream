@@ -32,10 +32,10 @@ class BufferIterator<T> implements Iterator<T[]> {
 }
 
 /**
- * Buffers the source elements into arrays of 'size' elements.
+ * Returns an OperationFunction that buffers the source elements into arrays of 'size' elements.
  * @param size The number of elements in each buffer.
  * @typeParam T Type of the elements.
- * @returns Operation that buffers the source elements.
+ * @returns An OperationFunction that buffers the source elements into arrays of 'size' elements.
  *
  * @example
  * ```typescript

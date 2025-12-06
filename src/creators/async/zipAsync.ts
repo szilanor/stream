@@ -34,8 +34,21 @@ class ZipAsyncIterable<A, B, O> implements AsyncIterable<O> {
 }
 
 /**
- * Returns a Stream that merges elements from both iterables by taking one
+ * Returns an AsyncStream that merges elements from both iterables by taking one
  * element from each, passing them to the function, and yielding the result.
+ * @param a First iterable to zip.
+ * @param b Second iterable to zip.
+ * @param zipFunction Function to merge elements from both iterables.
+ * @typeParam A Type of items in the first iterable.
+ * @typeParam B Type of items in the second iterable.
+ * @typeParam O Type of items in the result.
+ * @returns AsyncStream that yields elements of the zipped iterables.
+ *
+ * @example
+ * ```typescript
+ * const result = zipAsync<number, number, number>([1, 2, 3], [4, 5, 6], (a, b) => a + b);
+ * console.log(result); // [5, 7, 9]
+ * ```
  */
 export function zipAsync<A, B, O>(
   a: AsyncIterable<A>,

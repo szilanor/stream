@@ -24,10 +24,10 @@ class SkipIterator<T> implements Iterator<T> {
 }
 
 /**
- * Skips the first `count` elements from the source.
+ * Returns an OperationFunction that skips the first `count` elements from the source.
  * @param count Number of elements to skip.
  * @typeParam T Type of items in the source.
- * @returns Operation that skips the first `count` elements from the source.
+ * @returns An OperationFunction that skips the first `count` elements from the source.
  *
  * @example
  * ```typescript

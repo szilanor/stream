@@ -1,7 +1,7 @@
 import type { CollectorFunction, PredicateFunction } from "~/types";
 
 /**
- * Checks if all elements in the source satisfy the predicate.
+ * Returns a collector that checks if all elements in the source satisfy the predicate.
  * @param predicate Predicate function to determine if an element satisfies a condition.
  * @typeParam T Type of items in the source.
  * @returns Collector that checks if all elements in the source satisfy the predicate.

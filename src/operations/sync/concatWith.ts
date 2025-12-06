@@ -2,10 +2,10 @@ import { OperationFunction } from "~/types";
 import { concat } from "~/creators/sync/concat";
 
 /**
- * Concatenates the given Iterables to the end of the source Iterable.
+ * Returns an OperationFunction that concatenates the given Iterables to the end of the source Iterable.
  * @param iterables Iterables to concatenate.
  * @typeParam T Type of items in the Iterables.
- * @returns Returns a new Iterable that yields the elements of the source Iterable followed by the elements of the given Iterables.
+ * @returns An OperationFunction that concatenates the given Iterables to the end of the source Iterable.
  *
  * @example
  * ```typescript

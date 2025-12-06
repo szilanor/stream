@@ -1,10 +1,10 @@
 import type { CollectorFunction } from "~/types";
 
 /**
- * Gets the element at the specified index.
+ * Returns a collector that returns the element at the specified index.
  * @param index Index of the element to get.
  * @typeParam T Type of items in the source.
- * @returns Collector that gets the element at the specified index.
+ * @returns Collector that returns the element at the specified index.
  *
  * @example
  * ```typescript

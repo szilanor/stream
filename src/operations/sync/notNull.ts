@@ -3,9 +3,9 @@ import { fromIteratorMapper, isNotNull } from "~/utils";
 import { FilterIterator } from "./filter";
 
 /**
- * Returns a Stream that yields elements that are not `null`.
+ * Returns an OperationFunction that yields elements that are not `null`.
  * @typeParam T Type of items in the source.
- * @returns Operation that yields elements that are not `null`.
+ * @returns An OperationFunction that yields elements that are not `null`.
  *
  * @example
  * ```typescript

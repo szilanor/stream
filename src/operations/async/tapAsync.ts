@@ -18,7 +18,18 @@ class TapAsyncIterator<T> implements AsyncIterator<T> {
   }
 }
 
-/** Calls a callback function on each entry */
+/**
+ * Returns an AsyncOperationFunction that calls a callback function on each entry.
+ * @param callback The callback function to call on each entry.
+ * @typeParam T The type of the elements in the source Iterable.
+ * @returns An AsyncOperationFunction that calls a callback function on each entry.
+ *
+ * @example
+ * ```typescript
+ * const result = tapAsync<number>([1, 2, 3], (value) => console.log(value));
+ * console.log(result); // [1, 2, 3]
+ * ```
+ */
 export function tapAsync<T>(
   callback: CallbackFunction<T>,
 ): AsyncOperationFunction<T, T> {
