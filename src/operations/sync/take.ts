@@ -19,10 +19,10 @@ class TakeIterator<T> implements Iterator<T> {
 }
 
 /**
- * Takes the first `count` elements from the source.
+ * Returns an OperationFunction that takes the first `count` elements from the source.
  * @param count Number of elements to take.
  * @typeParam T Type of items in the source.
- * @returns Operation that takes the first `count` elements from the source.
+ * @returns An OperationFunction that takes the first `count` elements from the source.
  *
  * @example
  * ```typescript

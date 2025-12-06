@@ -31,7 +31,18 @@ class BufferAsyncIterator<T> implements AsyncIterator<T[]> {
   }
 }
 
-/** Returns an Iterable that yields array of entries of the source Iterable with the given length. */
+/**
+ * Returns an AsyncOperationFunction that yields array of entries of the source Iterable with the given length.
+ * @param size The length of the array to yield.
+ * @typeParam T The type of the elements in the source Iterable.
+ * @returns An AsyncOperationFunction that yields array of entries of the source Iterable with the given length.
+ *
+ * @example
+ * ```typescript
+ * const result = bufferAsync<number>([1, 2, 3], 2);
+ * console.log(result); // [[1, 2], [3]]
+ * ```
+ */
 export function bufferAsync<T>(size: number): AsyncOperationFunction<T, T[]> {
   return fromAsyncIteratorMapper(
     (iterator) => new BufferAsyncIterator(iterator, size),

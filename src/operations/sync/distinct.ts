@@ -23,9 +23,9 @@ class DistinctIterator<T> implements Iterator<T> {
 }
 
 /**
- * Returns a Stream that yields distinct elements from the source.
+ * Returns an OperationFunction that yields distinct elements from the source.
  * @typeParam T Type of items in the source.
- * @returns Operation that yields distinct elements from the source.
+ * @returns An OperationFunction that yields distinct elements from the source.
  *
  * @example
  * ```typescript

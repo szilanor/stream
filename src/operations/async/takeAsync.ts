@@ -18,7 +18,18 @@ class TakeAsyncIterator<T> implements AsyncIterator<T> {
   }
 }
 
-/** Returns an Iterable taking the given amount of entries of the source Iterable. */
+/**
+ * Returns an AsyncOperationFunction that takes the given amount of entries of the source Iterable.
+ * @param count The amount of entries to take.
+ * @typeParam T The type of the elements in the source Iterable.
+ * @returns An AsyncOperationFunction that takes the given amount of entries of the source Iterable.
+ *
+ * @example
+ * ```typescript
+ * const result = takeAsync<number>([1, 2, 3], 2);
+ * console.log(result); // [1, 2]
+ * ```
+ */
 export function takeAsync<T>(count: number): AsyncOperationFunction<T, T> {
   return fromAsyncIteratorMapper(
     (iterator) => new TakeAsyncIterator(iterator, count),

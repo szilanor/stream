@@ -16,10 +16,10 @@ class TakeWhileIterator<T> implements Iterator<T> {
 }
 
 /**
- * Takes elements from the source while the predicate returns `true`.
+ * Returns an OperationFunction that takes elements from the source while the predicate returns `true`.
  * @param predicate Predicate function to determine if an element should be taken.
  * @typeParam T Type of items in the source.
- * @returns Operation that takes elements from the source while the predicate returns `true`.
+ * @returns An OperationFunction that takes elements from the source while the predicate returns `true`.
  *
  * @example
  * ```typescript

@@ -26,7 +26,17 @@ class FlatAsyncIterator<T> implements AsyncIterator<T> {
   }
 }
 
-/** Returns an Iterable that yields the inner entries of array entries of the source Iterable. */
+/**
+ * Returns an AsyncOperationFunction that yields the inner entries of array entries of the source Iterable.
+ * @typeParam T The type of the elements in the source Iterable.
+ * @returns An AsyncOperationFunction that yields the inner entries of array entries of the source Iterable.
+ *
+ * @example
+ * ```typescript
+ * const result = flatAsync<number>([[1, 2], [3, 4]]);
+ * console.log(result); // [1, 2, 3, 4]
+ * ```
+ */
 export function flatAsync<T>(): AsyncOperationFunction<Iterable<T>, T> {
   return fromAsyncIteratorMapper((iterator) => new FlatAsyncIterator(iterator));
 }

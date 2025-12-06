@@ -19,10 +19,10 @@ class TapIterator<T> implements Iterator<T> {
 }
 
 /**
- * Invokes a callback for each element in the source.
+ * Returns an OperationFunction that invokes a callback for each element in the source.
  * @param callback Callback function to invoke for each element.
  * @typeParam T Type of items in the source.
- * @returns Operation that invokes a callback for each element in the source.
+ * @returns An OperationFunction that invokes a callback for each element in the source.
  *
  * @example
  * ```typescript

@@ -29,6 +29,20 @@ class DistinctUntilKeyChangedAsyncIterator<T, K extends keyof T>
   }
 }
 
+/**
+ * Returns an AsyncOperationFunction that yields only entries of the source Iterable without duplicates.
+ * @param key The key to use to compare the elements.
+ * @param equalsFunction The function to use to compare the elements.
+ * @typeParam T The type of the elements in the source Iterable.
+ * @typeParam K The type of the key to use to compare the elements.
+ * @returns An AsyncOperationFunction that yields only entries of the source Iterable without duplicates.
+ *
+ * @example
+ * ```typescript
+ * const result = distinctUntilKeyChangedAsync<number>([1, 2, 2, 3], (a, b) => a === b);
+ * console.log(result); // [1, 2, 3]
+ * ```
+ */
 export function distinctUntilKeyChangedAsync<T, K extends keyof T>(
   key: K,
   equalsFunction?: EqualsFunction<T[K]>,

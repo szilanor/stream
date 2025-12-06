@@ -45,7 +45,6 @@ class ZipLongestIterable<A, B, F, O> implements Iterable<O> {
 /**
  * Returns a Stream that merges elements from both iterables by taking one
  * element from each, passing them to the function, and yielding the result.
- *
  * @param a The first iterable to merge.
  * @param b The second iterable to merge.
  * @param fillValue The value or factory to use when one iterable is done.

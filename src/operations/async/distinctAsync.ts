@@ -23,7 +23,17 @@ class DistinctAsyncIterator<T> implements AsyncIterator<T> {
   }
 }
 
-/** Returns an Iterable that yields only entries of the source Iterable without duplicates. */
+/**
+ * Returns an AsyncOperationFunction that yields only entries of the source Iterable without duplicates.
+ * @typeParam T The type of the elements in the source Iterable.
+ * @returns An AsyncOperationFunction that yields only entries of the source Iterable without duplicates.
+ *
+ * @example
+ * ```typescript
+ * const result = distinctAsync<number>([1, 2, 2, 3]);
+ * console.log(result); // [1, 2, 3]
+ * ```
+ */
 export function distinctAsync<T>(): AsyncOperationFunction<T, T> {
   return fromAsyncIteratorMapper(
     (iterator) => new DistinctAsyncIterator(iterator),

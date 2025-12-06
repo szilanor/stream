@@ -25,7 +25,18 @@ class DefaultIfEmptyAsyncIterator<T> implements AsyncIterator<T> {
   }
 }
 
-/** Returns an Iterable with the value parameter if the source Iterable is empty. */
+/**
+ * Returns an AsyncOperationFunction that yields the defaultValue parameter if the source Iterable is empty.
+ * @param defaultValue The value or factory to use when the source Iterable is empty.
+ * @typeParam T The type of the elements in the source Iterable.
+ * @returns An AsyncOperationFunction that yields the defaultValue parameter if the source Iterable is empty.
+ *
+ * @example
+ * ```typescript
+ * const result = defaultIfEmptyAsync<number>([], 0);
+ * console.log(result); // [0]
+ * ```
+ */
 export function defaultIfEmptyAsync<T>(
   defaultValue: ValueOrFactory<T>,
 ): AsyncOperationFunction<T, T> {

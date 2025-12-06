@@ -3,8 +3,9 @@ import { fromIteratorMapper, isNotNullOrWhitespace } from "~/utils";
 import { FilterIterator } from "./filter";
 
 /**
- * Returns a Stream that yields elements that are not `null`, `undefined`, or whitespace.
- * @returns Operation that yields elements that are not `null`, `undefined`, or whitespace.
+ * Returns an OperationFunction that yields elements that are not `null`, `undefined`, or whitespace.
+ * @typeParam T Type of items in the source.
+ * @returns An OperationFunction that yields elements that are not `null`, `undefined`, or whitespace.
  *
  * @example
  * ```typescript

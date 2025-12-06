@@ -2,7 +2,7 @@ import type { CollectorFunction, CompareFunction } from "~/types";
 import { reduce } from "./reduce";
 
 /**
- * Returns the element in the source that has the maximum value according to the comparer.
+ * Returns a collector that returns the element in the source that has the maximum value according to the comparer.
  * @param comparer Comparer function to determine the maximum value.
  * @typeParam T Type of items in the source.
  * @returns Collector that returns the element in the source that has the maximum value according to the comparer.

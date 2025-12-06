@@ -23,7 +23,17 @@ class PairwiseAsyncIterator<T> implements AsyncIterator<[T, T]> {
   }
 }
 
-/** Returns an Iterable that yields the current and the previous entry of the source Iterable. */
+/**
+ * Returns an AsyncOperationFunction that yields the current and the previous entry of the source Iterable.
+ * @typeParam T The type of the elements in the source Iterable.
+ * @returns An AsyncOperationFunction that yields the current and the previous entry of the source Iterable.
+ *
+ * @example
+ * ```typescript
+ * const result = pairwiseAsync<number>([1, 2, 3]);
+ * console.log(result); // [[1, 2], [2, 3]]
+ * ```
+ */
 export function pairwiseAsync<T>(): AsyncOperationFunction<T, [T, T]> {
   return fromAsyncIteratorMapper(
     (iterator) => new PairwiseAsyncIterator(iterator),

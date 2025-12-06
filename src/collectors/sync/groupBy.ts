@@ -2,7 +2,7 @@ import type { CollectorFunction } from "~/types";
 import { reduce } from "./reduce";
 
 /**
- * Groups the source by a key selector.
+ * Returns a collector that groups the source by a key selector.
  * @param keySelector Key selector function.
  * @typeParam T Type of items in the source.
  * @typeParam TKey Type of the key.

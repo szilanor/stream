@@ -1,7 +1,7 @@
 import type { CollectorFunction, CallbackFunction } from "~/types";
 
 /**
- * Executes a callback for each element in the source.
+ * Returns a collector that executes a callback for each element in the source.
  * @param callback Callback function to execute for each element.
  * @typeParam T Type of items in the source.
  * @returns Collector that executes a callback for each element in the source.

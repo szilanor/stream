@@ -1,7 +1,7 @@
 import type { CollectorFunction } from "~/types";
 
 /**
- * Determines if the source is empty.
+ * Returns a collector that determines if the source is empty.
  * @typeParam T Type of items in the source.
  * @returns Collector that determines if the source is empty.
  *

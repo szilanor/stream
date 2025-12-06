@@ -29,3 +29,4 @@ export { takeWhile } from "./takeWhile";
 export { tap } from "./tap";
 export { truthy } from "./truthy";
 export { withIndex } from "./withIndex";
+export { scan } from "./scan";

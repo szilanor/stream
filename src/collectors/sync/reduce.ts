@@ -6,7 +6,7 @@ import type {
 import { callValueOrFactory } from "~/utils";
 
 /**
- * Returns the result of applying the reducer function to each element of the source.
+ * Returns a collector that returns the result of applying the reducer function to each element of the source.
  * @param reducerFunction Reducer function to apply to each element.
  * @param initialValue Initial value or factory function to use as the first argument to the reducer function.
  * @typeParam T Type of items in the source.

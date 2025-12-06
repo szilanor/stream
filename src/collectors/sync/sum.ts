@@ -2,7 +2,7 @@ import type { CollectorFunction } from "~/types";
 import { reduce } from "./reduce";
 
 /**
- * Returns the sum of the source.
+ * Returns a collector that returns the sum of the source.
  * @typeParam T Type of items in the source.
  * @returns Collector that returns the sum of the source.
  *

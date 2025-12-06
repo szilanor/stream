@@ -7,7 +7,7 @@ import { last } from "./last";
 import { callValueOrFactory } from "~/utils";
 
 /**
- * Returns the last element in the source that satisfies the predicate or a default value if no such element is found.
+ * Returns a collector that returns the last element in the source that satisfies the predicate or a default value if no such element is found.
  * @param defaultValue Default value to return if no element is found.
  * @param predicate Predicate function to determine if an element should be returned.
  * @typeParam T Type of items in the source.

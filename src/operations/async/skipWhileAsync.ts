@@ -24,7 +24,18 @@ class SkipWhileAsyncIterator<T> implements AsyncIterator<T> {
   }
 }
 
-/** Returns an Iterable skipping entries of the source Iterable while the parameter function returns true. */
+/**
+ * Returns an AsyncOperationFunction that skips entries of the source Iterable while the parameter function returns true.
+ * @param predicate The function to use to filter the entries.
+ * @typeParam T The type of the elements in the source Iterable.
+ * @returns An AsyncOperationFunction that skips entries of the source Iterable while the parameter function returns true.
+ *
+ * @example
+ * ```typescript
+ * const result = skipWhileAsync<number>([1, 2, 3], (value) => value < 2);
+ * console.log(result); // [2, 3]
+ * ```
+ */
 export function skipWhileAsync<T>(
   predicate: PredicateFunction<T>,
 ): AsyncOperationFunction<T, T> {
