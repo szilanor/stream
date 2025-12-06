@@ -30,6 +30,12 @@ class ConcatIterator<T> implements Iterator<T> {
  * @param iterables Iterables to concatenate.
  * @typeParam T Type of items in the Iterables.
  * @returns Stream that yields elements of all Iterables in order.
+ *
+ * @example
+ * ```typescript
+ * const result = concat<number>([1, 2, 3], [4, 5, 6]);
+ * console.log(result); // [1, 2, 3, 4, 5, 6]
+ * ```
  */
 export function concat<T>(...iterables: Array<Iterable<T>>): Stream<T> {
   return new Stream<T>(

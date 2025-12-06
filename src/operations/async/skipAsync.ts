@@ -23,7 +23,18 @@ class SkipAsyncIterator<T> implements AsyncIterator<T> {
   }
 }
 
-/** Returns an Iterable skipping the given amount of entries of the source Iterable. */
+/**
+ * Returns an AsyncOperationFunction that skips the given amount of entries of the source Iterable.
+ * @param count The amount of entries to skip.
+ * @typeParam T The type of the elements in the source Iterable.
+ * @returns An AsyncOperationFunction that skips the given amount of entries of the source Iterable.
+ *
+ * @example
+ * ```typescript
+ * const result = skipAsync<number>([1, 2, 3], 2);
+ * console.log(result); // [3]
+ * ```
+ */
 export function skipAsync<T>(count: number): AsyncOperationFunction<T, T> {
   return fromAsyncIteratorMapper(
     (iterator) => new SkipAsyncIterator(iterator, count),

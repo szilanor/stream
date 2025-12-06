@@ -1,102 +1,161 @@
-# Stream API
+<p align="center">
+  <img src="https://img.shields.io/npm/v/@szilanor/stream?style=flat-square&color=00d26a" alt="npm version" />
+  <img src="https://img.shields.io/npm/l/@szilanor/stream?style=flat-square&color=blue" alt="license" />
+  <img src="https://img.shields.io/npm/dm/@szilanor/stream?style=flat-square&color=orange" alt="downloads" />
+  <img src="https://img.shields.io/bundlephobia/minzip/@szilanor/stream?style=flat-square&color=blueviolet&label=bundle%20size" alt="bundle size" />
+  <img src="https://img.shields.io/badge/dependencies-0-brightgreen?style=flat-square" alt="zero dependencies" />
+</p>
 
-Type-safe API for processing Iterable and AsyncIterable data (Arrays, Sets, Maps) similarly to [Java 8 Stream API](https://docs.oracle.com/javase/8/docs/api/java/util/stream/Stream.html),
-[LINQ](https://docs.microsoft.com/en-us/dotnet/csharp/programming-guide/concepts/linq/) or [Kotlin Sequences](https://kotlinlang.org/docs/sequences.html).
+<h1 align="center">🌊 Stream API</h1>
 
-- [API Docs](https://szilanor.github.io/stream/)
+<p align="center">
+  <strong>A blazing-fast, type-safe, and lazy data processing library for TypeScript & JavaScript.</strong>
+</p>
 
-## Classic JS vs Stream API solution
+<p align="center">
+  Inspired by <a href="https://docs.oracle.com/javase/8/docs/api/java/util/stream/Stream.html">Java Streams</a>, <a href="https://docs.microsoft.com/en-us/dotnet/csharp/programming-guide/concepts/linq/">C# LINQ</a>, and <a href="https://kotlinlang.org/docs/sequences.html">Kotlin Sequences</a>.
+</p>
+
+---
+
+## ✨ Why Stream API?
+
+| Problem                                                                           | Solution with Stream API                                                   |
+| --------------------------------------------------------------------------------- | -------------------------------------------------------------------------- |
+| 🐢 **Slow array chains** — `.map().filter().reduce()` creates intermediate arrays | ⚡ **Lazy evaluation** — processes one element at a time, no wasted memory |
+| 🔮 **Weak types** — generic `any[]` returns                                       | 🛡️ **Full type inference** — know your types at every step                 |
+| 😵 **Callback hell with async** — complex Promise.all patterns                    | 🌀 **Native async iterables** — clean, readable async pipelines            |
+| 📦 **Bloated bundles** — importing large utility libraries                        | 🪶 **Tree-shakeable & zero deps** — import only what you use               |
+
+---
+
+## 📚 Documentation
+
+Full API documentation with examples is available at **[szilanor.github.io/stream](https://szilanor.github.io/stream/)**.
+
+---
+
+## Quick Start
+
+```bash
+npm install @szilanor/stream
+```
 
 ```typescript
-// Classic
-let result;
-result = [1, 2, 3].filter((x) => x % 2 === 0).map((x) => x * 2);
+import { stream, filter, map, toArray } from "@szilanor/stream";
 
-// Stream API
-result = stream([1, 2, 3])
+const result = stream([1, 2, 3, 4, 5])
   .pipe(
     filter((x) => x % 2 === 0),
-    map((x) => x * 2),
+    map((x) => x * 10),
+  )
+  .collect(toArray());
+
+console.log(result); // [20, 40]
+```
+
+---
+
+## Core Concepts
+
+Stream API follows a simple **3-step pattern**:
+
+```
+┌─────────────┐      ┌──────────────────┐      ┌───────────────┐
+│   CREATE    │  →   │    TRANSFORM     │  →   │    COLLECT    │
+│  stream()   │      │     .pipe()      │      │   .collect()  │
+└─────────────┘      └──────────────────┘      └───────────────┘
+```
+
+1. **Create** a stream from any iterable source
+2. **Transform** with chainable, lazy operations
+3. **Collect** into a final result
+
+---
+
+## Features at a Glance
+
+| Feature                  | Description                                                                      |
+| ------------------------ | -------------------------------------------------------------------------------- |
+| 🔒 **Type-Safe**         | Full TypeScript support with accurate type inference through the entire pipeline |
+| ⚡ **Lazy Evaluation**   | Elements are processed one-by-one, on-demand — no intermediate arrays            |
+| 🌀 **Async First-Class** | Seamlessly work with `AsyncIterable` and async operations                        |
+| 📚 **60+ Operators**     | Rich standard library for transformation, filtering, aggregation, and more       |
+| 🧩 **Extensible**        | Create custom operators and collectors with simple generator functions           |
+| 🪶 **Zero Dependencies** | No runtime dependencies — lightweight and focused                                |
+| 📦 **Tree-Shakeable**    | Only bundle the operators you actually use                                       |
+
+---
+
+## Examples
+
+### Lazy Evaluation = Better Performance
+
+```typescript
+// ❌ Traditional: Creates 2 intermediate arrays, processes ALL elements
+const result = hugeArray
+  .map((x) => expensiveTransform(x))
+  .filter((x) => x > 100)
+  .slice(0, 5);
+
+// ✅ Stream API: Stops after finding 5 matches, no intermediate arrays
+const result = stream(hugeArray)
+  .pipe(
+    map((x) => expensiveTransform(x)),
+    filter((x) => x > 100),
+    take(5),
   )
   .collect(toArray());
 ```
 
-## Why Stream API?
-
-- Can achieve faster results and lower memory usage due to sequential processing.
+### Clean Data Transformations
 
 ```typescript
-const input = [1, 2, 3, .... 10000];
-let allOdd: boolean;
+import { stream, distinct, groupBy } from "@szilanor/stream";
 
-// Classic JS
-allOdd = input
-    .map(x => x + 1)
-    .every(x => x % 2 === 1);
+const users = [
+  { name: "Alice", role: "admin" },
+  { name: "Bob", role: "user" },
+  { name: "Charlie", role: "admin" },
+];
 
-// Maps every items first, then checks the results
-// Result: 2, 3, 4 .... 10000 false
+const byRole = stream(users)
+  .pipe(distinctBy((u) => u.name))
+  .collect(groupBy((u) => u.role));
 
-// Stream API
-allOdd = stream(input)
-  .pipe(map(x => x + 1))
-  .collect(every(x => x % 2 === 1));
-
-// Knows the answer after mapping the first item
-// Result: 2, false
+// Map { 'admin' => [...], 'user' => [...] }
 ```
 
-- Async support
+### Async Pipelines Made Simple
 
 ```typescript
-const result = await stream([1, 2, 3, 4])
+import { stream, mapAsync, filterAsync, toArrayAsync } from "@szilanor/stream";
+
+const users = await stream([1, 2, 3, 4, 5])
   .pipeAsync(
-    mapAsync(
-      async (id) =>
-        await fetch(`https://jsonplaceholder.typicode.com/users/${id}`).then(
-          (result) => result.json(),
-        ),
-    ),
+    mapAsync(async (id) => {
+      const res = await fetch(`/api/users/${id}`);
+      return res.json();
+    }),
+    filterAsync((user) => user.isActive),
   )
   .collectAsync(toArrayAsync());
 ```
 
-- More readable and fewer lines of code
+### Create Your Own Operators
 
 ```typescript
-const input = [1, 1, 1, 1, 2, 3, 4, 4, 5];
-let oddOrEvenWithoutDuplicates: Map<string, number[]>;
+import { OperationFunction } from "@szilanor/stream";
 
-// Classic JS
-oddOrEvenWithoutDuplicates = new Map<string, number[]>();
-for (let x of new Set<number>(input))
-  const key = x % 2 === 0 ? 'even' : 'odd';
-  if (resultClassic.has(key)) {
-    resultClassic.get(key).push(x);
-  } else {
-    resultClassic.set(key, [x]);
-  }
-}
-
-// Stream API
-oddOrEvenWithoutDuplicates = stream(input)
-  .pipe(distinct())
-  .collect(groupBy(x => (x % 2 === 0 ? 'even' : 'odd')));
-```
-
-- You can create your own operators and collectors if you don't find what you need
-
-```typescript
-import { CollectorFunction, OperationFunction } from "@szilanor/stream";
-
-const myAwesomeCollector: CollectorFunction<unknown, unknown> = {
-  /* your own implementation */
-};
-const myAwesomeOperation: OperationFunction<unknown, unknown> = {
-  /* your own implementation */
+// Custom operator: only emit every nth element
+const everyNth = <T>(n: number): OperationFunction<T, T> => {
+  return function* (iterable) {
+    let i = 0;
+    for (const item of iterable) {
+      if (i++ % n === 0) yield item;
+    }
+  };
 };
 
-const result = of(1, 2, 3)
-  .pipe(myAwesomeOperation())
-  .collect(myAwesomeCollector());
+stream([1, 2, 3, 4, 5, 6]).pipe(everyNth(2)).collect(toArray()); // [1, 3, 5]
 ```

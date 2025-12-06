@@ -11,6 +11,17 @@ export class IndexedAsyncIterator<T> implements AsyncIterator<[T, number]> {
   }
 }
 
+/**
+ * Returns an AsyncOperationFunction that yields the current and the index of the entry of the source Iterable.
+ * @typeParam T The type of the elements in the source Iterable.
+ * @returns An AsyncOperationFunction that yields the current and the index of the entry of the source Iterable.
+ *
+ * @example
+ * ```typescript
+ * const result = withIndexAsync<number>([1, 2, 3]);
+ * console.log(result); // [[1, 0], [2, 1], [3, 2]]
+ * ```
+ */
 export function withIndexAsync<T>(): AsyncOperationFunction<T, [T, number]> {
   return fromAsyncIteratorMapper(
     (iterator) => new IndexedAsyncIterator(iterator),

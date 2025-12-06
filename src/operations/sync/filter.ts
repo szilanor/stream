@@ -30,10 +30,10 @@ export class FilterIterator<T, TOfType extends T = T>
 }
 
 /**
- * Returns a Stream that yields elements from the source that satisfy the predicate.
+ * Returns an OperationFunction that yields elements from the source that satisfy the predicate.
  * @param predicate Predicate to filter elements.
  * @typeParam T Type of items in the source.
- * @returns Operation that yields elements from the source that satisfy the predicate.
+ * @returns An OperationFunction that yields elements from the source that satisfy the predicate.
  *
  * @example
  * ```typescript

@@ -1,7 +1,7 @@
 import type { CollectorFunction, EqualsFunction } from "~/types";
 
 /**
- * Checks if the source contains a specific value.
+ * Returns a collector that checks if the source contains a specific value.
  * @param value Value to check for.
  * @param equalsFunction Optional function to compare values.
  * @typeParam T Type of items in the source.

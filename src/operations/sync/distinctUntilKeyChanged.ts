@@ -30,10 +30,11 @@ class DistinctUntilKeyChangedIterator<T, K extends keyof T>
 }
 
 /**
- * Returns a Stream that yields elements from the source that are distinct from the previous element based on the key.
+ * Returns an OperationFunction that yields elements from the source that are distinct from the previous element based on the key.
  * @param key Key to compare elements.
  * @param equalsFunction Function to compare elements.
  * @typeParam T Type of items in the source.
+ * @returns An OperationFunction that yields elements from the source that are distinct from the previous element based on the key.
  *
  * @example
  * ```typescript

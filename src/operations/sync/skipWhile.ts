@@ -25,10 +25,10 @@ class SkipWhileIterator<T> implements Iterator<T> {
 }
 
 /**
- * Skips elements from the source while the predicate returns `true`.
+ * Returns an OperationFunction that skips elements from the source while the predicate returns `true`.
  * @param predicate Predicate function to determine if an element should be skipped.
  * @typeParam T Type of items in the source.
- * @returns Operation that skips elements from the source while the predicate returns `true`.
+ * @returns An OperationFunction that skips elements from the source while the predicate returns `true`.
  *
  * @example
  * ```typescript

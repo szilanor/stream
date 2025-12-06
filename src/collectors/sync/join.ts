@@ -2,7 +2,7 @@ import type { CollectorFunction } from "~/types";
 import { reduce } from "./reduce";
 
 /**
- * Joins the source into a string.
+ * Returns a collector that joins the source into a string.
  * @param separator Separator between elements.
  * @typeParam T Type of items in the source.
  * @returns Collector that joins the source into a string.

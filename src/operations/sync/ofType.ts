@@ -3,11 +3,11 @@ import { fromIteratorMapper } from "~/utils";
 import { FilterIterator } from "./filter";
 
 /**
- * Returns a Stream that yields elements that are of the specified type.
+ * Returns an OperationFunction that yields elements that are of the specified type.
  * @typeParam T Type of items in the source.
  * @typeParam TOfType Type of items to yield.
  * @param predicate A function that determines if an item is of the specified type.
- * @returns Operation that yields elements that are of the specified type.
+ * @returns An OperationFunction that yields elements that are of the specified type.
  *
  * @example
  * ```typescript

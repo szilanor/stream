@@ -1,7 +1,7 @@
 import type { CollectorFunction, EqualsFunction } from "~/types";
 
 /**
- * Determines whether two sequences are equal by comparing the elements pairwise.
+ * Returns a collector that determines whether two sequences are equal by comparing the elements pairwise.
  * @param other Iterable to compare to the source.
  * @param equalsFunction Function to determine if two elements are equal.
  * @typeParam T Type of items in the source.

@@ -2,7 +2,7 @@ import type { CollectorFunction } from "~/types";
 import { reduce } from "./reduce";
 
 /**
- * Converts the source to a record.
+ * Returns a collector that converts the source to a record.
  * @param keySelector Key selector function.
  * @param valueSelector Value selector function.
  * @typeParam T Type of items in the source.

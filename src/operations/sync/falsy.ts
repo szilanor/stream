@@ -3,9 +3,9 @@ import { FilterIterator } from "./filter";
 import { fromIteratorMapper } from "~/utils";
 
 /**
- * Returns a Stream that yields elements that are falsy.
+ * Returns an OperationFunction that yields elements that are falsy.
  * @typeParam T Type of items in the source.
- * @returns Operation that yields elements that are falsy.
+ * @returns An OperationFunction that yields elements that are falsy.
  *
  * @example
  * ```typescript

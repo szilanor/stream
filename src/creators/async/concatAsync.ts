@@ -31,7 +31,16 @@ class ConcatAsyncIterator<T> implements AsyncIterator<T> {
 }
 
 /**
- * Returns a Stream that yields elements of all Iterable parameters in order.
+ * Returns an AsyncStream that yields elements of all Iterable parameters in order.
+ * @param iterables Array of Iterables to concatenate.
+ * @typeParam T Type of items in the source.
+ * @returns AsyncStream that yields elements of all Iterable parameters in order.
+ *
+ * @example
+ * ```typescript
+ * const result = concatAsync<number>([1, 2, 3], [4, 5, 6]);
+ * console.log(result); // [1, 2, 3, 4, 5, 6]
+ * ```
  */
 export function concatAsync<T>(
   ...iterables: Array<Iterable<T> | AsyncIterable<T>>

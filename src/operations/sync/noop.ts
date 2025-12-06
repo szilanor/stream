@@ -1,9 +1,9 @@
 import { OperationFunction } from "~/types";
 
 /**
- * Returns a Stream that yields the same elements as the source.
+ * Returns an OperationFunction that yields the same elements as the source.
  * @typeParam T Type of items in the source.
- * @returns Operation that yields the same elements as the source.
+ * @returns An OperationFunction that yields the same elements as the source.
  *
  * @example
  * ```typescript

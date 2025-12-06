@@ -26,10 +26,10 @@ class DistinctUntilChangedIterator<T> implements Iterator<T> {
 }
 
 /**
- * Returns a Stream that yields elements from the source that are distinct from the previous element.
+ * Returns an OperationFunction that yields elements from the source that are distinct from the previous element.
  * @param equalsFunction Function to compare elements.
  * @typeParam T Type of items in the source.
- * @returns Operation that yields elements from the source that are distinct from the previous element.
+ * @returns An OperationFunction that yields elements from the source that are distinct from the previous element.
  *
  * @example
  * ```typescript

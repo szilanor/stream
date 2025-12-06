@@ -6,7 +6,9 @@ import type {
 } from "./types";
 import { EmptyAsyncIterator } from "./utils";
 
-/** Wrapper class to extend the functionality of an Iterable */
+/**
+ * Wrapper class to extend the functionality of an AsyncIterable
+ */
 export class AsyncStream<T> implements AsyncStreamLike<T> {
   [Symbol.asyncIterator](): AsyncIterator<T> {
     return this.asyncIterable
@@ -16,13 +18,13 @@ export class AsyncStream<T> implements AsyncStreamLike<T> {
 
   constructor(private readonly asyncIterable: AsyncIterable<T> | null = null) {}
 
-  /** Calls a collector function on the Iterable */
+  /** Calls a collector function on the AsyncIterable */
   collectAsync<O>(collector: AsyncCollectorFunction<T, O>): Promise<O> {
     return collector(this);
   }
 
-  /** Calls an operation function on the Iterable then returns the result as a Stream
-   *  allowing to chain it with more Stream related methods. */
+  /** Calls an operation function on the AsyncIterable then returns the result as a AsyncStream
+   *  allowing to chain it with more AsyncStream related methods. */
   pipeAsync(): AsyncStream<T>;
   pipeAsync<A>(op1: AsyncOperationFunction<T, A>): AsyncStream<A>;
   pipeAsync<A, B>(

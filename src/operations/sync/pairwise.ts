@@ -24,9 +24,9 @@ class PairwiseIterator<T> implements Iterator<[T, T]> {
 }
 
 /**
- * Returns a Stream that yields pairs of consecutive elements from the source.
+ * Returns an OperationFunction that yields pairs of consecutive elements from the source.
  * @typeParam T Type of items in the source.
- * @returns Operation that yields pairs of consecutive elements from the source.
+ * @returns An OperationFunction that yields pairs of consecutive elements from the source.
  *
  * @example
  * ```typescript

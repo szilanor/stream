@@ -2,10 +2,10 @@ import { OperationFunction } from "~/types";
 import { concat } from "~/creators/sync/concat";
 
 /**
- * Returns a Stream that yields elements from the source followed by the provided values.
+ * Returns an OperationFunction that yields elements from the source followed by the provided values.
  * @typeParam T Type of items in the source.
  * @param values Values to yield after the source.
- * @returns Operation that yields elements from the source followed by the provided values.
+ * @returns An OperationFunction that yields elements from the source followed by the provided values.
  *
  * @example
  * ```typescript

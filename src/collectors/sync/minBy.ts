@@ -2,7 +2,7 @@ import type { CollectorFunction, CompareFunction } from "~/types";
 import { maxBy } from "./maxBy";
 
 /**
- * Returns the element in the source that has the minimum value according to the comparer.
+ * Returns a collector that returns the element in the source that has the minimum value according to the comparer.
  * @param comparer Comparer function to determine the minimum value.
  * @typeParam T Type of items in the source.
  * @returns Collector that returns the element in the source that has the minimum value according to the comparer.
