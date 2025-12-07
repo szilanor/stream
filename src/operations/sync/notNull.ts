@@ -1,6 +1,6 @@
 import { OperationFunction } from "~/types";
-import { fromIteratorMapper, isNotNull } from "~/utils";
-import { FilterIterator } from "./filter";
+import { isNotNull } from "~/utils";
+import { ofType } from "~/operations/sync/ofType";
 
 /**
  * Returns an OperationFunction that yields elements that are not `null`.
@@ -17,11 +17,5 @@ export function notNull<T>(): OperationFunction<
   T | undefined | null,
   NonNullable<T>
 > {
-  return fromIteratorMapper(
-    (source) =>
-      new FilterIterator<T | undefined | null, NonNullable<T>>(
-        source,
-        isNotNull,
-      ),
-  );
+  return ofType(isNotNull);
 }

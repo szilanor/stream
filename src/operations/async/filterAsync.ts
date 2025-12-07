@@ -5,7 +5,7 @@ import {
 } from "~/types";
 import { doneResult, fromAsyncIteratorMapper, valueResult } from "~/utils";
 
-export class FilterAsyncIterator<T, TOfType extends T = T>
+class FilterAsyncIterator<T, TOfType extends T = T>
   implements AsyncIterator<TOfType>
 {
   index = 0;
@@ -41,9 +41,9 @@ export class FilterAsyncIterator<T, TOfType extends T = T>
  * console.log(result); // [2, 3]
  * ```
  */
-export function filterAsync<T>(
-  predicate: PredicateFunction<T>,
-): AsyncOperationFunction<T, T> {
+export function filterAsync<T, TOfType extends T = T>(
+  predicate: PredicateFunction<T> | TypeGuardFunction<T, TOfType>,
+): AsyncOperationFunction<T, TOfType> {
   return fromAsyncIteratorMapper(
     (iterator) => new FilterAsyncIterator(iterator, predicate),
   );

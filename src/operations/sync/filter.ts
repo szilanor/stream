@@ -5,9 +5,7 @@ import {
 } from "~/types";
 import { doneResult, fromIteratorMapper, valueResult } from "~/utils";
 
-export class FilterIterator<T, TOfType extends T = T>
-  implements Iterator<TOfType>
-{
+class FilterIterator<T, TOfType extends T = T> implements Iterator<TOfType> {
   index = 0;
 
   constructor(
@@ -43,7 +41,7 @@ export class FilterIterator<T, TOfType extends T = T>
  */
 export function filter<T, TOfType extends T = T>(
   predicate: PredicateFunction<T> | TypeGuardFunction<T, TOfType>,
-): OperationFunction<T, T> {
+): OperationFunction<T, TOfType> {
   return fromIteratorMapper(
     (iterator) => new FilterIterator(iterator, predicate),
   );

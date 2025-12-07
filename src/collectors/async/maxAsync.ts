@@ -1,4 +1,4 @@
-import { maxByAsync } from "./maxByAsync";
+import { maxByAsync } from "~/collectors/async/maxByAsync";
 
 /**
  * Returns a collector that returns the largest value of all entries in the Iterable.

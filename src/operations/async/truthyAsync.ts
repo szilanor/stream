@@ -1,6 +1,5 @@
 import { AsyncOperationFunction } from "~/types";
-import { FilterAsyncIterator } from "./filterAsync";
-import { fromAsyncIteratorMapper } from "~/utils";
+import { filterAsync } from "~/operations/async/filterAsync";
 
 /**
  * Returns an AsyncOperationFunction that yields only entries of the source Iterable with truthy value.
@@ -14,7 +13,5 @@ import { fromAsyncIteratorMapper } from "~/utils";
  * ```
  */
 export function truthyAsync<T>(): AsyncOperationFunction<T, T> {
-  return fromAsyncIteratorMapper(
-    (iterator) => new FilterAsyncIterator(iterator, (value) => !!value),
-  );
+  return filterAsync((value) => !!value);
 }

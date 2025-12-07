@@ -1,4 +1,4 @@
-import { minByAsync } from "./minByAsync";
+import { minByAsync } from "~/collectors/async/minByAsync";
 
 /**
  * Returns a collector that returns the smallest value of all entries in the Iterable.

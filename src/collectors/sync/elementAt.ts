@@ -26,3 +26,5 @@ export function elementAt<T>(
     return undefined;
   };
 }
+
+export const at = elementAt;

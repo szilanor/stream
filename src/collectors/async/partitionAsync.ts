@@ -2,7 +2,7 @@ import type {
   AsyncCollectorFunction,
   MaybeAsyncPredicateFunction,
 } from "~/types";
-import { reduceAsync } from "./reduceAsync";
+import { reduceAsync } from "~/collectors/async/reduceAsync";
 
 /**
  * Returns a collector that partitions the entries in the Iterable into two arrays based on the predicate function.

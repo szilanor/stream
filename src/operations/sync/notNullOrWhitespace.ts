@@ -1,6 +1,6 @@
 import { OperationFunction } from "~/types";
-import { fromIteratorMapper, isNotNullOrWhitespace } from "~/utils";
-import { FilterIterator } from "./filter";
+import { isNotNullOrWhitespace } from "~/utils";
+import { ofType } from "./ofType";
 
 /**
  * Returns an OperationFunction that yields elements that are not `null`, `undefined`, or whitespace.
@@ -17,11 +17,5 @@ export function notNullOrWhitespace(): OperationFunction<
   string | null | undefined,
   NonNullable<string>
 > {
-  return fromIteratorMapper(
-    (iterator) =>
-      new FilterIterator<string | null | undefined, NonNullable<string>>(
-        iterator,
-        isNotNullOrWhitespace,
-      ),
-  );
+  return ofType(isNotNullOrWhitespace);
 }
