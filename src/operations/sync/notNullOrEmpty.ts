@@ -1,6 +1,6 @@
 import { OperationFunction } from "~/types";
-import { fromIteratorMapper, isNotNullOrEmpty } from "~/utils";
-import { FilterIterator } from "./filter";
+import { isNotNullOrEmpty } from "~/utils";
+import { ofType } from "./ofType";
 
 /**
  * Returns an OperationFunction that yields elements that are not `null`, `undefined`, or empty.
@@ -16,11 +16,5 @@ import { FilterIterator } from "./filter";
 export function notNullOrEmpty<
   T extends { length: number },
 >(): OperationFunction<T | null | undefined, NonNullable<T>> {
-  return fromIteratorMapper(
-    (iterator) =>
-      new FilterIterator<T | null | undefined, NonNullable<T>>(
-        iterator,
-        isNotNullOrEmpty,
-      ),
-  );
+  return ofType(isNotNullOrEmpty);
 }

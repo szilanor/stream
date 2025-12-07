@@ -38,3 +38,5 @@ class SkipIterator<T> implements Iterator<T> {
 export function skip<T>(count: number): OperationFunction<T, T> {
   return fromIteratorMapper((iterator) => new SkipIterator(iterator, count));
 }
+
+export const drop = skip;

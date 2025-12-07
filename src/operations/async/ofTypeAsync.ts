@@ -1,6 +1,5 @@
 import { AsyncOperationFunction, TypeGuardFunction } from "~/types";
-import { fromAsyncIteratorMapper } from "~/utils";
-import { FilterAsyncIterator } from "./filterAsync";
+import { filterAsync } from "./filterAsync";
 
 /**
  * Returns an AsyncOperationFunction that yields and casts only entries of the source Iterable that satisfy the given type-guard function.
@@ -18,7 +17,5 @@ import { FilterAsyncIterator } from "./filterAsync";
 export function ofTypeAsync<T, TOfType extends T = T>(
   predicate: TypeGuardFunction<T, TOfType>,
 ): AsyncOperationFunction<T, TOfType> {
-  return fromAsyncIteratorMapper(
-    (iterator) => new FilterAsyncIterator(iterator, predicate),
-  );
+  return filterAsync(predicate);
 }

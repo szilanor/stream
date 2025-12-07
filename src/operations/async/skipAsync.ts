@@ -40,3 +40,5 @@ export function skipAsync<T>(count: number): AsyncOperationFunction<T, T> {
     (iterator) => new SkipAsyncIterator(iterator, count),
   );
 }
+
+export const dropAsync = skipAsync;

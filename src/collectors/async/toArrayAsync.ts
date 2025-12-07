@@ -1,5 +1,5 @@
 import type { AsyncCollectorFunction } from "~/types";
-import { reduceAsync } from "./reduceAsync";
+import { reduceAsync } from "~/collectors/async/reduceAsync";
 
 /**
  * Returns a collector that returns an array of all entries in the Iterable.

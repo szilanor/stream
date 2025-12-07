@@ -4,7 +4,7 @@ import type {
   ValueOrFactory,
 } from "~/types";
 import { callValueOrFactory } from "~/utils";
-import { firstAsync } from "./firstAsync";
+import { firstAsync } from "~/collectors/async/firstAsync";
 
 /**
  * Returns a collector that returns the first entry from the Iterable that satisfies the 'predicate' function or the 'defaultValue'.

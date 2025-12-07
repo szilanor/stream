@@ -26,3 +26,5 @@ export function elementAtAsync<T>(
     return undefined;
   };
 }
+
+export const atAsync = elementAtAsync;
