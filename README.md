@@ -1,45 +1,25 @@
 <p align="center">
   <img src="https://img.shields.io/npm/v/@szilanor/stream?style=flat-square&color=00d26a" alt="npm version" />
   <img src="https://img.shields.io/npm/l/@szilanor/stream?style=flat-square&color=blue" alt="license" />
-  <img src="https://img.shields.io/npm/dm/@szilanor/stream?style=flat-square&color=orange" alt="downloads" />
-  <img src="https://img.shields.io/bundlephobia/minzip/@szilanor/stream?style=flat-square&color=blueviolet&label=bundle%20size" alt="bundle size" />
-  <img src="https://img.shields.io/badge/dependencies-0-brightgreen?style=flat-square" alt="zero dependencies" />
+  <img src="https://img.shields.io/bundlephobia/minzip/@szilanor/stream?style=flat-square&color=blueviolet&label=min%20zip" alt="bundle size" />
 </p>
 
-<h1 align="center">🌊 Stream API</h1>
+# Stream API
 
-<p align="center">
-  <strong>A blazing-fast, type-safe, and lazy data processing library for TypeScript & JavaScript.</strong>
-</p>
+Type-safe, lazy data processing for TypeScript and JavaScript.
+Inspired by [Java Streams](https://docs.oracle.com/javase/8/docs/api/java/util/stream/Stream.html), [C# LINQ](https://docs.microsoft.com/en-us/dotnet/csharp/programming-guide/concepts/linq/), and [Kotlin Sequences](https://kotlinlang.org/docs/sequences.html).
 
-<p align="center">
-  Inspired by <a href="https://docs.oracle.com/javase/8/docs/api/java/util/stream/Stream.html">Java Streams</a>, <a href="https://docs.microsoft.com/en-us/dotnet/csharp/programming-guide/concepts/linq/">C# LINQ</a>, and <a href="https://kotlinlang.org/docs/sequences.html">Kotlin Sequences</a>.
-</p>
+[**Read the Documentation**](https://szilanor.github.io/stream/)
 
----
-
-## ✨ Why Stream API?
-
-| Problem                                                                           | Solution with Stream API                                                   |
-| --------------------------------------------------------------------------------- | -------------------------------------------------------------------------- |
-| 🐢 **Slow array chains** — `.map().filter().reduce()` creates intermediate arrays | ⚡ **Lazy evaluation** — processes one element at a time, no wasted memory |
-| 🔮 **Weak types** — generic `any[]` returns                                       | 🛡️ **Full type inference** — know your types at every step                 |
-| 😵 **Callback hell with async** — complex Promise.all patterns                    | 🌀 **Native async iterables** — clean, readable async pipelines            |
-| 📦 **Bloated bundles** — importing large utility libraries                        | 🪶 **Tree-shakeable & zero deps** — import only what you use               |
-
----
-
-## 📚 Documentation
-
-Full API documentation with examples is available at **[szilanor.github.io/stream](https://szilanor.github.io/stream/)**.
-
----
-
-## Quick Start
+## Installation
 
 ```bash
 npm install @szilanor/stream
 ```
+
+## Quick Start
+
+Stream API creates a pipeline where data flows through operations. It is **lazy**, meaning items are processed one by one, and only if needed.
 
 ```typescript
 import { stream, filter, map, toArray } from "@szilanor/stream";
@@ -54,100 +34,73 @@ const result = stream([1, 2, 3, 4, 5])
 console.log(result); // [20, 40]
 ```
 
----
+## Why use this?
 
-## Core Concepts
+- **Lazy Evaluation**: Avoids creating intermediate arrays. Great for large datasets or performance-critical paths.
+- **Type Safety**: Infers types correctly through complex pipelines.
+- **Async Support**: Native support for `AsyncIterable` and async transformations.
+- **Lightweight**: Zero dependencies and tree-shakeable.
 
-Stream API follows a simple **3-step pattern**:
+## How it Works
 
-```
-┌─────────────┐      ┌──────────────────┐      ┌───────────────┐
-│   CREATE    │  →   │    TRANSFORM     │  →   │    COLLECT    │
-│  stream()   │      │     .pipe()      │      │   .collect()  │
-└─────────────┘      └──────────────────┘      └───────────────┘
-```
+Under the hood, Stream API uses [JavaScript Itarator and Generators](https://developer.mozilla.org/en-US/docs/Web/JavaScript/Guide/Iterators_and_Generators).
 
-1. **Create** a stream from any iterable source
-2. **Transform** with chainable, lazy operations
-3. **Collect** into a final result
+When you call `.pipe()`, you aren't iterating the data yet. You are composing a chain of generator functions. Iteration only begins when you call `.collect()` (or iterate the stream manually). This is what allows for efficiency gains:
 
----
-
-## Features at a Glance
-
-| Feature                  | Description                                                                      |
-| ------------------------ | -------------------------------------------------------------------------------- |
-| 🔒 **Type-Safe**         | Full TypeScript support with accurate type inference through the entire pipeline |
-| ⚡ **Lazy Evaluation**   | Elements are processed one-by-one, on-demand — no intermediate arrays            |
-| 🌀 **Async First-Class** | Seamlessly work with `AsyncIterable` and async operations                        |
-| 📚 **60+ Operators**     | Rich standard library for transformation, filtering, aggregation, and more       |
-| 🧩 **Extensible**        | Create custom operators and collectors with simple generator functions           |
-| 🪶 **Zero Dependencies** | No runtime dependencies — lightweight and focused                                |
-| 📦 **Tree-Shakeable**    | Only bundle the operators you actually use                                       |
-
----
+1. **Short-circuiting**: Operations like `find` or `take` stop the generator chain early.
+2. **Low Memory**: Only one item is held in memory at a time (unless buffering is explicitly required, like in `sort`).
 
 ## Examples
 
-### Lazy Evaluation = Better Performance
+### Laziness (Performance)
+
+Standard array methods like `.map().filter()` create a new array for every step. Stream API does not.
 
 ```typescript
-// ❌ Traditional: Creates 2 intermediate arrays, processes ALL elements
-const result = hugeArray
-  .map((x) => expensiveTransform(x))
-  .filter((x) => x > 100)
+import { stream, map, filter, take, toArray } from "@szilanor/stream";
+
+// Standard JS: Iterates the entire array multiple times
+const bad = hugeArray
+  .map(transform) // Allocates new array size of hugeArray
+  .filter(predicate) // Allocates another new array
   .slice(0, 5);
 
-// ✅ Stream API: Stops after finding 5 matches, no intermediate arrays
-const result = stream(hugeArray)
+// Stream API: Iterates once, stops early
+const good = stream(hugeArray)
   .pipe(
-    map((x) => expensiveTransform(x)),
-    filter((x) => x > 100),
-    take(5),
+    map(transform),
+    filter(predicate),
+    take(5), // Stops processing after finding 5 items
   )
   .collect(toArray());
 ```
 
-### Clean Data Transformations
+### Async Pipelines
 
-```typescript
-import { stream, distinct, groupBy } from "@szilanor/stream";
-
-const users = [
-  { name: "Alice", role: "admin" },
-  { name: "Bob", role: "user" },
-  { name: "Charlie", role: "admin" },
-];
-
-const byRole = stream(users)
-  .pipe(distinctBy((u) => u.name))
-  .collect(groupBy((u) => u.role));
-
-// Map { 'admin' => [...], 'user' => [...] }
-```
-
-### Async Pipelines Made Simple
+Handling async data streams seamlessly.
 
 ```typescript
 import { stream, mapAsync, filterAsync, toArrayAsync } from "@szilanor/stream";
 
-const users = await stream([1, 2, 3, 4, 5])
+const activeUsers = await stream(userIds)
   .pipeAsync(
     mapAsync(async (id) => {
-      const res = await fetch(`/api/users/${id}`);
-      return res.json();
+      const user = await fetchUser(id);
+      return user;
     }),
     filterAsync((user) => user.isActive),
   )
   .collectAsync(toArrayAsync());
 ```
 
-### Create Your Own Operators
+### Custom Operators
+
+Extending the library is as simple as writing a generator function.
 
 ```typescript
-import { OperationFunction } from "@szilanor/stream";
+import { OperationFunction, stream, toArray } from "@szilanor/stream";
 
-// Custom operator: only emit every nth element
+// Emit every Nth item
 const everyNth = <T>(n: number): OperationFunction<T, T> => {
   return function* (iterable) {
     let i = 0;
@@ -159,3 +112,19 @@ const everyNth = <T>(n: number): OperationFunction<T, T> => {
 
 stream([1, 2, 3, 4, 5, 6]).pipe(everyNth(2)).collect(toArray()); // [1, 3, 5]
 ```
+
+## Comparison
+
+|               | Stream API                        | RxJS                     | Native Array Methods |
+| ------------- | --------------------------------- | ------------------------ | -------------------- |
+| **Paradigm**  | Pull-based (Iterators)            | Push-based (Observables) | Eager                |
+| **Data Type** | Data in motion / Collections      | Events / Time streams    | Static Arrays        |
+| **Async**     | `AsyncIterable` (await/for-await) | Observables (subscribe)  | `Promise.all` needed |
+
+### Understanding "Data Types"
+
+The main difference lies in **who controls the flow**:
+
+- **Stream API (Pull)**: _You_ are in control. You ask for the next item when you are ready. This is ideal for "Data in motion" (reading files, database cursors, large algorithms) where you want to process data at your own pace without being overwhelmed.
+- **RxJS (Push)**: _The source_ is in control. Data arrives whenever it wants (mouse clicks, WebSocket messages, timers). You must react to it immediately.
+- **Native Arrays**: Data is static. It sits in memory, allowing random access (index `[0]`), but requiring all data to be loaded before processing begins.
