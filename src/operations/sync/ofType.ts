@@ -1,6 +1,5 @@
 import { OperationFunction, TypeGuardFunction } from "~/types";
-import { fromIteratorMapper } from "~/utils";
-import { FilterIterator } from "./filter";
+import { filter } from "~/operations/sync/filter";
 
 /**
  * Returns an OperationFunction that yields elements that are of the specified type.
@@ -18,7 +17,5 @@ import { FilterIterator } from "./filter";
 export function ofType<T, TOfType extends T = T>(
   predicate: TypeGuardFunction<T, TOfType>,
 ): OperationFunction<T, TOfType> {
-  return fromIteratorMapper(
-    (iterator) => new FilterIterator(iterator, predicate),
-  );
+  return filter(predicate);
 }

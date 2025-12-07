@@ -1,5 +1,5 @@
 import type { AsyncCollectorFunction } from "~/types";
-import { reduceAsync } from "./reduceAsync";
+import { reduceAsync } from "~/collectors/async/reduceAsync";
 
 /**
  * Returns a collector that creates a group of entries where the group key is calculated by the selector function.

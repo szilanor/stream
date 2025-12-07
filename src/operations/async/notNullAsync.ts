@@ -1,6 +1,6 @@
 import { AsyncOperationFunction } from "~/types";
-import { fromAsyncIteratorMapper, isNotNull } from "~/utils";
-import { FilterAsyncIterator } from "./filterAsync";
+import { isNotNull } from "~/utils";
+import { ofTypeAsync } from "~/operations/async/ofTypeAsync";
 
 /**
  * Returns an AsyncOperationFunction that yields only the non-null / non-undefined entries of the source Iterable.
@@ -17,11 +17,5 @@ export function notNullAsync<T>(): AsyncOperationFunction<
   T | undefined | null,
   NonNullable<T>
 > {
-  return fromAsyncIteratorMapper(
-    (source) =>
-      new FilterAsyncIterator<T | undefined | null, NonNullable<T>>(
-        source,
-        isNotNull,
-      ),
-  );
+  return ofTypeAsync(isNotNull);
 }

@@ -4,7 +4,7 @@ import type {
   ValueOrFactory,
 } from "~/types";
 import { callValueOrFactory } from "~/utils";
-import { lastAsync } from "./lastAsync";
+import { lastAsync } from "~/collectors/async/lastAsync";
 
 /**
  * Returns a collector that returns the last entry from the Iterable that satisfies the 'predicate' function or the 'defaultValue'.

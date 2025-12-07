@@ -1,4 +1,4 @@
-﻿export { concatAsync } from "./concatAsync";
-export { deferAsync } from "./deferAsync";
-export { fromAsync } from "./fromAsync";
-export { zipAsync } from "./zipAsync";
+﻿export * from "./concatAsync";
+export * from "./deferAsync";
+export * from "./fromAsync";
+export * from "./zipAsync";

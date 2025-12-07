@@ -1,5 +1,5 @@
 import type { AsyncCollectorFunction, CompareFunction } from "~/types";
-import { reduceAsync } from "./reduceAsync";
+import { reduceAsync } from "~/collectors/async/reduceAsync";
 
 /**
  * Returns a collector that returns the largest value of all entries in the Iterable based on the comparer function.
